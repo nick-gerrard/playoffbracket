@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>
+            {% block title %}Playoff Bracket{% endblock %}
+        </title>
+        <script src="https://cdn.tailwindcss.com"></script>
+        <style>
+            @keyframes fadeIn {
+                0% { opacity: 0; transform: translateY(16px); }
+                100% { opacity: 1; transform: translateY(0); }
+            }
+            .animate-fade-in {
+                opacity: 0;
+                animation: fadeIn 0.5s ease-out forwards;
+            }
+            .delay-150 { animation-delay: 150ms; }
+            .delay-300 { animation-delay: 300ms; }
+            .delay-500 { animation-delay: 500ms; }
+        </style>
+        <script src="https://unpkg.com/htmx.org@2.0.4"
+                integrity="sha384-HGfztofotfshcF7+8n44JQL2oJmowVChPTg48S+jvZoztPfvwD79OC/LTtG6dMp+"
+                crossorigin="anonymous"></script>
+    </head>
+    <body class="bg-gray-950 text-white min-h-screen">
+        {% include "partials/navbar.html" %}
+        <main class="p-6">
+            {% block content %}{% endblock %}
+        </main>
+    </body>
+</html>

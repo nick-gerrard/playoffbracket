@@ -1,0 +1,11 @@
+{% extends "base.html" %}
+{% block content %}<h1 class="text-3xl font-bold">2027 NHL Playoffs</h1>
+<button class="btn btn-blue"
+	hx-get="/hello"
+	hx-target="#result"
+	hx-swap="innerHTML">
+	Click Me!
+</button>
+
+<div id="result"></div>
+{% endblock %}
