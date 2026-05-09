@@ -1,0 +1,11 @@
+{% extends "base.html" %}
+{% block content %}
+    <div class="grid grid-cols-4 gap-4">
+        {% for team in teams %}
+            <div class="bg-gray-900 border border-gray-700 rounded-xl p-4 flex flex-col items-center gap-2">
+                <img src="{{ team.logo_url }}" class="h-16 w-16 object-contain">
+                <span class="font-bold">{{ team.name }}</span>
+            </div>
+        {% endfor %}
+    </div>
+{% endblock %}
