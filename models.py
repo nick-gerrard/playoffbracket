@@ -30,6 +30,8 @@ class Series(SQLModel, table=True):
     id: int | None = Field(default=None, primary_key=True)
     title: str
     series_letter: str
+    conference: str | None = None
+    series_abbrev: str | None = None
     top_seed_team: int | None = Field(foreign_key="team.id")
     bottom_seed_team: int | None = Field(foreign_key="team.id")
     top_seed_wins: int = 0

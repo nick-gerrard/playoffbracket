@@ -32,8 +32,18 @@ async def root():
 async def bracket(request: Request):
     with Session(engine) as session:
         series = session.exec(select(Series)).all()
+        team_map = {t.id: t for t in session.exec(select(Team)).all()}
+        bracket = {"West": {}, "East": {}, "Final": None}
+        for s in series:
+            if s.conference == "Final":
+                bracket["Final"] = s
+            else:
+                bracket[s.conference].setdefault(s.series_abbrev, []).append(s)  # type: ignore
+
     return templates.TemplateResponse(
-        request=request, name="bracket.html", context={"series": series}
+        request=request,
+        name="bracket.html",
+        context={"bracket": bracket, "teams": team_map},
     )
 
 

@@ -1,11 +1,46 @@
 {% extends "base.html" %}
-{% block content %}<h1 class="text-3xl font-bold">2027 NHL Playoffs</h1>
-<button class="btn btn-blue"
-	hx-get="/hello"
-	hx-target="#result"
-	hx-swap="innerHTML">
-	Click Me!
-</button>
-
-<div id="result"></div>
+{% block content %}
+    {% macro series_card(s, teams) %}
+        <div class="bg-gray-900 border border-gray-700 rounded-xl p-4 flex flex-col gap-2">
+            <h2 class="text-sm font-semibold text-gray-400">{{ s.title }}</h2>
+            {% for seed, wins in [("top_seed_team", "top_seed_wins"), ("bottom_seed_team", "bottom_seed_wins")] %}
+                {% set team_id = s[seed] %}
+                {% if team_id and team_id in teams %}
+                    <div class="flex items-center gap-2 rounded-lg px-1 {{ 'bg-yellow-500/20' if s[wins] == 4 else '' }}">
+                        <img src="{{ teams[team_id].dark_logo_url }}" class="h-8 w-8" />
+                        <span class="flex-1 text-white">{{ teams[team_id].abbrev }}</span>
+                        <span class="text-white font-bold">{{ s[wins] }}</span>
+                    </div>
+                {% else %}
+                    <div class="flex items-center gap-2 opacity-40">
+                        <div class="h-8 w-8 rounded-full bg-gray-700"></div>
+                        <span class="flex-1 text-gray-500">TBD</span>
+                    </div>
+                {% endif %}
+            {% endfor %}
+        </div>
+    {% endmacro %}
+    <div class="flex items-stretch gap-4 min-h-screen p-4">
+        <div class="flex flex-col justify-around flex-1">
+            {% for s in bracket.West.R1 %}{{ series_card(s, teams) }}{% endfor %}
+        </div>
+        <div class="flex flex-col justify-around flex-1">
+            {% for s in bracket.West.R2 %}{{ series_card(s, teams) }}{% endfor %}
+        </div>
+        <div class="flex flex-col justify-around flex-1">
+            {% for s in bracket.West.WCF %}{{ series_card(s, teams) }}{% endfor %}
+        </div>
+        <div class="flex flex-col justify-around flex-1">
+            {% if bracket.Final %}{{ series_card(bracket.Final, teams) }}{% endif %}
+        </div>
+        <div class="flex flex-col justify-around flex-1">
+            {% for s in bracket.East.ECF %}{{ series_card(s, teams) }}{% endfor %}
+        </div>
+        <div class="flex flex-col justify-around flex-1">
+            {% for s in bracket.East.R2 %}{{ series_card(s, teams) }}{% endfor %}
+        </div>
+        <div class="flex flex-col justify-around flex-1">
+            {% for s in bracket.East.R1 %}{{ series_card(s, teams) }}{% endfor %}
+        </div>
+    </div>
 {% endblock %}
