@@ -39,6 +39,26 @@ A family-facing NHL playoff prediction and competition site. Users submit bracke
 
 ---
 
+## Template Architecture
+
+### Component reuse (macros)
+Jinja2 macros are the Svelte-component equivalent — parameterized, reusable HTML chunks. Convention: define macros in `templates/components/<name>.html`, import where needed:
+```html
+{% from "components/card.html" import team_card %}
+{{ team_card(team, stats=stats.get(team.id)) }}
+```
+
+### CSS strategy
+- `static/css/components.css` — styles tied to a macro (e.g. card flip animation). Linked once in `base.html`.
+- `{% block styles %}{% endblock %}` in `base.html <head>` — page-specific styles that don't belong globally.
+- Tailwind utility classes — everything else (layout, color, spacing).
+- Rule of thumb: if a `<style>` block lives in a page template, ask "does any other page need this?" If yes → `components.css`. If no → `{% block styles %}`.
+
+### Base template blocks
+`base.html` exposes: `{% block title %}`, `{% block styles %}`, `{% block content %}`. Add `{% block scripts %}` before `</body>` if page-specific JS is ever needed.
+
+---
+
 ## Key Design Decisions
 
 **Why `series_abbrev` and `conference` instead of `playoff_round`**
@@ -79,6 +99,7 @@ Independent from the bracket leaderboard. Each user who submits a bracket gets a
 - [ ] Full app audit — spacing, typography, color consistency
 - [ ] Tailwind component refinement (dedicated practice sessions)
 - [ ] Mobile layout
+- [ ] Add `primary_color` (hex string) field to `Team` model — used for team-specific accents (card glows, pick highlights, bracket row colors). Source via `colorthief` library extracting dominant color from `logo_url`, with manual overrides for any obviously wrong results.
 
 ---
 
