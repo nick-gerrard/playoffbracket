@@ -87,11 +87,13 @@ def parse_standings(standings):
     }
 
 
-def seed_season():
+def seed_season() -> Season:
     with Session(engine) as session:
         season = Season(year=datetime.now().year)
         session.add(season)
         session.commit()
+        session.refresh(season)
+        return season
 
 
 def seed_teams(series):
@@ -111,7 +113,7 @@ def seed_teams(series):
         session.commit()
 
 
-def seed_series(series):
+def seed_series(series, season_id: int):
     with Session(engine) as session:
         team_id_map = {t.api_id: t.id for t in session.exec(select(Team)).all()}
         for s in series:
@@ -119,6 +121,7 @@ def seed_series(series):
             vals["top_seed_team"] = team_id_map.get(vals["top_seed_team"]) or None
             vals["bottom_seed_team"] = team_id_map.get(vals["bottom_seed_team"]) or None
             vals["winner"] = team_id_map.get(vals["winner"]) or None
+            vals["season_id"] = season_id
             session.add(Series(**vals))
         session.commit()
 
@@ -134,6 +137,29 @@ def seed_scoring_config():
         ]
         session.add_all(configs)
         session.commit()
+
+
+def update_series_results(session: Session, series_data: list, season_id: int) -> None:
+    team_id_map = {t.api_id: t.id for t in session.exec(select(Team)).all()}
+    series_map = {s.series_letter: s for s in session.exec(select(Series).where(Series.season_id == season_id)).all()}
+
+    for s_data in series_data:
+        letter = s_data.get("seriesLetter")
+        if not letter or letter not in series_map:
+            continue
+        s = series_map[letter]
+        s.top_seed_wins = s_data.get("topSeedWins", 0)
+        s.bottom_seed_wins = s_data.get("bottomSeedWins", 0)
+        winner_api_id = s_data.get("winningTeamId")
+        s.winner = team_id_map.get(winner_api_id) if winner_api_id else None
+        top = s_data.get("topSeedTeam")
+        if top and top.get("id", -1) != -1:
+            s.top_seed_team = team_id_map.get(top["id"])
+        bottom = s_data.get("bottomSeedTeam")
+        if bottom and bottom.get("id", -1) != -1:
+            s.bottom_seed_team = team_id_map.get(bottom["id"])
+        session.add(s)
+    session.commit()
 
 
 def seed_standings_data(standings):
@@ -157,9 +183,9 @@ def seed_standings_data(standings):
 if __name__ == "__main__":
     SQLModel.metadata.create_all(engine)
     series = get_series_data(URL)
-    seed_season()
+    season = seed_season()
     seed_teams(series)
-    seed_series(series)
+    seed_series(series, season.id)
     seed_scoring_config()
     stats = get_team_stats_data(STANDINGS)
     seed_standings_data(stats)

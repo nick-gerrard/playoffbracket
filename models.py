@@ -40,6 +40,7 @@ class Series(SQLModel, table=True):
     winner: int | None = Field(foreign_key="team.id")
     child_series: int | None = Field(foreign_key="series.id")
     playoff_round: int
+    season_id: int | None = Field(default=None, foreign_key="season.id")
 
 
 class User(SQLModel, table=True):

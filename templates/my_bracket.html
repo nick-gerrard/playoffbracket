@@ -1,0 +1,70 @@
+{% extends "base.html" %}
+{% block title %}My Bracket{% endblock %}
+{% block content %}
+<div class="max-w-3xl mx-auto">
+
+    <div class="flex items-center justify-between gap-4 mb-8">
+        <h1 class="text-2xl sm:text-3xl font-bold">{{ user.name }}'s Bracket</h1>
+        <div class="bg-white/5 backdrop-blur-sm border border-white/10 rounded-xl px-3 sm:px-5 py-2 sm:py-3 text-center flex-shrink-0">
+            <p class="text-xs text-gray-400 uppercase tracking-widest">Score</p>
+            <p class="text-xl sm:text-2xl font-bold text-blue-400">{{ total_score }}</p>
+        </div>
+    </div>
+
+    {% for round_label, series_list in rounds.items() %}
+    <div class="mb-10">
+        <h2 class="text-sm font-semibold text-blue-300 uppercase tracking-widest mb-4">{{ round_label }}</h2>
+        <div class="flex flex-col gap-3">
+            {% for s in series_list %}
+            <div class="bg-white/5 backdrop-blur-sm border border-white/10 rounded-xl p-4">
+                <div class="flex items-center justify-between gap-4">
+
+                    <div class="flex flex-col gap-1 flex-1">
+                        <p class="text-xs text-gray-400 mb-2">Series {{ s.letter }}</p>
+                        {% for team in [s.top_team, s.bottom_team] %}
+                            {% if team %}
+                            <div class="flex items-center gap-2 px-2 py-1 rounded-lg
+                                {% if s.predicted_winner and team.id == s.predicted_winner.id %}
+                                    bg-blue-500/20 ring-1 ring-blue-400
+                                {% endif %}
+                            ">
+                                <img src="{{ team.dark_logo_url }}" class="h-7 w-7" />
+                                <span class="font-medium text-sm">{{ team.abbrev }}</span>
+                            </div>
+                            {% else %}
+                            <div class="flex items-center gap-2 px-2 py-1 opacity-40">
+                                <div class="h-7 w-7 rounded-full bg-gray-700"></div>
+                                <span class="text-sm text-gray-500">TBD</span>
+                            </div>
+                            {% endif %}
+                        {% endfor %}
+                    </div>
+
+                    <div class="text-right flex flex-col items-end gap-1">
+                        {% if s.status == "correct" %}
+                            <span class="text-green-400 text-lg">✓</span>
+                            <span class="text-green-400 text-sm font-semibold">+{{ s.points }} pts</span>
+                        {% elif s.status == "wrong" %}
+                            <span class="text-red-400 text-lg">✗</span>
+                            <span class="text-red-400 text-sm">0 pts</span>
+                        {% else %}
+                            <span class="text-gray-500 text-sm">Pending</span>
+                            <span class="text-gray-500 text-xs">{{ s.points }} pts possible</span>
+                        {% endif %}
+                        {% if s.actual_winner %}
+                        <div class="flex items-center gap-1 mt-1">
+                            <img src="{{ s.actual_winner.dark_logo_url }}" class="h-5 w-5" />
+                            <span class="text-xs text-gray-400">won</span>
+                        </div>
+                        {% endif %}
+                    </div>
+
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+    {% endfor %}
+
+</div>
+{% endblock %}

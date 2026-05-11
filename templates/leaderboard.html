@@ -1,0 +1,45 @@
+{% extends "base.html" %}
+{% block title %}Leaderboard{% endblock %}
+{% block content %}
+<div class="max-w-2xl mx-auto">
+
+    <h1 class="text-2xl sm:text-3xl font-bold mb-8">Leaderboard</h1>
+
+    {% if board %}
+    <div class="flex flex-col gap-3">
+        {% for entry in board %}
+        <div class="flex items-center gap-4 bg-white/5 backdrop-blur-sm border rounded-xl px-5 py-4
+            {% if entry.user.id == current_user.id %}
+                border-blue-400/50 bg-blue-500/10
+            {% else %}
+                border-white/10
+            {% endif %}
+        ">
+            <span class="text-2xl font-black w-8 text-center
+                {% if loop.index == 1 %}text-yellow-400
+                {% elif loop.index == 2 %}text-gray-300
+                {% elif loop.index == 3 %}text-amber-600
+                {% else %}text-gray-500
+                {% endif %}
+            ">{{ loop.index }}</span>
+
+            <span class="flex-1 font-semibold">
+                {% if entry.user.id != current_user.id %}
+                <a href="/compare/{{ entry.user.id }}" class="hover:text-blue-400 transition-colors">{{ entry.user.name }}</a>
+                {% else %}
+                {{ entry.user.name }} <span class="text-xs text-blue-400 ml-1">(you)</span>
+                {% endif %}
+            </span>
+
+            <span class="text-xl font-bold text-blue-400">{{ entry.score }}</span>
+        </div>
+        {% endfor %}
+    </div>
+    {% else %}
+    <div class="bg-white/5 backdrop-blur-sm border border-white/10 rounded-xl p-8 text-center text-gray-400">
+        No picks submitted yet.
+    </div>
+    {% endif %}
+
+</div>
+{% endblock %}

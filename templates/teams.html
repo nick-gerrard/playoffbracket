@@ -14,20 +14,20 @@
     }
     .card-back { transform: rotateY(180deg); }
 </style>
-<div class="grid grid-cols-4 gap-4">
+<div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-4">
     {% for team in teams %}
         {% set s = stats.get(team.id) %}
-        <div class="card-scene h-52 cursor-pointer"
+        <div class="card-scene h-52 cursor-pointer "
              x-data="{ flipped: false }"
              @click="flipped = !flipped">
             <div class="card-body w-full h-full" :class="{ 'flipped': flipped }">
 
-                <div class="card-face absolute inset-0 bg-gray-900 border border-gray-700 rounded-xl p-4 flex flex-col items-center justify-center gap-2">
+                <div class="card-face absolute inset-0 bg-white-900/5 bg-blur-sm bg-gray-900 border border-gray-700 rounded-xl p-4 flex flex-col items-center justify-center gap-2">
                     <img src="{{ team.logo_url }}" class="h-16 w-16 object-contain">
                     <span class="font-bold text-white">{{ team.name }}</span>
                 </div>
 
-                <div class="card-face card-back absolute inset-0 bg-gray-900 border border-gray-700 rounded-xl p-4 flex flex-col items-center gap-3">
+                <div class="card-face card-back absolute inset-0 bg-gray-900/30 shadow-md border border-gray-700 rounded-xl p-4 flex flex-col items-center gap-3">
                     <img src="{{ team.dark_logo_url }}" class="h-8 w-8 object-contain">
                     {% if s %}
                         <div class="grid grid-cols-2 gap-x-6 gap-y-1 text-sm w-full">

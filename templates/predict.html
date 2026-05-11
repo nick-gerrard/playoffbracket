@@ -1,0 +1,102 @@
+{% extends "base.html" %}
+{% block title %}Make Your Picks{% endblock %}
+{% block content %}
+<div class="max-w-5xl mx-auto" x-data='bracketPicker({{ series_data | tojson }})'>
+
+    <h1 class="text-2xl sm:text-3xl font-bold mb-8">Make Your Picks</h1>
+
+    <template x-for="round in rounds" :key="round.label">
+        <div class="mb-10">
+            <h2 class="text-sm font-semibold text-blue-300 uppercase tracking-widest mb-4" x-text="round.label"></h2>
+            <div class="grid grid-cols-1 gap-4" :class="round.cols">
+                <template x-for="letter in round.letters" :key="letter">
+                    <div class="bg-white/5 backdrop-blur-sm border border-white/10 rounded-xl p-4 flex flex-col gap-2">
+                        <p class="text-xs text-gray-400 uppercase tracking-wide" x-text="'Series ' + letter"></p>
+                        <template x-for="(team, i) in getTeams(letter)" :key="i">
+                            <button
+                                @click="team && pick(letter, team)"
+                                :disabled="!team"
+                                class="flex items-center gap-3 w-full p-2 rounded-lg transition-all text-left"
+                                :class="{
+                                    'bg-blue-500/20 ring-1 ring-blue-400 text-white': team && isPicked(letter, team.id),
+                                    'hover:bg-white/10 cursor-pointer': team && !isPicked(letter, team.id),
+                                    'opacity-40 cursor-not-allowed': !team,
+                                }"
+                            >
+                                <template x-if="team">
+                                    <img :src="team.logo" class="h-8 w-8 flex-shrink-0" />
+                                </template>
+                                <template x-if="!team">
+                                    <div class="h-8 w-8 rounded-full bg-gray-700 flex-shrink-0"></div>
+                                </template>
+                                <span class="font-medium" x-text="team ? team.abbrev : 'TBD'"></span>
+                            </button>
+                        </template>
+                    </div>
+                </template>
+            </div>
+        </div>
+    </template>
+
+    <div class="sticky bottom-6 flex justify-center mt-4 pb-6">
+        <button
+            x-show="complete"
+            x-transition
+            @click="submit()"
+            class="bg-blue-600 hover:bg-blue-500 text-white font-bold py-3 px-10 rounded-full shadow-xl transition-colors"
+        >
+            Lock in my bracket
+        </button>
+    </div>
+
+</div>
+
+<script>
+function bracketPicker(seriesData) {
+    return {
+        seriesData,
+        picks: {},
+        cascade: {
+            'I': ['A', 'B'], 'J': ['C', 'D'],
+            'K': ['E', 'F'], 'L': ['G', 'H'],
+            'M': ['I', 'J'], 'N': ['K', 'L'],
+            'O': ['M', 'N'],
+        },
+        rounds: [
+            { label: 'First Round',       letters: ['A','B','C','D','E','F','G','H'], cols: 'sm:grid-cols-2 lg:grid-cols-4' },
+            { label: 'Second Round',      letters: ['I','J','K','L'],                cols: 'sm:grid-cols-2 lg:grid-cols-4' },
+            { label: 'Conference Finals', letters: ['M','N'],                        cols: 'sm:grid-cols-2' },
+            { label: 'Stanley Cup Final', letters: ['O'],                            cols: 'max-w-xs' },
+        ],
+        pick(letter, team) {
+            this.picks[letter] = team;
+        },
+        isPicked(letter, teamId) {
+            return this.picks[letter]?.id === teamId;
+        },
+        getTeams(letter) {
+            if (this.cascade[letter]) {
+                const [a, b] = this.cascade[letter];
+                return [this.picks[a] ?? null, this.picks[b] ?? null];
+            }
+            return [this.seriesData[letter].top, this.seriesData[letter].bottom];
+        },
+        get complete() {
+            return Object.keys(this.picks).length === 15;
+        },
+        async submit() {
+            const body = Object.entries(this.picks).map(([letter, team]) => ({
+                series_id: this.seriesData[letter].id,
+                winner_id: team.id,
+            }));
+            const res = await fetch('/predict', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(body),
+            });
+            if (res.ok) window.location = '/bracket';
+        },
+    }
+}
+</script>
+{% endblock %}

@@ -25,9 +25,9 @@
                 crossorigin="anonymous"></script>
         <script src="https://unpkg.com/alpinejs" defer></script>
     </head>
-    <body class="bg-gray-950 text-white min-h-screen">
-        {% include "partials/navbar.html" %}
-        <main class="p-6">
+    <body class="text-white min-h-screen bg-gradient-to-br from-slate-900 via-slate-800 to-blue-950 ">
+        {% block navbar %}{% include "partials/navbar.html" %}{% endblock %}
+        <main class="p-4 sm:p-6">
             {% block content %}{% endblock %}
         </main>
     </body>
