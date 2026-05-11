@@ -1,6 +1,9 @@
 <nav x-data="{ open: false }" class="sticky top-0 z-10 backdrop-blur-md bg-slate-900/30 shadow-xl border-b border-slate-500/20">
     <div class="flex items-center justify-between px-4 sm:px-6 py-4">
-        <span class="text-lg sm:text-xl font-bold tracking-wide">NHL Bracket Predictor</span>
+        <a href="/" class="flex items-center gap-2.5">
+            <img src="/static/logo.svg" class="h-8 w-auto" alt="">
+            <span class="text-lg sm:text-xl font-bold tracking-wide">NHL Bracket Predictor</span>
+        </a>
 
         <!-- Mobile hamburger -->
         <button @click="open = !open" class="sm:hidden p-1 rounded-lg hover:bg-white/10 transition-colors">

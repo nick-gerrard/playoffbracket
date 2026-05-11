@@ -16,6 +16,7 @@ from seed import (
 from contextlib import asynccontextmanager
 from fastapi.templating import Jinja2Templates
 from fastapi.responses import HTMLResponse
+from fastapi.staticfiles import StaticFiles
 from services import (
     has_prediction,
     save_prediction,
@@ -64,6 +65,7 @@ async def lifespan(app: FastAPI):
 
 
 app = FastAPI(lifespan=lifespan)
+app.mount("/static", StaticFiles(directory="static"), name="static")
 
 app.add_middleware(SessionMiddleware, secret_key=os.environ["SESSION_SECRET_KEY"])
 secret_key = os.environ["SESSION_SECRET_KEY"]
