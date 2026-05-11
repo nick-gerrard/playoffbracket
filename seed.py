@@ -2,12 +2,16 @@ from sqlmodel import create_engine, Session, select
 from models import Team, Series
 import httpx
 from datetime import datetime
+from models import Team, Series, Season, TeamStats, User, ScoringConfig, Prediction
+from sqlmodel import SQLModel
+
 
 engine = create_engine("sqlite:///bracket.db")
 
 YEAR = datetime.now().year
 
 URL = f"https://api-web.nhle.com/v1/playoff-bracket/{YEAR}"
+STANDINGS = f"https://api-web.nhle.com/v1/standings/now"
 
 SERIES_LOOKUP = {
     "A": ("East", "R1"),
@@ -28,10 +32,16 @@ SERIES_LOOKUP = {
 }
 
 
-def get_data(url):
+def get_series_data(url):
     r = httpx.get(url)
     r.raise_for_status()
     return r.json()["series"]
+
+
+def get_team_stats_data(url):
+    r = httpx.get(url, follow_redirects=True)
+    r.raise_for_status()
+    return r.json()["standings"]
 
 
 def parse_team(team: dict) -> dict:
@@ -65,6 +75,25 @@ def parse_series(series):
     }
 
 
+def parse_standings(standings):
+    return {
+        "name": standings["teamName"]["default"],
+        "year": YEAR,
+        "wins": standings["regulationPlusOtWins"],
+        "points": standings["points"],
+        "losses": standings["losses"],
+        "ot_losses": standings["otLosses"],
+        "goal_diff": standings["goalDifferential"],
+    }
+
+
+def seed_season():
+    with Session(engine) as session:
+        season = Season(year=datetime.now().year)
+        session.add(season)
+        session.commit()
+
+
 def seed_teams(series):
     with Session(engine) as session:
         teams = {}
@@ -94,7 +123,43 @@ def seed_series(series):
         session.commit()
 
 
+def seed_scoring_config():
+    with Session(engine) as session:
+        configs = [
+            ScoringConfig(season_year=YEAR, series_abbrev="R1", points=1),
+            ScoringConfig(season_year=YEAR, series_abbrev="R2", points=2),
+            ScoringConfig(season_year=YEAR, series_abbrev="ECF", points=3),
+            ScoringConfig(season_year=YEAR, series_abbrev="WCF", points=3),
+            ScoringConfig(season_year=YEAR, series_abbrev="SCF", points=4),
+        ]
+        session.add_all(configs)
+        session.commit()
+
+
+def seed_standings_data(standings):
+    with Session(engine) as session:
+        result = []
+        team_map = {t.name: t for t in session.exec(select(Team))}
+        season = session.exec(select(Season).where(Season.year == YEAR)).first()
+        for s in standings:
+            parsed_standings = parse_standings(s)
+            name = parsed_standings["name"]
+            if name in team_map:
+                team_id = team_map[name].id
+                parsed_standings["team_id"] = team_id
+                parsed_standings["season"] = season.id
+                result.append(TeamStats(**parsed_standings))
+        for team in result:
+            session.add(team)
+        session.commit()
+
+
 if __name__ == "__main__":
-    series = get_data(URL)
+    SQLModel.metadata.create_all(engine)
+    series = get_series_data(URL)
+    seed_season()
     seed_teams(series)
     seed_series(series)
+    seed_scoring_config()
+    stats = get_team_stats_data(STANDINGS)
+    seed_standings_data(stats)

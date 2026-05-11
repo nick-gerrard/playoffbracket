@@ -409,10 +409,10 @@
       "playoffRound": 2,
       "topSeedRank": 1,
       "topSeedRankAbbrev": "D1",
-      "topSeedWins": 0,
+      "topSeedWins": 1,
       "bottomSeedRank": 3,
       "bottomSeedRankAbbrev": "D3",
-      "bottomSeedWins": 0,
+      "bottomSeedWins": 2,
       "topSeedTeam": {
         "id": 7,
         "abbrev": "BUF",
@@ -456,10 +456,12 @@
       "playoffRound": 2,
       "topSeedRank": 1,
       "topSeedRankAbbrev": "D1",
-      "topSeedWins": 2,
+      "topSeedWins": 4,
       "bottomSeedRank": 3,
       "bottomSeedRankAbbrev": "D3",
       "bottomSeedWins": 0,
+      "winningTeamId": 12,
+      "losingTeamId": 4,
       "topSeedTeam": {
         "id": 12,
         "abbrev": "CAR",
@@ -503,10 +505,10 @@
       "playoffRound": 2,
       "topSeedRank": 1,
       "topSeedRankAbbrev": "D1",
-      "topSeedWins": 1,
+      "topSeedWins": 2,
       "bottomSeedRank": 3,
       "bottomSeedRankAbbrev": "D3",
-      "bottomSeedWins": 0,
+      "bottomSeedWins": 1,
       "topSeedTeam": {
         "id": 21,
         "abbrev": "COL",
@@ -542,17 +544,18 @@
         "darkLogo": "https://assets.nhle.com/logos/nhl/svg/MIN_dark.svg"
       }
     },
-    { "seriesUrl": "/schedule/playoff-series/2026/series-l/ducks-vs-goldenknights",
+    {
+      "seriesUrl": "/schedule/playoff-series/2026/series-l/ducks-vs-goldenknights",
       "seriesTitle": "2nd Round",
       "seriesAbbrev": "R2",
       "seriesLetter": "L",
       "playoffRound": 2,
       "topSeedRank": 1,
       "topSeedRankAbbrev": "D1",
-      "topSeedWins": 0,
+      "topSeedWins": 2,
       "bottomSeedRank": 3,
       "bottomSeedRankAbbrev": "D3",
-      "bottomSeedWins": 0,
+      "bottomSeedWins": 1,
       "topSeedTeam": {
         "id": 54,
         "abbrev": "VGK",
@@ -589,18 +592,51 @@
       }
     },
     {
+      "seriesUrl": "/schedule/playoff-series/2026/series-m/hurricanes-vs-tbd",
       "seriesLogo": "https://assets.nhle.com/logos/playoffs/png/ecf-20232024-wordmark-en.png",
       "seriesLogoFr": "https://assets.nhle.com/logos/playoffs/png/ecf-20232024-wordmark-fr.png",
       "seriesTitle": "Conference Finals",
       "seriesAbbrev": "CF",
       "seriesLetter": "M",
-      "playoffRound": 2,
+      "playoffRound": 3,
       "topSeedRank": 1,
       "topSeedRankAbbrev": "D1",
       "topSeedWins": 0,
       "bottomSeedRank": 1,
       "bottomSeedRankAbbrev": "D1",
-      "bottomSeedWins": 0
+      "bottomSeedWins": 0,
+      "topSeedTeam": {
+        "id": -1,
+        "abbrev": "TBD",
+        "name": {
+          "default": "TBD"
+        },
+        "commonName": {
+          "default": "TBD"
+        },
+        "placeNameWithPreposition": {
+          "default": "TBD"
+        },
+        "logo": "https://assets.nhle.com/logos/nhl/svg/team-tbd-light.svg",
+        "darkLogo": "https://assets.nhle.com/logos/nhl/svg/team-tbd-dark.svg"
+      },
+      "bottomSeedTeam": {
+        "id": 12,
+        "abbrev": "CAR",
+        "name": {
+          "default": "Carolina Hurricanes",
+          "fr": "Hurricanes de la Caroline"
+        },
+        "commonName": {
+          "default": "Hurricanes"
+        },
+        "placeNameWithPreposition": {
+          "default": "Carolina",
+          "fr": "de la Caroline"
+        },
+        "logo": "https://assets.nhle.com/logos/nhl/svg/CAR_light.svg",
+        "darkLogo": "https://assets.nhle.com/logos/nhl/svg/CAR_dark.svg"
+      }
     },
     {
       "seriesLogo": "https://assets.nhle.com/logos/playoffs/png/wcf-20232024-wordmark-en.png",
@@ -608,7 +644,7 @@
       "seriesTitle": "Conference Finals",
       "seriesAbbrev": "CF",
       "seriesLetter": "N",
-      "playoffRound": 2,
+      "playoffRound": 3,
       "topSeedRank": 1,
       "topSeedRankAbbrev": "D1",
       "topSeedWins": 0,
@@ -622,7 +658,7 @@
       "seriesTitle": "Stanley Cup Final",
       "seriesAbbrev": "SCF",
       "seriesLetter": "O",
-      "playoffRound": 2,
+      "playoffRound": 4,
       "topSeedRank": 1,
       "topSeedRankAbbrev": "D1",
       "topSeedWins": 0,

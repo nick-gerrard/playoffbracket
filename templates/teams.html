@@ -1,11 +1,56 @@
 {% extends "base.html" %}
 {% block content %}
-    <div class="grid grid-cols-4 gap-4">
-        {% for team in teams %}
-            <div class="bg-gray-900 border border-gray-700 rounded-xl p-4 flex flex-col items-center gap-2">
-                <img src="{{ team.logo_url }}" class="h-16 w-16 object-contain">
-                <span class="font-bold">{{ team.name }}</span>
+<style>
+    .card-scene { perspective: 800px; }
+    .card-body {
+        position: relative;
+        transform-style: preserve-3d;
+        transition: transform 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+    .card-body.flipped { transform: rotateY(180deg); }
+    .card-face {
+        backface-visibility: hidden;
+        -webkit-backface-visibility: hidden;
+    }
+    .card-back { transform: rotateY(180deg); }
+</style>
+<div class="grid grid-cols-4 gap-4">
+    {% for team in teams %}
+        {% set s = stats.get(team.id) %}
+        <div class="card-scene h-52 cursor-pointer"
+             x-data="{ flipped: false }"
+             @click="flipped = !flipped">
+            <div class="card-body w-full h-full" :class="{ 'flipped': flipped }">
+
+                <div class="card-face absolute inset-0 bg-gray-900 border border-gray-700 rounded-xl p-4 flex flex-col items-center justify-center gap-2">
+                    <img src="{{ team.logo_url }}" class="h-16 w-16 object-contain">
+                    <span class="font-bold text-white">{{ team.name }}</span>
+                </div>
+
+                <div class="card-face card-back absolute inset-0 bg-gray-900 border border-gray-700 rounded-xl p-4 flex flex-col items-center gap-3">
+                    <img src="{{ team.dark_logo_url }}" class="h-8 w-8 object-contain">
+                    {% if s %}
+                        <div class="grid grid-cols-2 gap-x-6 gap-y-1 text-sm w-full">
+                            <span class="text-gray-400">Wins</span>
+                            <span class="font-bold text-white text-right">{{ s.wins }}</span>
+                            <span class="text-gray-400">Losses</span>
+                            <span class="font-bold text-white text-right">{{ s.losses }}</span>
+                            <span class="text-gray-400">OT Losses</span>
+                            <span class="font-bold text-white text-right">{{ s.ot_losses }}</span>
+                            <span class="text-gray-400">Points</span>
+                            <span class="font-bold text-white text-right">{{ s.points }}</span>
+                            <span class="text-gray-400">Goal Diff</span>
+                            <span class="font-bold text-right {% if s.goal_diff > 0 %}text-green-400{% elif s.goal_diff < 0 %}text-red-400{% endif %}">
+                                {{ s.goal_diff }}
+                            </span>
+                        </div>
+                    {% else %}
+                        <span class="text-gray-500 text-sm">No stats available</span>
+                    {% endif %}
+                </div>
+
             </div>
-        {% endfor %}
-    </div>
+        </div>
+    {% endfor %}
+</div>
 {% endblock %}
