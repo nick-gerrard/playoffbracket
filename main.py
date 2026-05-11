@@ -73,16 +73,18 @@ async def auth_callback(request: Request):
 @app.get("/logout")
 async def logout(request: Request):
     request.session.clear()
-    return RedirectResponse("/")
+    return RedirectResponse("/login")
 
 
 @app.get("/")
 async def root():
-    return {"message": "hello world"}
+    return RedirectResponse("/about")
 
 
 @app.get("/bracket")
-async def bracket(request: Request):
+async def bracket(request: Request, user: User | None = Depends(get_current_user)):
+    if not user:
+        return RedirectResponse("/login")
     with Session(engine) as session:
         series = session.exec(select(Series)).all()
         team_map = {t.id: t for t in session.exec(select(Team)).all()}
@@ -101,7 +103,9 @@ async def bracket(request: Request):
 
 
 @app.get("/teams")
-async def teams(request: Request):
+async def teams(request: Request, user: User | None = Depends(get_current_user)):
+    if not user:
+        return RedirectResponse("/login")
     with Session(engine) as session:
         teams = session.exec(select(Team)).all()
         stats_map = {s.team_id: s for s in session.exec(select(TeamStats)).all()}
