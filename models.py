@@ -1,3 +1,4 @@
+from datetime import datetime, timezone
 from sqlmodel import SQLModel, Field
 from sqlalchemy import UniqueConstraint
 
@@ -47,6 +48,7 @@ class User(SQLModel, table=True):
     id: int | None = Field(default=None, primary_key=True)
     name: str
     email: str = Field(unique=True)
+    balance: int = 0
 
 
 class ScoringConfig(SQLModel, table=True):
@@ -62,3 +64,14 @@ class Prediction(SQLModel, table=True):
     user_id: int = Field(foreign_key="user.id")
     series_id: int = Field(foreign_key="series.id")
     predicted_winner_id: int = Field(foreign_key="team.id")
+
+
+class Transaction(SQLModel, table=True):
+    id: int | None = Field(default=None, primary_key=True)
+    payer: int | None = Field(foreign_key="user.id")
+    payee: int | None = Field(foreign_key="user.id")
+    transaction_date: datetime = Field(
+        default_factory=lambda: datetime.now(timezone.utc)
+    )
+    amount: int
+    desc: str | None = Field(nullable=True)

@@ -11,8 +11,24 @@
         <meta name="apple-mobile-web-app-capable" content="yes">
         <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
         <meta name="apple-mobile-web-app-title" content="Bracket">
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+        <script>
+            tailwind.config = {
+                theme: {
+                    extend: {
+                        fontFamily: {
+                            sans: ['Space Grotesk', 'sans-serif'],
+                        }
+                    }
+                }
+            }
+        </script>
         <script src="https://cdn.tailwindcss.com"></script>
         <style>
+            [x-cloak] { display: none !important; }
+            h1, h2, h3 { letter-spacing: -0.02em; }
             @keyframes fadeIn {
                 0% { opacity: 0; transform: translateY(16px); }
                 100% { opacity: 1; transform: translateY(0); }
@@ -31,6 +47,11 @@
         <script src="https://unpkg.com/alpinejs" defer></script>
     </head>
     <body class="text-white min-h-screen bg-gradient-to-br from-slate-900 via-slate-800 to-blue-950 ">
+        <div class="fixed inset-0 -z-10 overflow-hidden pointer-events-none" aria-hidden="true">
+            <div class="absolute top-[-10%] left-[-5%] w-[500px] h-[500px] bg-blue-600 rounded-full blur-3xl opacity-[0.15]"></div>
+            <div class="absolute top-[40%] right-[-8%] w-[400px] h-[400px] bg-violet-700 rounded-full blur-3xl opacity-[0.12]"></div>
+            <div class="absolute bottom-[-10%] left-[25%] w-[450px] h-[450px] bg-cyan-800 rounded-full blur-3xl opacity-[0.12]"></div>
+        </div>
         {% block navbar %}{% include "partials/navbar.html" %}{% endblock %}
         <main class="p-4 sm:p-6">
             {% block content %}{% endblock %}

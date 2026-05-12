@@ -22,31 +22,31 @@
              @click="flipped = !flipped">
             <div class="card-body w-full h-full" :class="{ 'flipped': flipped }">
 
-                <div class="card-face absolute inset-0 bg-white-900/5 bg-blur-sm bg-gray-900 border border-gray-700 rounded-xl p-4 flex flex-col items-center justify-center gap-2">
-                    <img src="{{ team.logo_url }}" class="h-16 w-16 object-contain">
+                <div class="card-face absolute inset-0 bg-white/10 backdrop-blur-sm border border-white/10 rounded-xl p-4 flex flex-col items-center justify-center gap-2">
+                    <img src="{{ team.logo_url }}" class="h-32 w-32 object-contain">
                     <span class="font-bold text-white">{{ team.name }}</span>
                 </div>
 
-                <div class="card-face card-back absolute inset-0 bg-gray-900/30 shadow-md border border-gray-700 rounded-xl p-4 flex flex-col items-center gap-3">
-                    <img src="{{ team.dark_logo_url }}" class="h-8 w-8 object-contain">
-                    {% if s %}
-                        <div class="grid grid-cols-2 gap-x-6 gap-y-1 text-sm w-full">
-                            <span class="text-gray-400">Wins</span>
-                            <span class="font-bold text-white text-right">{{ s.wins }}</span>
-                            <span class="text-gray-400">Losses</span>
-                            <span class="font-bold text-white text-right">{{ s.losses }}</span>
-                            <span class="text-gray-400">OT Losses</span>
-                            <span class="font-bold text-white text-right">{{ s.ot_losses }}</span>
-                            <span class="text-gray-400">Points</span>
-                            <span class="font-bold text-white text-right">{{ s.points }}</span>
-                            <span class="text-gray-400">Goal Diff</span>
-                            <span class="font-bold text-right {% if s.goal_diff > 0 %}text-green-400{% elif s.goal_diff < 0 %}text-red-400{% endif %}">
-                                {{ s.goal_diff }}
-                            </span>
-                        </div>
-                    {% else %}
-                        <span class="text-gray-500 text-sm">No stats available</span>
-                    {% endif %}
+                <div class="card-face card-back absolute inset-0 bg-white/5 backdrop-blur-sm border border-white/10 rounded-xl overflow-hidden">
+                    <img src="{{ team.dark_logo_url }}" class="absolute inset-0 w-full h-full object-contain opacity-[0.12] scale-125" />
+                    <div class="relative h-full p-4 flex flex-col items-center justify-center gap-3">
+                        {% if s %}
+                            <div class="grid grid-cols-2 gap-x-6 gap-y-1 text-sm w-full">
+                                <span class="text-slate-400">Wins</span>
+                                <span class="font-bold text-right">{{ s.wins }}</span>
+                                <span class="text-slate-400">Losses</span>
+                                <span class="font-bold text-right">{{ s.losses }}</span>
+                                <span class="text-slate-400">OT L</span>
+                                <span class="font-bold text-right">{{ s.ot_losses }}</span>
+                                <span class="text-slate-400">Points</span>
+                                <span class="font-bold text-right">{{ s.points }}</span>
+                                <span class="text-slate-400">GD</span>
+                                <span class="font-bold text-right {% if s.goal_diff > 0 %}text-green-400{% elif s.goal_diff < 0 %}text-red-400{% endif %}">{{ s.goal_diff }}</span>
+                            </div>
+                        {% else %}
+                            <span class="text-slate-400 text-sm">No stats available</span>
+                        {% endif %}
+                    </div>
                 </div>
 
             </div>

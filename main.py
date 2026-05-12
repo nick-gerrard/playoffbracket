@@ -23,6 +23,9 @@ from services import (
     score_bracket,
     build_leaderboard,
     get_predictions_map,
+    transaction,
+    signup_bonus,
+    bracket_bonus,
     fetch_predictions,
     fetch_all_users,
     fetch_predictions_for_season,
@@ -30,6 +33,8 @@ from services import (
     fetch_scoring,
     fetch_current_season,
     fetch_season_by_year,
+    fetch_user,
+    fetch_all_transactions,
 )
 from pydantic import BaseModel
 
@@ -38,7 +43,16 @@ from dotenv import load_dotenv
 from authlib.integrations.starlette_client import OAuth
 from starlette.middleware.sessions import SessionMiddleware
 from fastapi.responses import RedirectResponse
-from models import Team, TeamStats, Series, Season, User, Prediction, ScoringConfig
+from models import (
+    Team,
+    TeamStats,
+    Series,
+    Season,
+    User,
+    Prediction,
+    ScoringConfig,
+    Transaction,
+)
 
 load_dotenv()
 engine = create_engine("sqlite:///bracket.db")
@@ -69,6 +83,10 @@ app.mount("/static", StaticFiles(directory="static"), name="static")
 
 app.add_middleware(SessionMiddleware, secret_key=os.environ["SESSION_SECRET_KEY"])
 secret_key = os.environ["SESSION_SECRET_KEY"]
+
+# Bonus values from env
+signup_bonus_val = int(os.environ.get("SIGNUP_BONUS_VAL", 0))
+bracket_bonus_val = int(os.environ.get("BRACKET_BONUS_VAL", 0))
 
 oauth = OAuth()
 oauth.register(
@@ -135,8 +153,8 @@ ROUND_LABELS = {
 
 
 @app.get("/login")
-async def login_page(request: Request):
-    if request.session.get("user_id"):
+async def login_page(request: Request, user: User | None = Depends(get_current_user)):
+    if user:
         return RedirectResponse("/")
     return templates.TemplateResponse(request=request, name="login.html")
 
@@ -158,6 +176,7 @@ async def auth_callback(request: Request):
             session.add(user)
             session.commit()
             session.refresh(user)
+            signup_bonus(session=session, payee_id=user.id, amount=signup_bonus_val)
         request.session["user_id"] = user.id
     return RedirectResponse("/bracket")
 
@@ -193,8 +212,18 @@ async def root(
     return templates.TemplateResponse(
         request=request,
         name="bracket.html",
-        context={"bracket": bracket, "teams": team_map, "season": season},
+        context={"bracket": bracket, "teams": team_map, "season": season, "user": user},
     )
+
+
+@app.get("/user_info")
+async def user_info(request: Request, user: User | None = Depends(get_current_user)):
+    if not user:
+        return RedirectResponse("/")
+    with Session(engine) as session:
+        return templates.TemplateResponse(
+            request=request, name="user.html", context={"user": user}
+        )
 
 
 @app.get("/bracket")
@@ -259,7 +288,7 @@ async def teams(request: Request, user: User | None = Depends(get_current_user))
         teams = session.exec(select(Team).where(Team.name != "TBD")).all()
         stats_map = {s.team_id: s for s in session.exec(select(TeamStats)).all()}
     return templates.TemplateResponse(
-        request=request, name="teams.html", context={"teams": teams, "stats": stats_map}
+        request=request, name="teams.html", context={"teams": teams, "stats": stats_map, "user": user}
     )
 
 
@@ -303,7 +332,7 @@ async def predict(request: Request, user: User | None = Depends(get_current_user
         }
 
     return templates.TemplateResponse(
-        request=request, name="predict.html", context={"series_data": series_data}
+        request=request, name="predict.html", context={"series_data": series_data, "user": user}
     )
 
 
@@ -346,7 +375,7 @@ async def leaderboard(
     return templates.TemplateResponse(
         request=request,
         name="leaderboard.html",
-        context={"board": board, "current_user": user, "season": season},
+        context={"board": board, "current_user": user, "user": user, "season": season},
     )
 
 
@@ -393,7 +422,7 @@ async def compare(
     return templates.TemplateResponse(
         request=request,
         name="compare.html",
-        context={"rounds": rounds, "me": user, "them": other_user, "season": season},
+        context={"rounds": rounds, "me": user, "them": other_user, "user": user, "season": season},
     )
 
 
@@ -403,5 +432,5 @@ async def hello():
 
 
 @app.get("/about")
-async def about(request: Request):
-    return templates.TemplateResponse(request=request, name="about.html")
+async def about(request: Request, user: User | None = Depends(get_current_user)):
+    return templates.TemplateResponse(request=request, name="about.html", context={"user": user})
