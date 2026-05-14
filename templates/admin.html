@@ -1,0 +1,107 @@
+{% extends "base.html" %}
+{% block title %}Admin{% endblock %}
+{% block content %}
+<div class="max-w-3xl mx-auto space-y-10 animate-fade-in">
+
+    <h1 class="text-2xl sm:text-3xl font-bold">Admin Dashboard</h1>
+
+    <!-- Credit DucksBucks -->
+    <section>
+        <h2 class="text-sm font-semibold uppercase tracking-widest text-slate-400 mb-3">Credit DucksBucks</h2>
+        <div class="bg-white/5 backdrop-blur-sm border border-white/10 rounded-xl px-5 py-5">
+            <form method="post" action="/admin/credit" class="space-y-4">
+                <div>
+                    <label class="block text-xs font-semibold uppercase tracking-widest text-slate-400 mb-2">User</label>
+                    <select name="user_id" class="w-full bg-white/5 border border-white/10 rounded-xl px-3 py-2.5 text-white text-sm focus:outline-none focus:border-blue-400/50 transition-colors">
+                        {% for u in users %}
+                        <option value="{{ u.id }}">{{ u.name }} ({{ u.balance }} DB)</option>
+                        {% endfor %}
+                    </select>
+                </div>
+                <div class="grid grid-cols-2 gap-4">
+                    <div>
+                        <label class="block text-xs font-semibold uppercase tracking-widest text-slate-400 mb-2">Amount</label>
+                        <input type="number" name="amount" min="1" placeholder="500"
+                               class="w-full bg-white/5 border border-white/10 rounded-xl px-3 py-2.5 text-white text-sm focus:outline-none focus:border-blue-400/50 transition-colors placeholder:text-slate-600" />
+                    </div>
+                    <div>
+                        <label class="block text-xs font-semibold uppercase tracking-widest text-slate-400 mb-2">Description</label>
+                        <input type="text" name="desc" placeholder="Admin credit"
+                               class="w-full bg-white/5 border border-white/10 rounded-xl px-3 py-2.5 text-white text-sm focus:outline-none focus:border-blue-400/50 transition-colors placeholder:text-slate-600" />
+                    </div>
+                </div>
+                <button type="submit"
+                        class="px-5 py-2 bg-blue-600 hover:bg-blue-500 text-white rounded-xl text-sm font-semibold transition-colors">
+                    Credit
+                </button>
+            </form>
+        </div>
+    </section>
+
+    <!-- Bracket Winner Bonus -->
+    <section>
+        <h2 class="text-sm font-semibold uppercase tracking-widest text-slate-400 mb-3">Bracket Winner Bonus</h2>
+        <div class="bg-white/5 backdrop-blur-sm border border-white/10 rounded-xl px-5 py-5">
+            <form method="post" action="/admin/bracket-bonus" class="space-y-4">
+                <div class="grid grid-cols-2 gap-4">
+                    <div>
+                        <label class="block text-xs font-semibold uppercase tracking-widest text-slate-400 mb-2">User</label>
+                        <select name="user_id" class="w-full bg-white/5 border border-white/10 rounded-xl px-3 py-2.5 text-white text-sm focus:outline-none focus:border-blue-400/50 transition-colors">
+                            {% for u in users %}
+                            <option value="{{ u.id }}">{{ u.name }}</option>
+                            {% endfor %}
+                        </select>
+                    </div>
+                    <div>
+                        <label class="block text-xs font-semibold uppercase tracking-widest text-slate-400 mb-2">Prize Amount</label>
+                        <input type="number" name="amount" min="1" placeholder="1000"
+                               class="w-full bg-white/5 border border-white/10 rounded-xl px-3 py-2.5 text-white text-sm focus:outline-none focus:border-blue-400/50 transition-colors placeholder:text-slate-600" />
+                    </div>
+                </div>
+                <button type="submit"
+                        class="px-5 py-2 bg-yellow-500/20 hover:bg-yellow-500/30 border border-yellow-400/30 text-yellow-300 rounded-xl text-sm font-semibold transition-colors">
+                    Award Bonus
+                </button>
+            </form>
+        </div>
+    </section>
+
+    <!-- User Balances -->
+    <section>
+        <h2 class="text-sm font-semibold uppercase tracking-widest text-slate-400 mb-3">User Balances</h2>
+        <div class="flex flex-col gap-2">
+            {% for u in users | sort(attribute="balance", reverse=True) %}
+            <div class="bg-white/5 backdrop-blur-sm border border-white/10 rounded-xl px-5 py-3 flex items-center justify-between">
+                <div>
+                    <p class="font-medium text-sm">{{ u.name }}</p>
+                    <p class="text-xs text-slate-500">{{ u.email }}</p>
+                </div>
+                <span class="flex items-center gap-1.5 text-yellow-400 font-semibold">
+                    <svg class="size-4" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M2.25 18.75a60.07 60.07 0 0 1 15.797 2.101c.727.198 1.453-.342 1.453-1.096V18.75M3.75 4.5v.75A.75.75 0 0 1 3 6h-.75m0 0v-.375c0-.621.504-1.125 1.125-1.125H20.25M2.25 6v9m18-10.5v.75c0 .414.336.75.75.75h.75m-1.5-1.5h.375c.621 0 1.125.504 1.125 1.125v9.75c0 .621-.504 1.125-1.125 1.125h-.375m1.5-1.5H21a.75.75 0 0 0-.75.75v.75m0 0H3.75m0 0h-.375a1.125 1.125 0 0 1-1.125-1.125V15m1.5 1.5v-.75A.75.75 0 0 0 3 15h-.75M15 10.5a3 3 0 1 1-6 0 3 3 0 0 1 6 0Zm3 0h.008v.008H18V10.5Zm-12 0h.008v.008H6V10.5Z" />
+                    </svg>
+                    {{ u.balance }}
+                </span>
+            </div>
+            {% endfor %}
+        </div>
+    </section>
+
+    <!-- Recent Transactions -->
+    <section>
+        <h2 class="text-sm font-semibold uppercase tracking-widest text-slate-400 mb-3">Recent Transactions</h2>
+        <div class="flex flex-col gap-2">
+            {% for t in transactions %}
+            <div class="bg-white/5 backdrop-blur-sm border border-white/10 rounded-xl px-5 py-3 flex items-center justify-between gap-4">
+                <p class="text-sm text-slate-300 truncate">{{ t.desc }}</p>
+                <div class="flex items-center gap-3 flex-shrink-0">
+                    <span class="text-yellow-400 font-semibold text-sm">+{{ t.amount }}</span>
+                    <span class="text-xs text-slate-500">{{ t.transaction_date.strftime("%b %d") }}</span>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </section>
+
+</div>
+{% endblock %}

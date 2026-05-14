@@ -1,6 +1,7 @@
 from sqlmodel import create_engine, SQLModel, Session, select
-from fastapi import FastAPI, Request, Depends, HTTPException, BackgroundTasks
-from datetime import datetime, timedelta
+from fastapi import FastAPI, Request, Depends, HTTPException, BackgroundTasks, Form
+from starlette.exceptions import HTTPException as StarletteHTTPException
+from datetime import datetime, timedelta, date, timezone
 from seed import (
     get_series_data,
     update_series_results,
@@ -18,23 +19,28 @@ from fastapi.templating import Jinja2Templates
 from fastapi.responses import HTMLResponse
 from fastapi.staticfiles import StaticFiles
 from services import (
+    daily_job,
     has_prediction,
     save_prediction,
     score_bracket,
     build_leaderboard,
     get_predictions_map,
-    transaction,
     signup_bonus,
     bracket_bonus,
+    ingest_games,
     fetch_predictions,
     fetch_all_users,
+    fetch_all_transactions,
     fetch_predictions_for_season,
     fetch_series_results,
     fetch_scoring,
     fetch_current_season,
     fetch_season_by_year,
-    fetch_user,
-    fetch_all_transactions,
+    fetch_games,
+    fetch_bets_for_user,
+    issue_bet,
+    accept_bet,
+    transaction,
 )
 from pydantic import BaseModel
 
@@ -44,23 +50,47 @@ from authlib.integrations.starlette_client import OAuth
 from starlette.middleware.sessions import SessionMiddleware
 from fastapi.responses import RedirectResponse
 from models import (
+    Bet,
     Team,
     TeamStats,
     Series,
     Season,
     User,
-    Prediction,
-    ScoringConfig,
-    Transaction,
 )
+from apscheduler.schedulers.asyncio import AsyncIOScheduler
+from apscheduler.triggers.cron import CronTrigger
+
+scheduler = AsyncIOScheduler()
+
 
 load_dotenv()
 engine = create_engine("sqlite:///bracket.db")
 templates = Jinja2Templates(directory="templates")
 
+ET = timezone(timedelta(hours=-4))
+templates.env.filters["et"] = lambda dt: dt.astimezone(ET).strftime("%-I:%M %p ET")
+
+ADMIN_EMAIL = os.environ.get("ADMIN_EMAIL", "")
+
+
+def challenge_count(user_id: int) -> int:
+    with Session(engine) as session:
+        return len(list(session.exec(
+            select(Bet).where(Bet.challengee == user_id, Bet.status == "pending")
+        ).all()))
+
+
+templates.env.globals["challenge_count"] = challenge_count
+templates.env.globals["admin_email"] = ADMIN_EMAIL
+
 
 def create_db():
     SQLModel.metadata.create_all(engine)
+
+
+def run_daily_job():
+    with Session(engine) as session:
+        daily_job(session)
 
 
 @asynccontextmanager
@@ -75,7 +105,13 @@ async def lifespan(app: FastAPI):
             seed_scoring_config()
             stats = get_team_stats_data(STANDINGS)
             seed_standings_data(stats)
+        ingest_games(session, date.today())
+    scheduler.add_job(
+        run_daily_job, CronTrigger(hour=7, minute=0, timezone="America/New_York")
+    )
+    scheduler.start()
     yield
+    scheduler.shutdown()
 
 
 app = FastAPI(lifespan=lifespan)
@@ -104,6 +140,12 @@ def get_current_user(request: Request):
         return None
     with Session(engine) as session:
         return session.get(User, user_id)
+
+
+def require_admin(user: User | None = Depends(get_current_user)):
+    if not user or user.email != ADMIN_EMAIL:
+        raise HTTPException(status_code=403, detail="Forbidden")
+    return user
 
 
 last_synced: datetime | None = None
@@ -288,7 +330,9 @@ async def teams(request: Request, user: User | None = Depends(get_current_user))
         teams = session.exec(select(Team).where(Team.name != "TBD")).all()
         stats_map = {s.team_id: s for s in session.exec(select(TeamStats)).all()}
     return templates.TemplateResponse(
-        request=request, name="teams.html", context={"teams": teams, "stats": stats_map, "user": user}
+        request=request,
+        name="teams.html",
+        context={"teams": teams, "stats": stats_map, "user": user},
     )
 
 
@@ -332,7 +376,9 @@ async def predict(request: Request, user: User | None = Depends(get_current_user
         }
 
     return templates.TemplateResponse(
-        request=request, name="predict.html", context={"series_data": series_data, "user": user}
+        request=request,
+        name="predict.html",
+        context={"series_data": series_data, "user": user},
     )
 
 
@@ -422,15 +468,149 @@ async def compare(
     return templates.TemplateResponse(
         request=request,
         name="compare.html",
-        context={"rounds": rounds, "me": user, "them": other_user, "user": user, "season": season},
+        context={
+            "rounds": rounds,
+            "me": user,
+            "them": other_user,
+            "user": user,
+            "season": season,
+        },
     )
 
 
-@app.get("/hello")
-async def hello():
-    return HTMLResponse("<p>Hello world!</p>")
+@app.get("/bets")
+async def bets_page(request: Request, user: User | None = Depends(get_current_user)):
+    if not user:
+        return RedirectResponse("/login")
+    with Session(engine) as session:
+        today_games = fetch_games(session, date.today())
+        team_map = {t.id: t for t in session.exec(select(Team)).all()}
+        all_users = fetch_all_users(session)
+        user_map = {u.id: u for u in all_users}
+        open_challenges = list(
+            session.exec(
+                select(Bet).where(Bet.challengee == user.id, Bet.status == "pending")
+            ).all()
+        )
+        my_pending = list(
+            session.exec(
+                select(Bet).where(Bet.challenger == user.id, Bet.status == "pending")
+            ).all()
+        )
+        active_bets = [
+            b for b in fetch_bets_for_user(session, user.id) if b.status == "accepted"
+        ]
+    return templates.TemplateResponse(
+        request=request,
+        name="bets.html",
+        context={
+            "user": user,
+            "games": today_games,
+            "team_map": team_map,
+            "users": [u for u in all_users if u.id != user.id],
+            "user_map": user_map,
+            "open_challenges": open_challenges,
+            "my_pending": my_pending,
+            "active_bets": active_bets,
+        },
+    )
+
+
+@app.post("/bets/challenge")
+async def post_challenge(
+    request: Request,
+    user: User | None = Depends(get_current_user),
+    game_id: int = Form(...),
+    challengee_id: int = Form(...),
+    winner_id: int = Form(...),
+    amount: int = Form(...),
+):
+    if not user:
+        return RedirectResponse("/login", status_code=303)
+    try:
+        with Session(engine) as session:
+            issue_bet(
+                session,
+                challenger=user.id,
+                challengee=challengee_id,
+                amount=amount,
+                game_id=game_id,
+                winner_id=winner_id,
+            )
+    except ValueError:
+        return RedirectResponse("/bets?error=insufficient_balance", status_code=303)
+    return RedirectResponse("/bets", status_code=303)
+
+
+@app.post("/bets/accept/{bet_id}")
+async def post_accept(
+    request: Request,
+    bet_id: int,
+    user: User | None = Depends(get_current_user),
+):
+    if not user:
+        return RedirectResponse("/login", status_code=303)
+    try:
+        with Session(engine) as session:
+            accept_bet(session, bet_id=bet_id, challengee=user.id)
+    except ValueError:
+        return RedirectResponse("/bets?error=insufficient_balance", status_code=303)
+    return RedirectResponse("/bets", status_code=303)
+
+
+@app.get("/admin")
+async def admin_dashboard(request: Request, admin: User = Depends(require_admin)):
+    with Session(engine) as session:
+        users = fetch_all_users(session)
+        recent_transactions = list(reversed(fetch_all_transactions(session)))[:20]
+    return templates.TemplateResponse(
+        request=request,
+        name="admin.html",
+        context={"user": admin, "users": users, "transactions": recent_transactions},
+    )
+
+
+@app.post("/admin/credit")
+async def admin_credit(
+    admin: User = Depends(require_admin),
+    user_id: int = Form(...),
+    amount: int = Form(...),
+    desc: str = Form(...),
+):
+    with Session(engine) as session:
+        transaction(session, amount=amount, payee_id=user_id, desc=desc)
+    return RedirectResponse("/admin", status_code=303)
+
+
+@app.post("/admin/bracket-bonus")
+async def admin_bracket_bonus(
+    admin: User = Depends(require_admin),
+    user_id: int = Form(...),
+    amount: int = Form(...),
+):
+    with Session(engine) as session:
+        bracket_bonus(session, payee_id=user_id, amount=amount)
+    return RedirectResponse("/admin", status_code=303)
+
+
+@app.exception_handler(StarletteHTTPException)
+async def http_exception_handler(request: Request, exc: StarletteHTTPException):
+    try:
+        user = get_current_user(request)
+    except Exception:
+        user = None
+    return templates.TemplateResponse(
+        request=request,
+        name="error.html",
+        context={"user": user, "code": exc.status_code, "message": exc.detail},
+        status_code=exc.status_code,
+    )
+
+
 
 
 @app.get("/about")
 async def about(request: Request, user: User | None = Depends(get_current_user)):
-    return templates.TemplateResponse(request=request, name="about.html", context={"user": user})
+    return templates.TemplateResponse(
+        request=request, name="about.html", context={"user": user}
+    )

@@ -1,45 +1,27 @@
 import json
 import httpx
+from datetime import datetime, timedelta
 
+current_day = datetime.now().strftime("%Y-%m-%d")
+yesterday = datetime.now() - timedelta(days=1)
+yesterday = yesterday.strftime("%Y-%m-%d")
 
-playoff_url = "https://api-web.nhle.com/v1/playoff-bracket/2026"
-team_url = "https://api-web.nhle.com/v1/standings/now"
-schedule_url = (
-    "https://api-web.nhle.com/v1/schedule/2026-05-11"  # Gets games from today onward
-)
-scoreboard_url = "https://api-web.nhle.com/v1/scoreboard/now"  # Get current scoreboard
+BASE = "https://api-web.nhle.com/v1/"
+URLS = {
+    "playoff": f"{BASE}playoff-bracket/2026",
+    "teams": f"{BASE}standings/now",
+    "schedule": f"{BASE}schedule/2026-05-11", 
+    "scoreboard": f"{BASE}scoreboard/now",
+    "today_scores": f"{BASE}score/{current_day}",
+    "yesterday_scores": f"{BASE}score/{yesterday}"
+}
 
-
-def get_playoff_data(url):
-    response = httpx.get(url)
-    data = response.json()
-    with open("bracket.json", "w") as f:
-        f.write(json.dumps(data, indent=2))
-
-
-def get_team_season_data(url):
+def get_data(url, filename):
     response = httpx.get(url, follow_redirects=True)
     data = response.json()
-    with open("team.json", "w") as f:
+    with open(f"{filename}.json", "w") as f:
         f.write(json.dumps(data, indent=2))
-
-
-def get_schedule_data(url):
-    response = httpx.get(url, follow_redirects=True)
-    data = response.json()
-    with open("schedule.json", "w") as f:
-        f.write(json.dumps(data, indent=2))
-
-
-def get_scoreboard_data(url):
-    response = httpx.get(url, follow_redirects=True)
-    data = response.json()
-    with open("scoreboard.json", "w") as f:
-        f.write(json.dumps(data, indent=2))
-
 
 if __name__ == "__main__":
-    get_playoff_data(playoff_url)
-    get_team_season_data(team_url)
-    get_schedule_data(schedule_url)
-    get_scoreboard_data(scoreboard_url)
+    for filename, url in URLS.items():
+        get_data(url, filename)

@@ -1,5 +1,19 @@
+from datetime import datetime, date, timedelta
 from sqlmodel import Session, select
-from models import Prediction, Series, ScoringConfig, User, Season, Transaction
+from models import (
+    Game,
+    Prediction,
+    Series,
+    ScoringConfig,
+    Team,
+    User,
+    Season,
+    Transaction,
+    Bet,
+)
+import httpx
+
+NHL_BASE = "https://api-web.nhle.com/v1"
 
 
 # --- Query functions ---
@@ -23,6 +37,25 @@ def fetch_user(session: Session, user_id: int) -> User | None:
 
 def fetch_all_transactions(session: Session) -> list[Transaction]:
     return list(session.exec(select(Transaction)).all())
+
+
+def fetch_games(session: Session, day: date) -> list[Game]:
+    return list(session.exec(select(Game).where(Game.date == day)).all())
+
+
+def fetch_bets(session: Session, game: int) -> list[Bet]:
+    return list(session.exec(select(Bet).where(Bet.game_id == game)).all())
+
+
+def fetch_bets_for_user(session: Session, user_id: int) -> list[Bet]:
+    from sqlalchemy import or_
+    return list(session.exec(
+        select(Bet).where(or_(Bet.challenger == user_id, Bet.challengee == user_id))
+    ).all())
+
+
+def fetch_bet(session: Session, bet_id: int) -> Bet:
+    return session.exec(select(Bet).where(Bet.id == bet_id)).first()  # type: ignore
 
 
 def fetch_predictions(
@@ -98,28 +131,117 @@ def save_prediction(session: Session, user_id: int, predictions: list[dict]) -> 
 
 
 def transaction(
-    session: Session, payee_id: int, amount: int, desc: str, payer_id: int | None = None
+    session: Session,
+    amount: int,
+    desc: str,
+    payee_id: int | None = None,
+    payer_id: int | None = None,
+    bet_id: int | None = None,
 ):
     if payer_id:
         payer: User = fetch_user(session, payer_id)  # type: ignore
         payer.balance -= amount
         session.add(payer)
-    payee: User = fetch_user(session, payee_id)  # type: ignore
-    payee.balance += amount
-    session.add(payee)
-    t = Transaction(payer=payer_id, payee=payee_id, amount=amount, desc=desc)
+    if payee_id:
+        payee: User = fetch_user(session, payee_id)  # type: ignore
+        payee.balance += amount
+        session.add(payee)
+    t = Transaction(
+        payer=payer_id, payee=payee_id, bet_id=bet_id, amount=amount, desc=desc
+    )
     session.add(t)
     session.commit()
 
 
+def issue_bet(
+    session: Session,
+    challenger: int,
+    challengee: int,
+    amount: int,
+    game_id: int,
+    winner_id: int,
+):
+    challenger_user = fetch_user(session, challenger)
+    if not challenger_user or challenger_user.balance < amount:
+        raise ValueError("Insufficient balance")
+    b = Bet(
+        challenger=challenger,
+        challengee=challengee,
+        game_id=game_id,
+        amount=amount,
+        challenger_winner=winner_id,
+    )
+    session.add(b)
+    session.commit()
+    session.refresh(b)
+    transaction(
+        session,
+        amount=amount,
+        payer_id=challenger,
+        bet_id=b.id,
+        desc=f"{challenger} bet {amount} against {challengee} on game {game_id}",
+    )
+
+
+def accept_bet(session: Session, bet_id: int, challengee: int):
+    bet = fetch_bet(session, bet_id)
+    challengee_user = fetch_user(session, challengee)
+    if not challengee_user or challengee_user.balance < bet.amount:
+        raise ValueError("Insufficient balance")
+    bet.status = "accepted"
+    session.add(bet)
+    transaction(
+        session=session,
+        amount=bet.amount,
+        payer_id=challengee,
+        bet_id=bet_id,
+        desc=f"{challengee} accepted {bet.challenger} bet for {bet.amount}",
+    )
+
+
+def settle_bets(session: Session) -> None:
+    yesterday = date.today() - timedelta(days=1)
+    games = fetch_games(session, yesterday)
+    for game in games:
+        if game.winner is None:
+            continue
+        bets = fetch_bets(session, game.id)
+        for bet in bets:
+            if bet.status == "accepted":
+                bet.status = "settled"
+                session.add(bet)
+                if bet.challenger_winner == game.winner:
+                    payee = bet.challenger
+                else:
+                    payee = bet.challengee
+                transaction(
+                    session,
+                    payee_id=payee,
+                    amount=bet.amount * 2,
+                    desc=f"{payee} won {bet.amount * 2}!",
+                    bet_id=bet.id,
+                )
+
+            elif bet.status == "pending":
+                bet.status = "cancelled"
+                session.add(bet)
+                transaction(
+                    session,
+                    payee_id=bet.challenger,
+                    amount=bet.amount,
+                    desc=f"{bet.challenger} was refunded {bet.amount}",
+                    bet_id=bet.id,
+                )
+
+
 def signup_bonus(session: Session, payee_id: int, amount: int):
     desc = f"{payee_id} has recieved {amount} DucksBucks for signing up!"
-    transaction(session, payee_id, amount, desc)
+    transaction(session=session, payee_id=payee_id, amount=amount, desc=desc)
 
 
 def bracket_bonus(session: Session, payee_id: int, amount: int):
     desc = f"{payee_id} has recieved {amount} DucksBucks for completing a bracket!"
-    transaction(session, payee_id, amount, desc)
+    transaction(session=session, payee_id=payee_id, amount=amount, desc=desc)
 
 
 # --- Computation functions ---
@@ -135,6 +257,73 @@ def score_bracket(
         for p in predictions
         if series_results[p.series_id][0] == p.predicted_winner_id
     )
+
+
+def _get_or_create_team(session: Session, team_data: dict) -> Team:
+    team = session.exec(select(Team).where(Team.api_id == team_data["id"])).first()
+    if not team:
+        light_logo = team_data.get("logo", "")
+        team = Team(
+            api_id=team_data["id"],
+            name=team_data["name"]["default"],
+            abbrev=team_data["abbrev"],
+            logo_url=light_logo,
+            dark_logo_url=light_logo.replace("_light", "_dark"),
+        )
+        session.add(team)
+        session.commit()
+        session.refresh(team)
+    return team
+
+
+def ingest_games(session: Session, target_date: date) -> None:
+    date_str = target_date.strftime("%Y-%m-%d")
+    data = httpx.get(f"{NHL_BASE}/score/{date_str}").json()
+
+    for g in data.get("games", []):
+        if g.get("gameScheduleState") != "OK":
+            continue
+
+        home = _get_or_create_team(session, g["homeTeam"])
+        away = _get_or_create_team(session, g["awayTeam"])
+        existing = session.exec(select(Game).where(Game.api_id == g["id"])).first()
+
+        if existing:
+            if g["gameState"] == "OFF":
+                existing.status = "OFF"
+                existing.home_team_score = g["homeTeam"]["score"]
+                existing.away_team_score = g["awayTeam"]["score"]
+                existing.outcome = g.get("gameOutcome", {}).get("lastPeriodType")
+                existing.winner = (
+                    home.id
+                    if g["homeTeam"]["score"] > g["awayTeam"]["score"]
+                    else away.id
+                )
+                session.add(existing)
+        else:
+            start_time = datetime.fromisoformat(
+                g["startTimeUTC"].replace("Z", "+00:00")
+            )
+            session.add(
+                Game(
+                    api_id=g["id"],
+                    date=target_date,
+                    start_time=start_time,
+                    home_team=home.id,
+                    away_team=away.id,
+                    status=g["gameState"],
+                )
+            )
+
+    session.commit()
+
+
+def daily_job(session: Session) -> None:
+    today = date.today()
+    yesterday = today - timedelta(days=1)
+    ingest_games(session, yesterday)
+    ingest_games(session, today)
+    settle_bets(session)
 
 
 def build_leaderboard(

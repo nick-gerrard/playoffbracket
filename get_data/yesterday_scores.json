@@ -1,0 +1,572 @@
+{
+  "prevDate": "2026-05-12",
+  "currentDate": "2026-05-13",
+  "nextDate": "2026-05-14",
+  "gameWeek": [
+    {
+      "date": "2026-05-10",
+      "dayAbbrev": "SUN",
+      "numberOfGames": 2
+    },
+    {
+      "date": "2026-05-11",
+      "dayAbbrev": "MON",
+      "numberOfGames": 1
+    },
+    {
+      "date": "2026-05-12",
+      "dayAbbrev": "TUE",
+      "numberOfGames": 2
+    },
+    {
+      "date": "2026-05-13",
+      "dayAbbrev": "WED",
+      "numberOfGames": 1
+    },
+    {
+      "date": "2026-05-14",
+      "dayAbbrev": "THU",
+      "numberOfGames": 2
+    },
+    {
+      "date": "2026-05-15",
+      "dayAbbrev": "FRI",
+      "numberOfGames": 0
+    },
+    {
+      "date": "2026-05-16",
+      "dayAbbrev": "SAT",
+      "numberOfGames": 2
+    }
+  ],
+  "oddsPartners": [
+    {
+      "partnerId": 2,
+      "country": "SE",
+      "name": "Unibet",
+      "imageUrl": "https://assets.nhle.com/betting_partner/unibet.svg",
+      "siteUrl": "https://www.unibet.se/betting/sports/filter/ice_hockey/nhl/all/matches",
+      "bgColor": "#14805E",
+      "textColor": "#FFFFFF",
+      "accentColor": "#3AAA35"
+    },
+    {
+      "partnerId": 3,
+      "country": "CZ",
+      "name": "Tipsport",
+      "imageUrl": "https://assets.nhle.com/betting_partner/tipsport.svg",
+      "siteUrl": "https://www.tipsport.cz/PartnerRedirectAction.do?pid=16961&sid=20360&bid=34954&tid=11268",
+      "bgColor": "#2497F2",
+      "textColor": "#FFFFFF",
+      "accentColor": "#FFFFFF"
+    },
+    {
+      "partnerId": 6,
+      "country": "FI",
+      "name": "Veikkaus",
+      "imageUrl": "https://assets.nhle.com/betting_partner/veikkaus.svg",
+      "siteUrl": "https://www.veikkaus.fi/fi/vedonlyonti/pitkaveto?t=3-2-1_NHL",
+      "bgColor": "#0025F5",
+      "textColor": "#FFFFFF",
+      "accentColor": "#FFFFFF"
+    },
+    {
+      "partnerId": 7,
+      "country": "CA",
+      "name": "FanDuel",
+      "imageUrl": "https://assets.nhle.com/betting_partner/fanduel.svg",
+      "siteUrl": "https://fanduel.com",
+      "bgColor": "#0078ff",
+      "textColor": "#FFFFFF",
+      "accentColor": "#FFFFFF"
+    },
+    {
+      "partnerId": 8,
+      "country": "DE",
+      "name": "Sportradar",
+      "imageUrl": "https://assets.nhle.com/betting_partner/sportsradar.svg",
+      "siteUrl": "https://sportradar.com",
+      "bgColor": "#000000",
+      "textColor": "#FFFFFF",
+      "accentColor": "#E6E6E6"
+    },
+    {
+      "partnerId": 9,
+      "country": "US",
+      "name": "DraftKings",
+      "imageUrl": "https://assets.nhle.com/betting_partner/draftkings.svg",
+      "siteUrl": "https://dksb.sng.link/As9kz/3i4d?_dl=https%3A%2F%2Fsportsbook.draftkings.com%2Fgateway%3Fs%3D333653091&pcid=427326&psn=1320&pcn=NHL&pscn=OddsWidget&pcrn=NoOffer&pscid=SP&wpcid=427326&wpsrc=1320&wpcn=NHL&wpscn=OddsWidget&wpcrn=NoOffer&wpscid=SP&_forward_params=1",
+      "bgColor": "#000000",
+      "textColor": "#FFFFFF",
+      "accentColor": "#FFFFFF"
+    },
+    {
+      "partnerId": 10,
+      "country": "SK",
+      "name": "Doxxbet",
+      "imageUrl": "https://assets.nhle.com/betting_partner/doxxbet.svg",
+      "siteUrl": "https://www.doxxbet.sk/sk/sportove-tipovanie-online/kurzy/ladovy-hokej/usa/nhl/?msID=21&mbID=27",
+      "bgColor": "#f30d31",
+      "textColor": "#202020",
+      "accentColor": "#ffffff"
+    }
+  ],
+  "games": [
+    {
+      "id": 2025030235,
+      "season": 20252026,
+      "gameType": 3,
+      "gameDate": "2026-05-13",
+      "venue": {
+        "default": "Ball Arena"
+      },
+      "startTimeUTC": "2026-05-14T00:00:00Z",
+      "easternUTCOffset": "-04:00",
+      "venueUTCOffset": "-06:00",
+      "tvBroadcasts": [
+        {
+          "id": 385,
+          "market": "N",
+          "countryCode": "US",
+          "network": "TNT",
+          "sequenceNumber": 11
+        },
+        {
+          "id": 501,
+          "market": "N",
+          "countryCode": "US",
+          "network": "truTV",
+          "sequenceNumber": 14
+        },
+        {
+          "id": 578,
+          "market": "N",
+          "countryCode": "US",
+          "network": "HBO MAX",
+          "sequenceNumber": 19
+        },
+        {
+          "id": 4,
+          "market": "N",
+          "countryCode": "CA",
+          "network": "CBC",
+          "sequenceNumber": 101
+        },
+        {
+          "id": 282,
+          "market": "N",
+          "countryCode": "CA",
+          "network": "SN",
+          "sequenceNumber": 107
+        },
+        {
+          "id": 281,
+          "market": "N",
+          "countryCode": "CA",
+          "network": "TVAS",
+          "sequenceNumber": 120
+        }
+      ],
+      "gameState": "OFF",
+      "gameScheduleState": "OK",
+      "awayTeam": {
+        "id": 30,
+        "name": {
+          "default": "Wild"
+        },
+        "abbrev": "MIN",
+        "score": 3,
+        "sog": 20,
+        "logo": "https://assets.nhle.com/logos/nhl/svg/MIN_light.svg"
+      },
+      "homeTeam": {
+        "id": 21,
+        "name": {
+          "default": "Avalanche"
+        },
+        "abbrev": "COL",
+        "score": 4,
+        "sog": 34,
+        "logo": "https://assets.nhle.com/logos/nhl/svg/COL_light.svg"
+      },
+      "seriesStatus": {
+        "round": 2,
+        "seriesAbbrev": "R2",
+        "seriesTitle": "2nd Round",
+        "seriesLetter": "K",
+        "neededToWin": 4,
+        "topSeedTeamAbbrev": "COL",
+        "topSeedWins": 4,
+        "bottomSeedTeamAbbrev": "MIN",
+        "bottomSeedWins": 1,
+        "gameNumberOfSeries": 5
+      },
+      "gameCenterLink": "/gamecenter/min-vs-col/2026/05/13/2025030235",
+      "seriesUrl": "/schedule/playoff-series/2026/series-k/avalanche-vs-wild",
+      "threeMinRecap": "/video/min-at-col-recap-6395483666112",
+      "threeMinRecapFr": "/fr/video/min-vs-col-13-05-2026-resume-6395482203112",
+      "condensedGame": "/video/min-at-col-condensed-game-6395483181112",
+      "condensedGameFr": "/fr/video/match-condense-wild-avalanche-13-05-2026-6395483952112",
+      "clock": {
+        "timeRemaining": "16:08",
+        "secondsRemaining": 968,
+        "running": false,
+        "inIntermission": false
+      },
+      "neutralSite": false,
+      "venueTimezone": "America/Denver",
+      "period": 4,
+      "periodDescriptor": {
+        "number": 4,
+        "periodType": "OT",
+        "maxRegulationPeriods": 3
+      },
+      "gameOutcome": {
+        "lastPeriodType": "OT",
+        "otPeriods": 1
+      },
+      "goals": [
+        {
+          "period": 1,
+          "periodDescriptor": {
+            "number": 1,
+            "periodType": "REG",
+            "maxRegulationPeriods": 3
+          },
+          "timeInPeriod": "00:34",
+          "playerId": 8475149,
+          "name": {
+            "default": "M. Johansson"
+          },
+          "firstName": {
+            "default": "Marcus"
+          },
+          "lastName": {
+            "default": "Johansson"
+          },
+          "goalModifier": "none",
+          "assists": [
+            {
+              "playerId": 8481557,
+              "name": {
+                "default": "M. Boldy"
+              },
+              "assistsToDate": 5
+            },
+            {
+              "playerId": 8480800,
+              "name": {
+                "default": "Q. Hughes"
+              },
+              "assistsToDate": 11
+            }
+          ],
+          "mugshot": "https://assets.nhle.com/mugs/nhl/20252026/MIN/8475149.png",
+          "teamAbbrev": "MIN",
+          "goalsToDate": 4,
+          "awayScore": 1,
+          "homeScore": 0,
+          "strength": "ev",
+          "highlightClipSharingUrl": "https://nhl.com/video/min-col-johansson-scores-goal-against-mackenzie-blackwood-6395467545112",
+          "highlightClipSharingUrlFr": "https://nhl.com/fr/video/min-col-johansson-marque-un-but-contre-mackenzie-blackwood-6395469510112",
+          "highlightClip": 6395467545112,
+          "highlightClipFr": 6395469510112,
+          "discreteClip": 6395468600112,
+          "discreteClipFr": 6395467846112
+        },
+        {
+          "period": 1,
+          "periodDescriptor": {
+            "number": 1,
+            "periodType": "REG",
+            "maxRegulationPeriods": 3
+          },
+          "timeInPeriod": "11:03",
+          "playerId": 8473422,
+          "name": {
+            "default": "N. Foligno"
+          },
+          "firstName": {
+            "default": "Nick"
+          },
+          "lastName": {
+            "default": "Foligno"
+          },
+          "goalModifier": "none",
+          "assists": [
+            {
+              "playerId": 8481477,
+              "name": {
+                "default": "N. Sturm"
+              },
+              "assistsToDate": 3
+            },
+            {
+              "playerId": 8478864,
+              "name": {
+                "default": "K. Kaprizov"
+              },
+              "assistsToDate": 11
+            }
+          ],
+          "mugshot": "https://assets.nhle.com/mugs/nhl/20252026/MIN/8473422.png",
+          "teamAbbrev": "MIN",
+          "goalsToDate": 1,
+          "awayScore": 2,
+          "homeScore": 0,
+          "strength": "ev",
+          "highlightClipSharingUrl": "https://nhl.com/video/min-col-foligno-scores-goal-against-mackenzie-blackwood-6395470814112",
+          "highlightClipSharingUrlFr": "https://nhl.com/fr/video/min-col-foligno-marque-un-but-contre-mackenzie-blackwood-6395468837112",
+          "highlightClip": 6395470814112,
+          "highlightClipFr": 6395468837112,
+          "discreteClip": 6395469722112,
+          "discreteClipFr": 6395469328112
+        },
+        {
+          "period": 1,
+          "periodDescriptor": {
+            "number": 1,
+            "periodType": "REG",
+            "maxRegulationPeriods": 3
+          },
+          "timeInPeriod": "15:56",
+          "playerId": 8473422,
+          "name": {
+            "default": "N. Foligno"
+          },
+          "firstName": {
+            "default": "Nick"
+          },
+          "lastName": {
+            "default": "Foligno"
+          },
+          "goalModifier": "none",
+          "assists": [
+            {
+              "playerId": 8481477,
+              "name": {
+                "default": "N. Sturm"
+              },
+              "assistsToDate": 4
+            },
+            {
+              "playerId": 8481557,
+              "name": {
+                "default": "M. Boldy"
+              },
+              "assistsToDate": 6
+            }
+          ],
+          "mugshot": "https://assets.nhle.com/mugs/nhl/20252026/MIN/8473422.png",
+          "teamAbbrev": "MIN",
+          "goalsToDate": 2,
+          "awayScore": 3,
+          "homeScore": 0,
+          "strength": "ev",
+          "highlightClipSharingUrl": "https://nhl.com/video/min-col-foligno-scores-goal-against-mackenzie-blackwood-6395470944112",
+          "highlightClipSharingUrlFr": "https://nhl.com/fr/video/min-col-foligno-marque-un-but-contre-mackenzie-blackwood-6395472106112",
+          "highlightClip": 6395470944112,
+          "highlightClipFr": 6395472106112,
+          "discreteClip": 6395470247112,
+          "discreteClipFr": 6395469479112
+        },
+        {
+          "period": 2,
+          "periodDescriptor": {
+            "number": 2,
+            "periodType": "REG",
+            "maxRegulationPeriods": 3
+          },
+          "timeInPeriod": "11:00",
+          "playerId": 8480448,
+          "name": {
+            "default": "P. Kelly"
+          },
+          "firstName": {
+            "default": "Parker"
+          },
+          "lastName": {
+            "default": "Kelly"
+          },
+          "goalModifier": "none",
+          "assists": [
+            {
+              "playerId": 8470613,
+              "name": {
+                "default": "B. Burns"
+              },
+              "assistsToDate": 2
+            },
+            {
+              "playerId": 8476967,
+              "name": {
+                "default": "B. Kulak"
+              },
+              "assistsToDate": 4
+            }
+          ],
+          "mugshot": "https://assets.nhle.com/mugs/nhl/20252026/COL/8480448.png",
+          "teamAbbrev": "COL",
+          "goalsToDate": 2,
+          "awayScore": 3,
+          "homeScore": 1,
+          "strength": "ev",
+          "highlightClipSharingUrl": "https://nhl.com/video/min-col-kelly-scores-goal-against-jesper-wallstedt-6395474432112",
+          "highlightClipSharingUrlFr": "https://nhl.com/fr/video/min-col-kelly-marque-un-but-contre-jesper-wallstedt-6395473370112",
+          "highlightClip": 6395474432112,
+          "highlightClipFr": 6395473370112,
+          "discreteClip": 6395473500112,
+          "discreteClipFr": 6395472892112
+        },
+        {
+          "period": 3,
+          "periodDescriptor": {
+            "number": 3,
+            "periodType": "REG",
+            "maxRegulationPeriods": 3
+          },
+          "timeInPeriod": "16:27",
+          "playerId": 8480835,
+          "name": {
+            "default": "J. Drury"
+          },
+          "firstName": {
+            "default": "Jack"
+          },
+          "lastName": {
+            "default": "Drury"
+          },
+          "goalModifier": "none",
+          "assists": [
+            {
+              "playerId": 8478038,
+              "name": {
+                "default": "D. Toews"
+              },
+              "assistsToDate": 6
+            },
+            {
+              "playerId": 8478462,
+              "name": {
+                "default": "N. Roy"
+              },
+              "assistsToDate": 3
+            }
+          ],
+          "mugshot": "https://assets.nhle.com/mugs/nhl/20252026/COL/8480835.png",
+          "teamAbbrev": "COL",
+          "goalsToDate": 2,
+          "awayScore": 3,
+          "homeScore": 2,
+          "strength": "ev",
+          "highlightClipSharingUrl": "https://nhl.com/video/min-col-drury-scores-goal-against-jesper-wallstedt-6395481243112",
+          "highlightClipSharingUrlFr": "https://nhl.com/fr/video/min-col-drury-marque-un-but-contre-jesper-wallstedt-6395480831112",
+          "highlightClip": 6395481243112,
+          "highlightClipFr": 6395480831112,
+          "discreteClip": 6395480260112,
+          "discreteClipFr": 6395481814112
+        },
+        {
+          "period": 3,
+          "periodDescriptor": {
+            "number": 3,
+            "periodType": "REG",
+            "maxRegulationPeriods": 3
+          },
+          "timeInPeriod": "18:37",
+          "playerId": 8477492,
+          "name": {
+            "default": "N. MacKinnon"
+          },
+          "firstName": {
+            "default": "Nathan"
+          },
+          "lastName": {
+            "default": "MacKinnon"
+          },
+          "goalModifier": "none",
+          "assists": [
+            {
+              "playerId": 8480039,
+              "name": {
+                "default": "M. Necas",
+                "cs": "M. Ne\u010das",
+                "sk": "M. Ne\u010das"
+              },
+              "assistsToDate": 9
+            },
+            {
+              "playerId": 8470613,
+              "name": {
+                "default": "B. Burns"
+              },
+              "assistsToDate": 3
+            }
+          ],
+          "mugshot": "https://assets.nhle.com/mugs/nhl/20252026/COL/8477492.png",
+          "teamAbbrev": "COL",
+          "goalsToDate": 7,
+          "awayScore": 3,
+          "homeScore": 3,
+          "strength": "ev",
+          "highlightClipSharingUrl": "https://nhl.com/video/min-col-mackinnon-scores-goal-against-jesper-wallstedt-6395481736112",
+          "highlightClipSharingUrlFr": "https://nhl.com/fr/video/min-col-mackinnon-marque-un-but-contre-jesper-wallstedt-6395482817112",
+          "highlightClip": 6395481736112,
+          "highlightClipFr": 6395482817112,
+          "discreteClip": 6395482020112,
+          "discreteClipFr": 6395481640112
+        },
+        {
+          "period": 4,
+          "periodDescriptor": {
+            "number": 4,
+            "periodType": "OT",
+            "maxRegulationPeriods": 3
+          },
+          "timeInPeriod": "03:52",
+          "playerId": 8476967,
+          "name": {
+            "default": "B. Kulak"
+          },
+          "firstName": {
+            "default": "Brett"
+          },
+          "lastName": {
+            "default": "Kulak"
+          },
+          "goalModifier": "none",
+          "assists": [
+            {
+              "playerId": 8480039,
+              "name": {
+                "default": "M. Necas",
+                "cs": "M. Ne\u010das",
+                "sk": "M. Ne\u010das"
+              },
+              "assistsToDate": 10
+            },
+            {
+              "playerId": 8480448,
+              "name": {
+                "default": "P. Kelly"
+              },
+              "assistsToDate": 1
+            }
+          ],
+          "mugshot": "https://assets.nhle.com/mugs/nhl/20252026/COL/8476967.png",
+          "teamAbbrev": "COL",
+          "goalsToDate": 1,
+          "awayScore": 3,
+          "homeScore": 4,
+          "strength": "ev",
+          "highlightClipSharingUrl": "https://nhl.com/video/min-col-kulak-scores-goal-against-jesper-wallstedt-6395482173112",
+          "highlightClipSharingUrlFr": "https://nhl.com/fr/video/min-col-kulak-but-gagnant-prolongation-6395481896112",
+          "highlightClip": 6395482173112,
+          "highlightClipFr": 6395481896112,
+          "discreteClip": 6395483250112,
+          "discreteClipFr": 6395483743112
+        }
+      ]
+    }
+  ]
+}

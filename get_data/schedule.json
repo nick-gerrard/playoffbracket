@@ -20,7 +20,7 @@
           "easternUTCOffset": "-04:00",
           "venueUTCOffset": "-05:00",
           "venueTimezone": "US/Central",
-          "gameState": "LIVE",
+          "gameState": "OFF",
           "gameScheduleState": "OK",
           "tvBroadcasts": [
             {
@@ -68,8 +68,7 @@
             "logo": "https://assets.nhle.com/logos/nhl/svg/COL_light.svg",
             "darkLogo": "https://assets.nhle.com/logos/nhl/svg/COL_dark.svg",
             "awaySplitSquad": false,
-            "radioLink": "https://d2igy0yla8zi0u.cloudfront.net/COL/20252026/COL-radio.m3u8",
-            "score": 0
+            "score": 5
           },
           "homeTeam": {
             "id": 30,
@@ -87,13 +86,33 @@
             "logo": "https://assets.nhle.com/logos/nhl/svg/MIN_light.svg",
             "darkLogo": "https://assets.nhle.com/logos/nhl/svg/MIN_dark.svg",
             "homeSplitSquad": false,
-            "radioLink": "https://d2igy0yla8zi0u.cloudfront.net/MIN/20252026/MIN-radio.m3u8",
-            "score": 1
+            "score": 2
           },
           "periodDescriptor": {
-            "number": 1,
+            "number": 3,
             "periodType": "REG",
             "maxRegulationPeriods": 3
+          },
+          "gameOutcome": {
+            "lastPeriodType": "REG"
+          },
+          "winningGoalie": {
+            "playerId": 8478406,
+            "firstInitial": {
+              "default": "M."
+            },
+            "lastName": {
+              "default": "Blackwood"
+            }
+          },
+          "winningGoalScorer": {
+            "playerId": 8480448,
+            "firstInitial": {
+              "default": "P."
+            },
+            "lastName": {
+              "default": "Kelly"
+            }
           },
           "seriesStatus": {
             "round": 2,
@@ -102,12 +121,16 @@
             "seriesLetter": "K",
             "neededToWin": 4,
             "topSeedTeamAbbrev": "COL",
-            "topSeedWins": 2,
+            "topSeedWins": 3,
             "bottomSeedTeamAbbrev": "MIN",
             "bottomSeedWins": 1,
             "gameNumberOfSeries": 4
           },
           "seriesUrl": "/schedule/playoff-series/2026/series-k/wild-vs-avalanche",
+          "threeMinRecap": "/video/col-at-min-recap-6395288767112",
+          "threeMinRecapFr": "/fr/video/col-vs-min-11-05-2026-resume-6395290517112",
+          "condensedGame": "/video/col-at-min-condensed-game-6395288979112",
+          "condensedGameFr": "/fr/video/match-condense-avalanche-wild-11-05-2026-6395288268112",
           "gameCenterLink": "/gamecenter/col-vs-min/2026/05/11/2025030234"
         }
       ]
@@ -130,7 +153,7 @@
           "easternUTCOffset": "-04:00",
           "venueUTCOffset": "-04:00",
           "venueTimezone": "America/Montreal",
-          "gameState": "FUT",
+          "gameState": "OFF",
           "gameScheduleState": "OK",
           "tvBroadcasts": [
             {
@@ -178,7 +201,7 @@
             "logo": "https://assets.nhle.com/logos/nhl/svg/BUF_light.svg",
             "darkLogo": "https://assets.nhle.com/logos/nhl/svg/BUF_dark.svg",
             "awaySplitSquad": false,
-            "radioLink": "https://d2igy0yla8zi0u.cloudfront.net/BUF/20252026/BUF-radio.m3u8"
+            "score": 3
           },
           "homeTeam": {
             "id": 8,
@@ -196,12 +219,33 @@
             "logo": "https://assets.nhle.com/logos/nhl/svg/MTL_light.svg",
             "darkLogo": "https://assets.nhle.com/logos/nhl/svg/MTL_dark.svg",
             "homeSplitSquad": false,
-            "radioLink": "https://d2igy0yla8zi0u.cloudfront.net/MTL/20252026/MTL-radio.m3u8"
+            "score": 2
           },
           "periodDescriptor": {
-            "number": 1,
+            "number": 3,
             "periodType": "REG",
             "maxRegulationPeriods": 3
+          },
+          "gameOutcome": {
+            "lastPeriodType": "REG"
+          },
+          "winningGoalie": {
+            "playerId": 8480045,
+            "firstInitial": {
+              "default": "U."
+            },
+            "lastName": {
+              "default": "Luukkonen"
+            }
+          },
+          "winningGoalScorer": {
+            "playerId": 8484145,
+            "firstInitial": {
+              "default": "Z."
+            },
+            "lastName": {
+              "default": "Benson"
+            }
           },
           "seriesStatus": {
             "round": 2,
@@ -210,14 +254,16 @@
             "seriesLetter": "I",
             "neededToWin": 4,
             "topSeedTeamAbbrev": "BUF",
-            "topSeedWins": 1,
+            "topSeedWins": 2,
             "bottomSeedTeamAbbrev": "MTL",
             "bottomSeedWins": 2,
             "gameNumberOfSeries": 4
           },
           "seriesUrl": "/schedule/playoff-series/2026/series-i/canadiens-vs-sabres",
-          "ticketsLink": "https://www.ticketmaster.com/event/3100648AD6FB9FF4?lang=en-ca&brand=nhl&wt.mc_id=NHL_LEAGUE_MTL_SCHED_PG_PLAYOFFS_RD2_GM2&utm_source=NHL.com&utm_medium=client&utm_campaign=NHL_LEAGUE_MTL&utm_content=SCHED_PG_PLAYOFFS_RD2_GM2",
-          "ticketsLinkFr": "https://www.ticketmaster.com/event/3100648AD6FB9FF4?lang=fr-ca&brand=nhl&wt.mc_id=NHL_LEAGUE_MTL_SCHED_PG_PLAYOFFS_RD2_GM2&utm_source=NHL.com&utm_medium=client&utm_campaign=NHL_LEAGUE_MTL&utm_content=SCHED_PG_PLAYOFFS_RD2_GM2",
+          "threeMinRecap": "/video/buf-at-mtl-recap-6395381153112",
+          "threeMinRecapFr": "/fr/video/buf-vs-mtl-12-05-2026-resume-6395382629112",
+          "condensedGame": "/video/buf-at-mtl-condensed-game-6395381358112",
+          "condensedGameFr": "/fr/video/match-condense-sabres-canadiens-12-05-2026-6395380882112",
           "gameCenterLink": "/gamecenter/buf-vs-mtl/2026/05/12/2025030214"
         },
         {
@@ -232,7 +278,7 @@
           "easternUTCOffset": "-04:00",
           "venueUTCOffset": "-07:00",
           "venueTimezone": "US/Pacific",
-          "gameState": "FUT",
+          "gameState": "OFF",
           "gameScheduleState": "OK",
           "tvBroadcasts": [
             {
@@ -280,7 +326,7 @@
             "logo": "https://assets.nhle.com/logos/nhl/svg/ANA_light.svg",
             "darkLogo": "https://assets.nhle.com/logos/nhl/svg/ANA_dark.svg",
             "awaySplitSquad": false,
-            "radioLink": "https://d2igy0yla8zi0u.cloudfront.net/ANA/20252026/ANA-radio.m3u8"
+            "score": 2
           },
           "homeTeam": {
             "id": 54,
@@ -298,12 +344,36 @@
             "logo": "https://assets.nhle.com/logos/nhl/svg/VGK_light.svg",
             "darkLogo": "https://assets.nhle.com/logos/nhl/svg/VGK_dark.svg",
             "homeSplitSquad": false,
-            "radioLink": "https://d2igy0yla8zi0u.cloudfront.net/VGK/20252026/VGK-radio.m3u8"
+            "score": 3
           },
           "periodDescriptor": {
-            "number": 1,
-            "periodType": "REG",
+            "number": 4,
+            "periodType": "OT",
             "maxRegulationPeriods": 3
+          },
+          "gameOutcome": {
+            "lastPeriodType": "OT"
+          },
+          "winningGoalie": {
+            "playerId": 8479394,
+            "firstInitial": {
+              "default": "C."
+            },
+            "lastName": {
+              "default": "Hart"
+            }
+          },
+          "winningGoalScorer": {
+            "playerId": 8481604,
+            "firstInitial": {
+              "default": "P."
+            },
+            "lastName": {
+              "default": "Dorofeyev",
+              "cs": "Dorofejev",
+              "fi": "Dorofejev",
+              "sk": "Dorofejev"
+            }
           },
           "seriesStatus": {
             "round": 2,
@@ -312,14 +382,16 @@
             "seriesLetter": "L",
             "neededToWin": 4,
             "topSeedTeamAbbrev": "VGK",
-            "topSeedWins": 2,
+            "topSeedWins": 3,
             "bottomSeedTeamAbbrev": "ANA",
             "bottomSeedWins": 2,
             "gameNumberOfSeries": 5
           },
           "seriesUrl": "/schedule/playoff-series/2026/series-l/goldenknights-vs-ducks",
-          "ticketsLink": "https://www.nhl.com/goldenknights/tickets/",
-          "ticketsLinkFr": "https://www.nhl.com/goldenknights/tickets/",
+          "threeMinRecap": "/video/ana-at-vgk-recap-6395391994112",
+          "threeMinRecapFr": "/fr/video/ana-vs-vgk-12-05-2026-resume-6395392666112",
+          "condensedGame": "/video/ana-at-vgk-condensed-game-6395394744112",
+          "condensedGameFr": "/fr/video/match-condense-ducks-golden-knights-12-05-2026-6395392667112",
           "gameCenterLink": "/gamecenter/ana-vs-vgk/2026/05/12/2025030245"
         }
       ]
@@ -342,7 +414,7 @@
           "easternUTCOffset": "-04:00",
           "venueUTCOffset": "-06:00",
           "venueTimezone": "America/Denver",
-          "gameState": "FUT",
+          "gameState": "OFF",
           "gameScheduleState": "OK",
           "tvBroadcasts": [
             {
@@ -404,7 +476,7 @@
             "logo": "https://assets.nhle.com/logos/nhl/svg/MIN_light.svg",
             "darkLogo": "https://assets.nhle.com/logos/nhl/svg/MIN_dark.svg",
             "awaySplitSquad": false,
-            "radioLink": "https://d2igy0yla8zi0u.cloudfront.net/MIN/20252026/MIN-radio.m3u8"
+            "score": 3
           },
           "homeTeam": {
             "id": 21,
@@ -422,12 +494,33 @@
             "logo": "https://assets.nhle.com/logos/nhl/svg/COL_light.svg",
             "darkLogo": "https://assets.nhle.com/logos/nhl/svg/COL_dark.svg",
             "homeSplitSquad": false,
-            "radioLink": "https://d2igy0yla8zi0u.cloudfront.net/COL/20252026/COL-radio.m3u8"
+            "score": 4
           },
           "periodDescriptor": {
-            "number": 1,
-            "periodType": "REG",
+            "number": 4,
+            "periodType": "OT",
             "maxRegulationPeriods": 3
+          },
+          "gameOutcome": {
+            "lastPeriodType": "OT"
+          },
+          "winningGoalie": {
+            "playerId": 8475809,
+            "firstInitial": {
+              "default": "S."
+            },
+            "lastName": {
+              "default": "Wedgewood"
+            }
+          },
+          "winningGoalScorer": {
+            "playerId": 8476967,
+            "firstInitial": {
+              "default": "B."
+            },
+            "lastName": {
+              "default": "Kulak"
+            }
           },
           "seriesStatus": {
             "round": 2,
@@ -436,14 +529,16 @@
             "seriesLetter": "K",
             "neededToWin": 4,
             "topSeedTeamAbbrev": "COL",
-            "topSeedWins": 2,
+            "topSeedWins": 4,
             "bottomSeedTeamAbbrev": "MIN",
             "bottomSeedWins": 1,
             "gameNumberOfSeries": 5
           },
           "seriesUrl": "/schedule/playoff-series/2026/series-k/avalanche-vs-wild",
-          "ticketsLink": "https://www.nhl.com/avalanche/tickets/",
-          "ticketsLinkFr": "https://www.nhl.com/avalanche/tickets/",
+          "threeMinRecap": "/video/min-at-col-recap-6395483666112",
+          "threeMinRecapFr": "/fr/video/min-vs-col-13-05-2026-resume-6395482203112",
+          "condensedGame": "/video/min-at-col-condensed-game-6395483181112",
+          "condensedGameFr": "/fr/video/match-condense-wild-avalanche-13-05-2026-6395483952112",
           "gameCenterLink": "/gamecenter/min-vs-col/2026/05/13/2025030235"
         }
       ]
@@ -560,7 +655,7 @@
             "seriesLetter": "I",
             "neededToWin": 4,
             "topSeedTeamAbbrev": "BUF",
-            "topSeedWins": 1,
+            "topSeedWins": 2,
             "bottomSeedTeamAbbrev": "MTL",
             "bottomSeedWins": 2,
             "gameNumberOfSeries": 5
@@ -676,7 +771,7 @@
             "seriesLetter": "L",
             "neededToWin": 4,
             "topSeedTeamAbbrev": "VGK",
-            "topSeedWins": 2,
+            "topSeedWins": 3,
             "bottomSeedTeamAbbrev": "ANA",
             "bottomSeedWins": 2,
             "gameNumberOfSeries": 6
@@ -691,21 +786,28 @@
     {
       "date": "2026-05-15",
       "dayAbbrev": "FRI",
-      "numberOfGames": 1,
+      "numberOfGames": 0,
+      "datePromo": [],
+      "games": []
+    },
+    {
+      "date": "2026-05-16",
+      "dayAbbrev": "SAT",
+      "numberOfGames": 2,
       "datePromo": [],
       "games": [
         {
-          "id": 2025030236,
+          "id": 2025030247,
           "season": 20252026,
           "gameType": 3,
           "venue": {
-            "default": "Grand Casino Arena"
+            "default": "T-Mobile Arena"
           },
           "neutralSite": false,
-          "startTimeUTC": "2026-05-16T00:00:00Z",
+          "startTimeUTC": "2026-05-16T21:00:00Z",
           "easternUTCOffset": "-04:00",
-          "venueUTCOffset": "-05:00",
-          "venueTimezone": "US/Central",
+          "venueUTCOffset": "-07:00",
+          "venueTimezone": "US/Pacific",
           "gameState": "FUT",
           "gameScheduleState": "OK",
           "tvBroadcasts": [
@@ -717,18 +819,18 @@
               "sequenceNumber": 10
             },
             {
-              "id": 4,
+              "id": 290,
               "market": "N",
               "countryCode": "CA",
-              "network": "CBC",
-              "sequenceNumber": 101
+              "network": "SNP",
+              "sequenceNumber": 33
             },
             {
-              "id": 282,
+              "id": 284,
               "market": "N",
               "countryCode": "CA",
-              "network": "SN",
-              "sequenceNumber": 107
+              "network": "SN1",
+              "sequenceNumber": 113
             },
             {
               "id": 281,
@@ -736,190 +838,6 @@
               "countryCode": "CA",
               "network": "TVAS",
               "sequenceNumber": 120
-            }
-          ],
-          "awayTeam": {
-            "id": 21,
-            "commonName": {
-              "default": "Avalanche"
-            },
-            "placeName": {
-              "default": "Colorado"
-            },
-            "placeNameWithPreposition": {
-              "default": "Colorado",
-              "fr": "du Colorado"
-            },
-            "abbrev": "COL",
-            "logo": "https://assets.nhle.com/logos/nhl/svg/COL_light.svg",
-            "darkLogo": "https://assets.nhle.com/logos/nhl/svg/COL_dark.svg",
-            "awaySplitSquad": false,
-            "radioLink": "https://d2igy0yla8zi0u.cloudfront.net/COL/20252026/COL-radio.m3u8"
-          },
-          "homeTeam": {
-            "id": 30,
-            "commonName": {
-              "default": "Wild"
-            },
-            "placeName": {
-              "default": "Minnesota"
-            },
-            "placeNameWithPreposition": {
-              "default": "Minnesota",
-              "fr": "du Minnesota"
-            },
-            "abbrev": "MIN",
-            "logo": "https://assets.nhle.com/logos/nhl/svg/MIN_light.svg",
-            "darkLogo": "https://assets.nhle.com/logos/nhl/svg/MIN_dark.svg",
-            "homeSplitSquad": false,
-            "radioLink": "https://d2igy0yla8zi0u.cloudfront.net/MIN/20252026/MIN-radio.m3u8"
-          },
-          "periodDescriptor": {
-            "number": 1,
-            "periodType": "REG",
-            "maxRegulationPeriods": 3
-          },
-          "seriesStatus": {
-            "round": 2,
-            "seriesAbbrev": "R2",
-            "seriesTitle": "2nd Round",
-            "seriesLetter": "K",
-            "neededToWin": 4,
-            "topSeedTeamAbbrev": "COL",
-            "topSeedWins": 2,
-            "bottomSeedTeamAbbrev": "MIN",
-            "bottomSeedWins": 1,
-            "gameNumberOfSeries": 6
-          },
-          "seriesUrl": "/schedule/playoff-series/2026/series-k/wild-vs-avalanche",
-          "ticketsLink": "https://www.ticketmaster.com/event/06006478D36CF237?brand=nhl&wt.mc_id=NHL_LEAGUE_MIN_SCHED_PG_PLAYOFFS_RD2_GM3&utm_source=NHL.com&utm_medium=client&utm_campaign=NHL_LEAGUE_MIN&utm_content=SCHED_PG_PLAYOFFS_RD2_GM3",
-          "ticketsLinkFr": "https://www.ticketmaster.com/event/06006478D36CF237?brand=nhl&wt.mc_id=NHL_LEAGUE_MIN_SCHED_PG_PLAYOFFS_RD2_GM3&utm_source=NHL.com&utm_medium=client&utm_campaign=NHL_LEAGUE_MIN&utm_content=SCHED_PG_PLAYOFFS_RD2_GM3",
-          "gameCenterLink": "/gamecenter/col-vs-min/2026/05/15/2025030236"
-        }
-      ]
-    },
-    {
-      "date": "2026-05-16",
-      "dayAbbrev": "SAT",
-      "numberOfGames": 2,
-      "datePromo": [],
-      "games": [
-        {
-          "id": 2025030216,
-          "season": 20252026,
-          "gameType": 3,
-          "venue": {
-            "default": "Centre Bell"
-          },
-          "neutralSite": false,
-          "startTimeUTC": "2026-05-16T16:00:00Z",
-          "easternUTCOffset": "-04:00",
-          "venueUTCOffset": "-04:00",
-          "venueTimezone": "America/Montreal",
-          "gameState": "FUT",
-          "gameScheduleState": "TBD",
-          "tvBroadcasts": [
-            {
-              "id": 384,
-              "market": "N",
-              "countryCode": "US",
-              "network": "ABC",
-              "sequenceNumber": 1
-            },
-            {
-              "id": 309,
-              "market": "N",
-              "countryCode": "US",
-              "network": "ESPN",
-              "sequenceNumber": 10
-            }
-          ],
-          "awayTeam": {
-            "id": 7,
-            "commonName": {
-              "default": "Sabres"
-            },
-            "placeName": {
-              "default": "Buffalo"
-            },
-            "placeNameWithPreposition": {
-              "default": "Buffalo",
-              "fr": "de Buffalo"
-            },
-            "abbrev": "BUF",
-            "logo": "https://assets.nhle.com/logos/nhl/svg/BUF_light.svg",
-            "darkLogo": "https://assets.nhle.com/logos/nhl/svg/BUF_dark.svg",
-            "awaySplitSquad": false,
-            "radioLink": "https://d2igy0yla8zi0u.cloudfront.net/BUF/20252026/BUF-radio.m3u8"
-          },
-          "homeTeam": {
-            "id": 8,
-            "commonName": {
-              "default": "Canadiens"
-            },
-            "placeName": {
-              "default": "Montr\u00e9al"
-            },
-            "placeNameWithPreposition": {
-              "default": "Montr\u00e9al",
-              "fr": "de Montr\u00e9al"
-            },
-            "abbrev": "MTL",
-            "logo": "https://assets.nhle.com/logos/nhl/svg/MTL_light.svg",
-            "darkLogo": "https://assets.nhle.com/logos/nhl/svg/MTL_dark.svg",
-            "homeSplitSquad": false,
-            "radioLink": "https://d2igy0yla8zi0u.cloudfront.net/MTL/20252026/MTL-radio.m3u8"
-          },
-          "periodDescriptor": {
-            "number": 1,
-            "periodType": "REG",
-            "maxRegulationPeriods": 3
-          },
-          "seriesStatus": {
-            "round": 2,
-            "seriesAbbrev": "R2",
-            "seriesTitle": "2nd Round",
-            "seriesLetter": "I",
-            "neededToWin": 4,
-            "topSeedTeamAbbrev": "BUF",
-            "topSeedWins": 1,
-            "bottomSeedTeamAbbrev": "MTL",
-            "bottomSeedWins": 2,
-            "gameNumberOfSeries": 6
-          },
-          "seriesUrl": "/schedule/playoff-series/2026/series-i/canadiens-vs-sabres",
-          "ticketsLink": "https://www.ticketmaster.com/event/3100648AD6FF9FFE?lang=en-ca&brand=nhl&wt.mc_id=NHL_LEAGUE_MTL_SCHED_PG_PLAYOFFS_RD2_GM3&utm_source=NHL.com&utm_medium=client&utm_campaign=NHL_LEAGUE_MTL&utm_content=SCHED_PG_PLAYOFFS_RD2_GM3",
-          "ticketsLinkFr": "https://www.ticketmaster.com/event/3100648AD6FF9FFE?lang=fr-ca&brand=nhl&wt.mc_id=NHL_LEAGUE_MTL_SCHED_PG_PLAYOFFS_RD2_GM3&utm_source=NHL.com&utm_medium=client&utm_campaign=NHL_LEAGUE_MTL&utm_content=SCHED_PG_PLAYOFFS_RD2_GM3",
-          "gameCenterLink": "/gamecenter/buf-vs-mtl/2026/05/16/2025030216"
-        },
-        {
-          "id": 2025030247,
-          "season": 20252026,
-          "gameType": 3,
-          "venue": {
-            "default": "T-Mobile Arena"
-          },
-          "neutralSite": false,
-          "startTimeUTC": "2026-05-16T16:00:00Z",
-          "easternUTCOffset": "-04:00",
-          "venueUTCOffset": "-07:00",
-          "venueTimezone": "US/Pacific",
-          "gameState": "FUT",
-          "gameScheduleState": "TBD",
-          "tvBroadcasts": [
-            {
-              "id": 384,
-              "market": "N",
-              "countryCode": "US",
-              "network": "ABC",
-              "sequenceNumber": 1
-            },
-            {
-              "id": 309,
-              "market": "N",
-              "countryCode": "US",
-              "network": "ESPN",
-              "sequenceNumber": 10
             }
           ],
           "awayTeam": {
@@ -970,7 +888,7 @@
             "seriesLetter": "L",
             "neededToWin": 4,
             "topSeedTeamAbbrev": "VGK",
-            "topSeedWins": 2,
+            "topSeedWins": 3,
             "bottomSeedTeamAbbrev": "ANA",
             "bottomSeedWins": 2,
             "gameNumberOfSeries": 7
@@ -979,87 +897,86 @@
           "ticketsLink": "https://www.nhl.com/goldenknights/tickets/",
           "ticketsLinkFr": "https://www.nhl.com/goldenknights/tickets/",
           "gameCenterLink": "/gamecenter/ana-vs-vgk/2026/05/16/2025030247"
-        }
-      ]
-    },
-    {
-      "date": "2026-05-17",
-      "dayAbbrev": "SUN",
-      "numberOfGames": 1,
-      "datePromo": [],
-      "games": [
+        },
         {
-          "id": 2025030237,
+          "id": 2025030216,
           "season": 20252026,
           "gameType": 3,
           "venue": {
-            "default": "Ball Arena"
+            "default": "Centre Bell"
           },
           "neutralSite": false,
-          "startTimeUTC": "2026-05-17T16:00:00Z",
+          "startTimeUTC": "2026-05-17T00:00:00Z",
           "easternUTCOffset": "-04:00",
-          "venueUTCOffset": "-06:00",
-          "venueTimezone": "America/Denver",
+          "venueUTCOffset": "-04:00",
+          "venueTimezone": "America/Montreal",
           "gameState": "FUT",
-          "gameScheduleState": "TBD",
+          "gameScheduleState": "OK",
           "tvBroadcasts": [
             {
-              "id": 385,
+              "id": 384,
               "market": "N",
               "countryCode": "US",
-              "network": "TNT",
-              "sequenceNumber": 11
+              "network": "ABC",
+              "sequenceNumber": 1
             },
             {
-              "id": 501,
+              "id": 4,
               "market": "N",
-              "countryCode": "US",
-              "network": "truTV",
-              "sequenceNumber": 14
+              "countryCode": "CA",
+              "network": "CBC",
+              "sequenceNumber": 101
             },
             {
-              "id": 578,
+              "id": 282,
               "market": "N",
-              "countryCode": "US",
-              "network": "HBO MAX",
-              "sequenceNumber": 19
+              "countryCode": "CA",
+              "network": "SN",
+              "sequenceNumber": 107
+            },
+            {
+              "id": 281,
+              "market": "N",
+              "countryCode": "CA",
+              "network": "TVAS",
+              "sequenceNumber": 120
             }
           ],
           "awayTeam": {
-            "id": 30,
+            "id": 7,
             "commonName": {
-              "default": "Wild"
+              "default": "Sabres"
             },
             "placeName": {
-              "default": "Minnesota"
+              "default": "Buffalo"
             },
             "placeNameWithPreposition": {
-              "default": "Minnesota",
-              "fr": "du Minnesota"
+              "default": "Buffalo",
+              "fr": "de Buffalo"
             },
-            "abbrev": "MIN",
-            "logo": "https://assets.nhle.com/logos/nhl/svg/MIN_light.svg",
-            "darkLogo": "https://assets.nhle.com/logos/nhl/svg/MIN_dark.svg",
+            "abbrev": "BUF",
+            "logo": "https://assets.nhle.com/logos/nhl/svg/BUF_light.svg",
+            "darkLogo": "https://assets.nhle.com/logos/nhl/svg/BUF_dark.svg",
             "awaySplitSquad": false,
-            "radioLink": "https://d2igy0yla8zi0u.cloudfront.net/MIN/20252026/MIN-radio.m3u8"
+            "radioLink": "https://d2igy0yla8zi0u.cloudfront.net/BUF/20252026/BUF-radio.m3u8"
           },
           "homeTeam": {
-            "id": 21,
+            "id": 8,
             "commonName": {
-              "default": "Avalanche"
+              "default": "Canadiens"
             },
             "placeName": {
-              "default": "Colorado"
+              "default": "Montr\u00e9al"
             },
             "placeNameWithPreposition": {
-              "default": "Colorado",
-              "fr": "du Colorado"
+              "default": "Montr\u00e9al",
+              "fr": "de Montr\u00e9al"
             },
-            "abbrev": "COL",
-            "logo": "https://assets.nhle.com/logos/nhl/svg/COL_light.svg",
-            "darkLogo": "https://assets.nhle.com/logos/nhl/svg/COL_dark.svg",
+            "abbrev": "MTL",
+            "logo": "https://assets.nhle.com/logos/nhl/svg/MTL_light.svg",
+            "darkLogo": "https://assets.nhle.com/logos/nhl/svg/MTL_dark.svg",
             "homeSplitSquad": false,
-            "radioLink": "https://d2igy0yla8zi0u.cloudfront.net/COL/20252026/COL-radio.m3u8"
+            "radioLink": "https://d2igy0yla8zi0u.cloudfront.net/MTL/20252026/MTL-radio.m3u8"
           },
           "periodDescriptor": {
             "number": 1,
@@ -1070,20 +987,27 @@
             "round": 2,
             "seriesAbbrev": "R2",
             "seriesTitle": "2nd Round",
-            "seriesLetter": "K",
+            "seriesLetter": "I",
             "neededToWin": 4,
-            "topSeedTeamAbbrev": "COL",
+            "topSeedTeamAbbrev": "BUF",
             "topSeedWins": 2,
-            "bottomSeedTeamAbbrev": "MIN",
-            "bottomSeedWins": 1,
-            "gameNumberOfSeries": 7
+            "bottomSeedTeamAbbrev": "MTL",
+            "bottomSeedWins": 2,
+            "gameNumberOfSeries": 6
           },
-          "seriesUrl": "/schedule/playoff-series/2026/series-k/avalanche-vs-wild",
-          "ticketsLink": "https://www.nhl.com/avalanche/tickets/",
-          "ticketsLinkFr": "https://www.nhl.com/avalanche/tickets/",
-          "gameCenterLink": "/gamecenter/min-vs-col/2026/05/17/2025030237"
+          "seriesUrl": "/schedule/playoff-series/2026/series-i/canadiens-vs-sabres",
+          "ticketsLink": "https://www.ticketmaster.com/event/3100648AD6FF9FFE?lang=en-ca&brand=nhl&wt.mc_id=NHL_LEAGUE_MTL_SCHED_PG_PLAYOFFS_RD2_GM3&utm_source=NHL.com&utm_medium=client&utm_campaign=NHL_LEAGUE_MTL&utm_content=SCHED_PG_PLAYOFFS_RD2_GM3",
+          "ticketsLinkFr": "https://www.ticketmaster.com/event/3100648AD6FF9FFE?lang=fr-ca&brand=nhl&wt.mc_id=NHL_LEAGUE_MTL_SCHED_PG_PLAYOFFS_RD2_GM3&utm_source=NHL.com&utm_medium=client&utm_campaign=NHL_LEAGUE_MTL&utm_content=SCHED_PG_PLAYOFFS_RD2_GM3",
+          "gameCenterLink": "/gamecenter/buf-vs-mtl/2026/05/16/2025030216"
         }
       ]
+    },
+    {
+      "date": "2026-05-17",
+      "dayAbbrev": "SUN",
+      "numberOfGames": 0,
+      "datePromo": [],
+      "games": []
     }
   ],
   "oddsPartners": [
@@ -1162,5 +1086,5 @@
   "regularSeasonStartDate": "2025-10-07",
   "regularSeasonEndDate": "2026-04-17",
   "playoffEndDate": "2026-06-15",
-  "numberOfGames": 10
+  "numberOfGames": 8
 }

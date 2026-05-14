@@ -1,465 +1,7 @@
 {
-  "focusedDate": "2026-05-11",
-  "focusedDateCount": 11,
+  "focusedDate": "2026-05-13",
+  "focusedDateCount": 7,
   "gamesByDate": [
-    {
-      "date": "2026-05-08",
-      "games": [
-        {
-          "id": 2025030212,
-          "season": 20252026,
-          "gameType": 3,
-          "gameDate": "2026-05-08",
-          "gameCenterLink": "/gamecenter/mtl-vs-buf/2026/05/08/2025030212",
-          "venue": {
-            "default": "KeyBank Center"
-          },
-          "startTimeUTC": "2026-05-08T23:00:00Z",
-          "easternUTCOffset": "-04:00",
-          "venueUTCOffset": "-04:00",
-          "tvBroadcasts": [
-            {
-              "id": 385,
-              "market": "N",
-              "countryCode": "US",
-              "network": "TNT",
-              "sequenceNumber": 11
-            },
-            {
-              "id": 578,
-              "market": "N",
-              "countryCode": "US",
-              "network": "HBO MAX",
-              "sequenceNumber": 19
-            },
-            {
-              "id": 4,
-              "market": "N",
-              "countryCode": "CA",
-              "network": "CBC",
-              "sequenceNumber": 101
-            },
-            {
-              "id": 282,
-              "market": "N",
-              "countryCode": "CA",
-              "network": "SN",
-              "sequenceNumber": 107
-            },
-            {
-              "id": 281,
-              "market": "N",
-              "countryCode": "CA",
-              "network": "TVAS",
-              "sequenceNumber": 120
-            }
-          ],
-          "gameState": "OFF",
-          "gameScheduleState": "OK",
-          "awayTeam": {
-            "id": 8,
-            "name": {
-              "default": "Montr\u00e9al Canadiens",
-              "fr": "Canadiens de Montr\u00e9al"
-            },
-            "commonName": {
-              "default": "Canadiens"
-            },
-            "placeNameWithPreposition": {
-              "default": "Montr\u00e9al",
-              "fr": "de Montr\u00e9al"
-            },
-            "abbrev": "MTL",
-            "score": 5,
-            "logo": "https://assets.nhle.com/logos/nhl/svg/MTL_light.svg"
-          },
-          "homeTeam": {
-            "id": 7,
-            "name": {
-              "default": "Buffalo Sabres",
-              "fr": "Sabres de Buffalo"
-            },
-            "commonName": {
-              "default": "Sabres"
-            },
-            "placeNameWithPreposition": {
-              "default": "Buffalo",
-              "fr": "de Buffalo"
-            },
-            "abbrev": "BUF",
-            "score": 1,
-            "logo": "https://assets.nhle.com/logos/nhl/svg/BUF_light.svg"
-          },
-          "ticketsLink": "https://www.ticketmaster.com/event/0000648DC36BECAE?brand=nhl&wt.mc_id=NHL_LEAGUE_BUF_HORIZONTAL_SCOREBOARD_PLAYOFFS_RD2_GM2&utm_source=NHL.com&utm_medium=client&utm_campaign=NHL_LEAGUE_BUF&utm_content=HORIZONTAL_SCOREBOARD_PLAYOFFS_RD2_GM2",
-          "ticketsLinkFr": "https://www.ticketmaster.com/event/0000648DC36BECAE?brand=nhl&wt.mc_id=NHL_LEAGUE_BUF_HORIZONTAL_SCOREBOARD_PLAYOFFS_RD2_GM2&utm_source=NHL.com&utm_medium=client&utm_campaign=NHL_LEAGUE_BUF&utm_content=HORIZONTAL_SCOREBOARD_PLAYOFFS_RD2_GM2",
-          "period": 3,
-          "periodDescriptor": {
-            "number": 3,
-            "periodType": "REG",
-            "maxRegulationPeriods": 3
-          },
-          "seriesStatus": {
-            "round": 2,
-            "seriesAbbrev": "R2",
-            "game": 2,
-            "topSeedTeamAbbrev": "BUF",
-            "topSeedWins": 1,
-            "bottomSeedTeamAbbrev": "MTL",
-            "bottomSeedWins": 1
-          },
-          "threeMinRecap": "/video/mtl-at-buf-recap-6395024156112",
-          "threeMinRecapFr": "/fr/video/mtl-vs-buf-08-05-2026-resume-6395024655112"
-        },
-        {
-          "id": 2025030243,
-          "season": 20252026,
-          "gameType": 3,
-          "gameDate": "2026-05-08",
-          "gameCenterLink": "/gamecenter/vgk-vs-ana/2026/05/08/2025030243",
-          "venue": {
-            "default": "Honda Center"
-          },
-          "startTimeUTC": "2026-05-09T01:30:00Z",
-          "easternUTCOffset": "-04:00",
-          "venueUTCOffset": "-07:00",
-          "tvBroadcasts": [
-            {
-              "id": 385,
-              "market": "N",
-              "countryCode": "US",
-              "network": "TNT",
-              "sequenceNumber": 11
-            },
-            {
-              "id": 501,
-              "market": "N",
-              "countryCode": "US",
-              "network": "truTV",
-              "sequenceNumber": 14
-            },
-            {
-              "id": 578,
-              "market": "N",
-              "countryCode": "US",
-              "network": "HBO MAX",
-              "sequenceNumber": 19
-            },
-            {
-              "id": 282,
-              "market": "N",
-              "countryCode": "CA",
-              "network": "SN",
-              "sequenceNumber": 107
-            },
-            {
-              "id": 283,
-              "market": "N",
-              "countryCode": "CA",
-              "network": "SN360",
-              "sequenceNumber": 114
-            },
-            {
-              "id": 281,
-              "market": "N",
-              "countryCode": "CA",
-              "network": "TVAS",
-              "sequenceNumber": 120
-            }
-          ],
-          "gameState": "OFF",
-          "gameScheduleState": "OK",
-          "awayTeam": {
-            "id": 54,
-            "name": {
-              "default": "Vegas Golden Knights",
-              "fr": "Golden Knights de Vegas"
-            },
-            "commonName": {
-              "default": "Golden Knights"
-            },
-            "placeNameWithPreposition": {
-              "default": "Vegas",
-              "fr": "de Vegas"
-            },
-            "abbrev": "VGK",
-            "score": 6,
-            "logo": "https://assets.nhle.com/logos/nhl/svg/VGK_light.svg"
-          },
-          "homeTeam": {
-            "id": 24,
-            "name": {
-              "default": "Anaheim Ducks",
-              "fr": "Ducks d'Anaheim"
-            },
-            "commonName": {
-              "default": "Ducks"
-            },
-            "placeNameWithPreposition": {
-              "default": "Anaheim",
-              "fr": "d'Anaheim"
-            },
-            "abbrev": "ANA",
-            "score": 2,
-            "logo": "https://assets.nhle.com/logos/nhl/svg/ANA_light.svg"
-          },
-          "ticketsLink": "https://www.ticketmaster.com/event/0900647943EE5801?brand=nhl&wt.mc_id=NHL_LEAGUE_ANA_HORIZONTAL_SCOREBOARD_PLAYOFFS_RD2_GM1&utm_source=NHL.com&utm_medium=client&utm_campaign=NHL_LEAGUE_ANA&utm_content=HORIZONTAL_SCOREBOARD_PLAYOFFS_RD2_GM1",
-          "ticketsLinkFr": "https://www.ticketmaster.com/event/0900647943EE5801?brand=nhl&wt.mc_id=NHL_LEAGUE_ANA_HORIZONTAL_SCOREBOARD_PLAYOFFS_RD2_GM1&utm_source=NHL.com&utm_medium=client&utm_campaign=NHL_LEAGUE_ANA&utm_content=HORIZONTAL_SCOREBOARD_PLAYOFFS_RD2_GM1",
-          "period": 3,
-          "periodDescriptor": {
-            "number": 3,
-            "periodType": "REG",
-            "maxRegulationPeriods": 3
-          },
-          "seriesStatus": {
-            "round": 2,
-            "seriesAbbrev": "R2",
-            "game": 3,
-            "topSeedTeamAbbrev": "VGK",
-            "topSeedWins": 2,
-            "bottomSeedTeamAbbrev": "ANA",
-            "bottomSeedWins": 1
-          },
-          "threeMinRecap": "/video/vgk-at-ana-recap-6395038759112",
-          "threeMinRecapFr": "/fr/video/vgk-vs-ana-08-05-2026-resume-6395038953112"
-        }
-      ]
-    },
-    {
-      "date": "2026-05-09",
-      "games": [
-        {
-          "id": 2025030224,
-          "season": 20252026,
-          "gameType": 3,
-          "gameDate": "2026-05-09",
-          "gameCenterLink": "/gamecenter/car-vs-phi/2026/05/09/2025030224",
-          "venue": {
-            "default": "Xfinity Mobile Arena"
-          },
-          "startTimeUTC": "2026-05-09T22:00:00Z",
-          "easternUTCOffset": "-04:00",
-          "venueUTCOffset": "-04:00",
-          "tvBroadcasts": [
-            {
-              "id": 385,
-              "market": "N",
-              "countryCode": "US",
-              "network": "TNT",
-              "sequenceNumber": 11
-            },
-            {
-              "id": 501,
-              "market": "N",
-              "countryCode": "US",
-              "network": "truTV",
-              "sequenceNumber": 14
-            },
-            {
-              "id": 578,
-              "market": "N",
-              "countryCode": "US",
-              "network": "HBO MAX",
-              "sequenceNumber": 19
-            },
-            {
-              "id": 4,
-              "market": "N",
-              "countryCode": "CA",
-              "network": "CBC",
-              "sequenceNumber": 101
-            },
-            {
-              "id": 282,
-              "market": "N",
-              "countryCode": "CA",
-              "network": "SN",
-              "sequenceNumber": 107
-            },
-            {
-              "id": 281,
-              "market": "N",
-              "countryCode": "CA",
-              "network": "TVAS",
-              "sequenceNumber": 120
-            }
-          ],
-          "gameState": "OFF",
-          "gameScheduleState": "OK",
-          "awayTeam": {
-            "id": 12,
-            "name": {
-              "default": "Carolina Hurricanes",
-              "fr": "Hurricanes de la Caroline"
-            },
-            "commonName": {
-              "default": "Hurricanes"
-            },
-            "placeNameWithPreposition": {
-              "default": "Carolina",
-              "fr": "de la Caroline"
-            },
-            "abbrev": "CAR",
-            "score": 3,
-            "logo": "https://assets.nhle.com/logos/nhl/svg/CAR_light.svg"
-          },
-          "homeTeam": {
-            "id": 4,
-            "name": {
-              "default": "Philadelphia Flyers",
-              "fr": "Flyers de Philadelphie"
-            },
-            "commonName": {
-              "default": "Flyers"
-            },
-            "placeNameWithPreposition": {
-              "default": "Philadelphia",
-              "fr": "de Philadelphie"
-            },
-            "abbrev": "PHI",
-            "score": 2,
-            "logo": "https://assets.nhle.com/logos/nhl/svg/PHI_light.svg"
-          },
-          "ticketsLink": "https://www.ticketmaster.com/event/30006488A0B442E7?brand=nhl&wt.mc_id=NHL_LEAGUE_PHI_HORIZONTAL_SCOREBOARD_PLAYOFFS_RD2_GM2&utm_source=NHL.com&utm_medium=client&utm_campaign=NHL_LEAGUE_PHI&utm_content=HORIZONTAL_SCOREBOARD_PLAYOFFS_RD2_GM2",
-          "ticketsLinkFr": "https://www.ticketmaster.com/event/30006488A0B442E7?brand=nhl&wt.mc_id=NHL_LEAGUE_PHI_HORIZONTAL_SCOREBOARD_PLAYOFFS_RD2_GM2&utm_source=NHL.com&utm_medium=client&utm_campaign=NHL_LEAGUE_PHI&utm_content=HORIZONTAL_SCOREBOARD_PLAYOFFS_RD2_GM2",
-          "period": 4,
-          "periodDescriptor": {
-            "number": 4,
-            "periodType": "OT",
-            "maxRegulationPeriods": 3
-          },
-          "seriesStatus": {
-            "round": 2,
-            "seriesAbbrev": "R2",
-            "game": 4,
-            "topSeedTeamAbbrev": "CAR",
-            "topSeedWins": 4,
-            "bottomSeedTeamAbbrev": "PHI",
-            "bottomSeedWins": 0
-          },
-          "threeMinRecap": "/video/car-at-phi-recap-6395104591112",
-          "threeMinRecapFr": "/fr/video/car-vs-phi-09-05-2026-resume-6395104773112"
-        },
-        {
-          "id": 2025030233,
-          "season": 20252026,
-          "gameType": 3,
-          "gameDate": "2026-05-09",
-          "gameCenterLink": "/gamecenter/col-vs-min/2026/05/09/2025030233",
-          "venue": {
-            "default": "Grand Casino Arena"
-          },
-          "startTimeUTC": "2026-05-10T01:00:00Z",
-          "easternUTCOffset": "-04:00",
-          "venueUTCOffset": "-05:00",
-          "tvBroadcasts": [
-            {
-              "id": 385,
-              "market": "N",
-              "countryCode": "US",
-              "network": "TNT",
-              "sequenceNumber": 11
-            },
-            {
-              "id": 501,
-              "market": "N",
-              "countryCode": "US",
-              "network": "truTV",
-              "sequenceNumber": 14
-            },
-            {
-              "id": 578,
-              "market": "N",
-              "countryCode": "US",
-              "network": "HBO MAX",
-              "sequenceNumber": 19
-            },
-            {
-              "id": 4,
-              "market": "N",
-              "countryCode": "CA",
-              "network": "CBC",
-              "sequenceNumber": 101
-            },
-            {
-              "id": 282,
-              "market": "N",
-              "countryCode": "CA",
-              "network": "SN",
-              "sequenceNumber": 107
-            },
-            {
-              "id": 284,
-              "market": "N",
-              "countryCode": "CA",
-              "network": "SN1",
-              "sequenceNumber": 113
-            },
-            {
-              "id": 281,
-              "market": "N",
-              "countryCode": "CA",
-              "network": "TVAS",
-              "sequenceNumber": 120
-            }
-          ],
-          "gameState": "OFF",
-          "gameScheduleState": "OK",
-          "awayTeam": {
-            "id": 21,
-            "name": {
-              "default": "Colorado Avalanche",
-              "fr": "Avalanche du Colorado"
-            },
-            "commonName": {
-              "default": "Avalanche"
-            },
-            "placeNameWithPreposition": {
-              "default": "Colorado",
-              "fr": "du Colorado"
-            },
-            "abbrev": "COL",
-            "score": 1,
-            "logo": "https://assets.nhle.com/logos/nhl/svg/COL_light.svg"
-          },
-          "homeTeam": {
-            "id": 30,
-            "name": {
-              "default": "Minnesota Wild",
-              "fr": "Wild du Minnesota"
-            },
-            "commonName": {
-              "default": "Wild"
-            },
-            "placeNameWithPreposition": {
-              "default": "Minnesota",
-              "fr": "du Minnesota"
-            },
-            "abbrev": "MIN",
-            "score": 5,
-            "logo": "https://assets.nhle.com/logos/nhl/svg/MIN_light.svg"
-          },
-          "ticketsLink": "https://www.ticketmaster.com/event/06006478D361F22D?brand=nhl&wt.mc_id=NHL_LEAGUE_MIN_HORIZONTAL_SCOREBOARD_PLAYOFFS_RD2_GM1&utm_source=NHL.com&utm_medium=client&utm_campaign=NHL_LEAGUE_MIN&utm_content=HORIZONTAL_SCOREBOARD_PLAYOFFS_RD2_GM1",
-          "ticketsLinkFr": "https://www.ticketmaster.com/event/06006478D361F22D?brand=nhl&wt.mc_id=NHL_LEAGUE_MIN_HORIZONTAL_SCOREBOARD_PLAYOFFS_RD2_GM1&utm_source=NHL.com&utm_medium=client&utm_campaign=NHL_LEAGUE_MIN&utm_content=HORIZONTAL_SCOREBOARD_PLAYOFFS_RD2_GM1",
-          "period": 3,
-          "periodDescriptor": {
-            "number": 3,
-            "periodType": "REG",
-            "maxRegulationPeriods": 3
-          },
-          "seriesStatus": {
-            "round": 2,
-            "seriesAbbrev": "R2",
-            "game": 3,
-            "topSeedTeamAbbrev": "COL",
-            "topSeedWins": 2,
-            "bottomSeedTeamAbbrev": "MIN",
-            "bottomSeedWins": 1
-          },
-          "threeMinRecap": "/video/col-at-min-recap-6395112626112",
-          "threeMinRecapFr": "/fr/video/col-vs-min-09-05-2026-resume-6395113991112"
-        }
-      ]
-    },
     {
       "date": "2026-05-10",
       "games": [
@@ -706,7 +248,7 @@
               "sequenceNumber": 120
             }
           ],
-          "gameState": "LIVE",
+          "gameState": "OFF",
           "gameScheduleState": "OK",
           "awayTeam": {
             "id": 21,
@@ -722,8 +264,7 @@
               "fr": "du Colorado"
             },
             "abbrev": "COL",
-            "score": 0,
-            "sog": 10,
+            "score": 5,
             "logo": "https://assets.nhle.com/logos/nhl/svg/COL_light.svg"
           },
           "homeTeam": {
@@ -740,33 +281,28 @@
               "fr": "du Minnesota"
             },
             "abbrev": "MIN",
-            "score": 1,
-            "sog": 4,
+            "score": 2,
             "logo": "https://assets.nhle.com/logos/nhl/svg/MIN_light.svg"
           },
           "ticketsLink": "https://www.ticketmaster.com/event/06006478D366F231?brand=nhl&wt.mc_id=NHL_LEAGUE_MIN_HORIZONTAL_SCOREBOARD_PLAYOFFS_RD2_GM2&utm_source=NHL.com&utm_medium=client&utm_campaign=NHL_LEAGUE_MIN&utm_content=HORIZONTAL_SCOREBOARD_PLAYOFFS_RD2_GM2",
           "ticketsLinkFr": "https://www.ticketmaster.com/event/06006478D366F231?brand=nhl&wt.mc_id=NHL_LEAGUE_MIN_HORIZONTAL_SCOREBOARD_PLAYOFFS_RD2_GM2&utm_source=NHL.com&utm_medium=client&utm_campaign=NHL_LEAGUE_MIN&utm_content=HORIZONTAL_SCOREBOARD_PLAYOFFS_RD2_GM2",
-          "period": 1,
+          "period": 3,
           "periodDescriptor": {
-            "number": 1,
+            "number": 3,
             "periodType": "REG",
             "maxRegulationPeriods": 3
-          },
-          "clock": {
-            "timeRemaining": "01:53",
-            "secondsRemaining": 113,
-            "running": false,
-            "inIntermission": true
           },
           "seriesStatus": {
             "round": 2,
             "seriesAbbrev": "R2",
             "game": 4,
             "topSeedTeamAbbrev": "COL",
-            "topSeedWins": 2,
+            "topSeedWins": 3,
             "bottomSeedTeamAbbrev": "MIN",
             "bottomSeedWins": 1
-          }
+          },
+          "threeMinRecap": "/video/col-at-min-recap-6395288767112",
+          "threeMinRecapFr": "/fr/video/col-vs-min-11-05-2026-resume-6395290517112"
         }
       ]
     },
@@ -815,7 +351,7 @@
               "sequenceNumber": 120
             }
           ],
-          "gameState": "FUT",
+          "gameState": "OFF",
           "gameScheduleState": "OK",
           "awayTeam": {
             "id": 7,
@@ -831,7 +367,7 @@
               "fr": "de Buffalo"
             },
             "abbrev": "BUF",
-            "record": "5-4",
+            "score": 3,
             "logo": "https://assets.nhle.com/logos/nhl/svg/BUF_light.svg"
           },
           "homeTeam": {
@@ -848,20 +384,28 @@
               "fr": "de Montr\u00e9al"
             },
             "abbrev": "MTL",
-            "record": "6-4",
+            "score": 2,
             "logo": "https://assets.nhle.com/logos/nhl/svg/MTL_light.svg"
           },
           "ticketsLink": "https://www.ticketmaster.com/event/3100648AD6FB9FF4?lang=en-ca&brand=nhl&wt.mc_id=NHL_LEAGUE_MTL_HORIZONTAL_SCOREBOARD_PLAYOFFS_RD2_GM2&utm_source=NHL.com&utm_medium=client&utm_campaign=NHL_LEAGUE_MTL&utm_content=HORIZONTAL_SCOREBOARD_PLAYOFFS_RD2_GM2",
           "ticketsLinkFr": "https://www.ticketmaster.com/event/3100648AD6FB9FF4?lang=fr-ca&brand=nhl&wt.mc_id=NHL_LEAGUE_MTL_HORIZONTAL_SCOREBOARD_PLAYOFFS_RD2_GM2&utm_source=NHL.com&utm_medium=client&utm_campaign=NHL_LEAGUE_MTL&utm_content=HORIZONTAL_SCOREBOARD_PLAYOFFS_RD2_GM2",
+          "period": 3,
+          "periodDescriptor": {
+            "number": 3,
+            "periodType": "REG",
+            "maxRegulationPeriods": 3
+          },
           "seriesStatus": {
             "round": 2,
             "seriesAbbrev": "R2",
             "game": 4,
             "topSeedTeamAbbrev": "BUF",
-            "topSeedWins": 1,
+            "topSeedWins": 2,
             "bottomSeedTeamAbbrev": "MTL",
             "bottomSeedWins": 2
-          }
+          },
+          "threeMinRecap": "/video/buf-at-mtl-recap-6395381153112",
+          "threeMinRecapFr": "/fr/video/buf-vs-mtl-12-05-2026-resume-6395382629112"
         },
         {
           "id": 2025030245,
@@ -905,7 +449,7 @@
               "sequenceNumber": 120
             }
           ],
-          "gameState": "FUT",
+          "gameState": "OFF",
           "gameScheduleState": "OK",
           "awayTeam": {
             "id": 24,
@@ -921,7 +465,7 @@
               "fr": "d'Anaheim"
             },
             "abbrev": "ANA",
-            "record": "6-4",
+            "score": 2,
             "logo": "https://assets.nhle.com/logos/nhl/svg/ANA_light.svg"
           },
           "homeTeam": {
@@ -938,20 +482,28 @@
               "fr": "de Vegas"
             },
             "abbrev": "VGK",
-            "record": "6-4",
+            "score": 3,
             "logo": "https://assets.nhle.com/logos/nhl/svg/VGK_light.svg"
           },
           "ticketsLink": "",
           "ticketsLinkFr": "",
+          "period": 4,
+          "periodDescriptor": {
+            "number": 4,
+            "periodType": "OT",
+            "maxRegulationPeriods": 3
+          },
           "seriesStatus": {
             "round": 2,
             "seriesAbbrev": "R2",
             "game": 5,
             "topSeedTeamAbbrev": "VGK",
-            "topSeedWins": 2,
+            "topSeedWins": 3,
             "bottomSeedTeamAbbrev": "ANA",
             "bottomSeedWins": 2
-          }
+          },
+          "threeMinRecap": "/video/ana-at-vgk-recap-6395391994112",
+          "threeMinRecapFr": "/fr/video/ana-vs-vgk-12-05-2026-resume-6395392666112"
         }
       ]
     },
@@ -1014,7 +566,7 @@
               "sequenceNumber": 120
             }
           ],
-          "gameState": "FUT",
+          "gameState": "OFF",
           "gameScheduleState": "OK",
           "awayTeam": {
             "id": 30,
@@ -1030,7 +582,7 @@
               "fr": "du Minnesota"
             },
             "abbrev": "MIN",
-            "record": "5-4",
+            "score": 3,
             "logo": "https://assets.nhle.com/logos/nhl/svg/MIN_light.svg"
           },
           "homeTeam": {
@@ -1047,20 +599,28 @@
               "fr": "du Colorado"
             },
             "abbrev": "COL",
-            "record": "6-1",
+            "score": 4,
             "logo": "https://assets.nhle.com/logos/nhl/svg/COL_light.svg"
           },
           "ticketsLink": "https://avs.social/26_LG_SCOREBOARD_PO_RD2GM3",
           "ticketsLinkFr": "https://avs.social/26_LG_SCOREBOARD_PO_RD2GM3",
+          "period": 4,
+          "periodDescriptor": {
+            "number": 4,
+            "periodType": "OT",
+            "maxRegulationPeriods": 3
+          },
           "seriesStatus": {
             "round": 2,
             "seriesAbbrev": "R2",
             "game": 5,
             "topSeedTeamAbbrev": "COL",
-            "topSeedWins": 2,
+            "topSeedWins": 4,
             "bottomSeedTeamAbbrev": "MIN",
             "bottomSeedWins": 1
-          }
+          },
+          "threeMinRecap": "/video/min-at-col-recap-6395483666112",
+          "threeMinRecapFr": "/fr/video/min-vs-col-13-05-2026-resume-6395482203112"
         }
       ]
     },
@@ -1139,7 +699,7 @@
               "fr": "de Montr\u00e9al"
             },
             "abbrev": "MTL",
-            "record": "6-4",
+            "record": "6-5",
             "logo": "https://assets.nhle.com/logos/nhl/svg/MTL_light.svg"
           },
           "homeTeam": {
@@ -1156,7 +716,7 @@
               "fr": "de Buffalo"
             },
             "abbrev": "BUF",
-            "record": "5-4",
+            "record": "6-4",
             "logo": "https://assets.nhle.com/logos/nhl/svg/BUF_light.svg"
           },
           "ticketsLink": "https://www.ticketmaster.com/event/0000648DC36FECB6?brand=nhl&wt.mc_id=NHL_LEAGUE_BUF_HORIZONTAL_SCOREBOARD_PLAYOFFS_RD2_GM3&utm_source=NHL.com&utm_medium=client&utm_campaign=NHL_LEAGUE_BUF&utm_content=HORIZONTAL_SCOREBOARD_PLAYOFFS_RD2_GM3",
@@ -1166,7 +726,7 @@
             "seriesAbbrev": "R2",
             "game": 5,
             "topSeedTeamAbbrev": "BUF",
-            "topSeedWins": 1,
+            "topSeedWins": 2,
             "bottomSeedTeamAbbrev": "MTL",
             "bottomSeedWins": 2
           }
@@ -1243,7 +803,7 @@
               "fr": "de Vegas"
             },
             "abbrev": "VGK",
-            "record": "6-4",
+            "record": "7-4",
             "logo": "https://assets.nhle.com/logos/nhl/svg/VGK_light.svg"
           },
           "homeTeam": {
@@ -1260,7 +820,7 @@
               "fr": "d'Anaheim"
             },
             "abbrev": "ANA",
-            "record": "6-4",
+            "record": "6-5",
             "logo": "https://assets.nhle.com/logos/nhl/svg/ANA_light.svg"
           },
           "ticketsLink": "https://www.ticketmaster.com/event/090064794B775EB4?brand=nhl&wt.mc_id=NHL_LEAGUE_ANA_HORIZONTAL_SCOREBOARD_PLAYOFFS_RD2_GM3&utm_source=NHL.com&utm_medium=client&utm_campaign=NHL_LEAGUE_ANA&utm_content=HORIZONTAL_SCOREBOARD_PLAYOFFS_RD2_GM3",
@@ -1270,7 +830,7 @@
             "seriesAbbrev": "R2",
             "game": 6,
             "topSeedTeamAbbrev": "VGK",
-            "topSeedWins": 2,
+            "topSeedWins": 3,
             "bottomSeedTeamAbbrev": "ANA",
             "bottomSeedWins": 2
           }
@@ -1278,20 +838,20 @@
       ]
     },
     {
-      "date": "2026-05-15",
+      "date": "2026-05-16",
       "games": [
         {
-          "id": 2025030236,
+          "id": 2025030247,
           "season": 20252026,
           "gameType": 3,
-          "gameDate": "2026-05-15",
-          "gameCenterLink": "/gamecenter/col-vs-min/2026/05/15/2025030236",
+          "gameDate": "2026-05-16",
+          "gameCenterLink": "/gamecenter/ana-vs-vgk/2026/05/16/2025030247",
           "venue": {
-            "default": "Grand Casino Arena"
+            "default": "T-Mobile Arena"
           },
-          "startTimeUTC": "2026-05-16T00:00:00Z",
+          "startTimeUTC": "2026-05-16T21:00:00Z",
           "easternUTCOffset": "-04:00",
-          "venueUTCOffset": "-05:00",
+          "venueUTCOffset": "-07:00",
           "tvBroadcasts": [
             {
               "id": 309,
@@ -1299,6 +859,96 @@
               "countryCode": "US",
               "network": "ESPN",
               "sequenceNumber": 10
+            },
+            {
+              "id": 290,
+              "market": "N",
+              "countryCode": "CA",
+              "network": "SNP",
+              "sequenceNumber": 33
+            },
+            {
+              "id": 284,
+              "market": "N",
+              "countryCode": "CA",
+              "network": "SN1",
+              "sequenceNumber": 113
+            },
+            {
+              "id": 281,
+              "market": "N",
+              "countryCode": "CA",
+              "network": "TVAS",
+              "sequenceNumber": 120
+            }
+          ],
+          "gameState": "FUT",
+          "gameScheduleState": "OK",
+          "awayTeam": {
+            "id": 24,
+            "name": {
+              "default": "Anaheim Ducks",
+              "fr": "Ducks d'Anaheim"
+            },
+            "commonName": {
+              "default": "Ducks"
+            },
+            "placeNameWithPreposition": {
+              "default": "Anaheim",
+              "fr": "d'Anaheim"
+            },
+            "abbrev": "ANA",
+            "record": "6-5",
+            "logo": "https://assets.nhle.com/logos/nhl/svg/ANA_light.svg"
+          },
+          "homeTeam": {
+            "id": 54,
+            "name": {
+              "default": "Vegas Golden Knights",
+              "fr": "Golden Knights de Vegas"
+            },
+            "commonName": {
+              "default": "Golden Knights"
+            },
+            "placeNameWithPreposition": {
+              "default": "Vegas",
+              "fr": "de Vegas"
+            },
+            "abbrev": "VGK",
+            "record": "7-4",
+            "logo": "https://assets.nhle.com/logos/nhl/svg/VGK_light.svg"
+          },
+          "ticketsLink": "",
+          "ticketsLinkFr": "",
+          "seriesStatus": {
+            "round": 2,
+            "seriesAbbrev": "R2",
+            "game": 7,
+            "topSeedTeamAbbrev": "VGK",
+            "topSeedWins": 3,
+            "bottomSeedTeamAbbrev": "ANA",
+            "bottomSeedWins": 2
+          }
+        },
+        {
+          "id": 2025030216,
+          "season": 20252026,
+          "gameType": 3,
+          "gameDate": "2026-05-16",
+          "gameCenterLink": "/gamecenter/buf-vs-mtl/2026/05/16/2025030216",
+          "venue": {
+            "default": "Centre Bell"
+          },
+          "startTimeUTC": "2026-05-17T00:00:00Z",
+          "easternUTCOffset": "-04:00",
+          "venueUTCOffset": "-04:00",
+          "tvBroadcasts": [
+            {
+              "id": 384,
+              "market": "N",
+              "countryCode": "US",
+              "network": "ABC",
+              "sequenceNumber": 1
             },
             {
               "id": 4,
@@ -1325,87 +975,6 @@
           "gameState": "FUT",
           "gameScheduleState": "OK",
           "awayTeam": {
-            "id": 21,
-            "name": {
-              "default": "Colorado Avalanche",
-              "fr": "Avalanche du Colorado"
-            },
-            "commonName": {
-              "default": "Avalanche"
-            },
-            "placeNameWithPreposition": {
-              "default": "Colorado",
-              "fr": "du Colorado"
-            },
-            "abbrev": "COL",
-            "record": "6-1",
-            "logo": "https://assets.nhle.com/logos/nhl/svg/COL_light.svg"
-          },
-          "homeTeam": {
-            "id": 30,
-            "name": {
-              "default": "Minnesota Wild",
-              "fr": "Wild du Minnesota"
-            },
-            "commonName": {
-              "default": "Wild"
-            },
-            "placeNameWithPreposition": {
-              "default": "Minnesota",
-              "fr": "du Minnesota"
-            },
-            "abbrev": "MIN",
-            "record": "5-4",
-            "logo": "https://assets.nhle.com/logos/nhl/svg/MIN_light.svg"
-          },
-          "ticketsLink": "https://www.ticketmaster.com/event/06006478D36CF237?brand=nhl&wt.mc_id=NHL_LEAGUE_MIN_HORIZONTAL_SCOREBOARD_PLAYOFFS_RD2_GM3&utm_source=NHL.com&utm_medium=client&utm_campaign=NHL_LEAGUE_MIN&utm_content=HORIZONTAL_SCOREBOARD_PLAYOFFS_RD2_GM3",
-          "ticketsLinkFr": "https://www.ticketmaster.com/event/06006478D36CF237?brand=nhl&wt.mc_id=NHL_LEAGUE_MIN_HORIZONTAL_SCOREBOARD_PLAYOFFS_RD2_GM3&utm_source=NHL.com&utm_medium=client&utm_campaign=NHL_LEAGUE_MIN&utm_content=HORIZONTAL_SCOREBOARD_PLAYOFFS_RD2_GM3",
-          "seriesStatus": {
-            "round": 2,
-            "seriesAbbrev": "R2",
-            "game": 6,
-            "topSeedTeamAbbrev": "COL",
-            "topSeedWins": 2,
-            "bottomSeedTeamAbbrev": "MIN",
-            "bottomSeedWins": 1
-          }
-        }
-      ]
-    },
-    {
-      "date": "2026-05-16",
-      "games": [
-        {
-          "id": 2025030216,
-          "season": 20252026,
-          "gameType": 3,
-          "gameDate": "2026-05-16",
-          "gameCenterLink": "/gamecenter/buf-vs-mtl/2026/05/16/2025030216",
-          "venue": {
-            "default": "Centre Bell"
-          },
-          "startTimeUTC": "2026-05-16T16:00:00Z",
-          "easternUTCOffset": "-04:00",
-          "venueUTCOffset": "-04:00",
-          "tvBroadcasts": [
-            {
-              "id": 384,
-              "market": "N",
-              "countryCode": "US",
-              "network": "ABC",
-              "sequenceNumber": 1
-            },
-            {
-              "id": 309,
-              "market": "N",
-              "countryCode": "US",
-              "network": "ESPN",
-              "sequenceNumber": 10
-            }
-          ],
-          "gameState": "FUT",
-          "gameScheduleState": "TBD",
-          "awayTeam": {
             "id": 7,
             "name": {
               "default": "Buffalo Sabres",
@@ -1419,7 +988,7 @@
               "fr": "de Buffalo"
             },
             "abbrev": "BUF",
-            "record": "5-4",
+            "record": "6-4",
             "logo": "https://assets.nhle.com/logos/nhl/svg/BUF_light.svg"
           },
           "homeTeam": {
@@ -1436,7 +1005,7 @@
               "fr": "de Montr\u00e9al"
             },
             "abbrev": "MTL",
-            "record": "6-4",
+            "record": "6-5",
             "logo": "https://assets.nhle.com/logos/nhl/svg/MTL_light.svg"
           },
           "ticketsLink": "https://www.ticketmaster.com/event/3100648AD6FF9FFE?lang=en-ca&brand=nhl&wt.mc_id=NHL_LEAGUE_MTL_HORIZONTAL_SCOREBOARD_PLAYOFFS_RD2_GM3&utm_source=NHL.com&utm_medium=client&utm_campaign=NHL_LEAGUE_MTL&utm_content=HORIZONTAL_SCOREBOARD_PLAYOFFS_RD2_GM3",
@@ -1446,173 +1015,9 @@
             "seriesAbbrev": "R2",
             "game": 6,
             "topSeedTeamAbbrev": "BUF",
-            "topSeedWins": 1,
+            "topSeedWins": 2,
             "bottomSeedTeamAbbrev": "MTL",
             "bottomSeedWins": 2
-          }
-        },
-        {
-          "id": 2025030247,
-          "season": 20252026,
-          "gameType": 3,
-          "gameDate": "2026-05-16",
-          "gameCenterLink": "/gamecenter/ana-vs-vgk/2026/05/16/2025030247",
-          "venue": {
-            "default": "T-Mobile Arena"
-          },
-          "startTimeUTC": "2026-05-16T16:00:00Z",
-          "easternUTCOffset": "-04:00",
-          "venueUTCOffset": "-07:00",
-          "tvBroadcasts": [
-            {
-              "id": 384,
-              "market": "N",
-              "countryCode": "US",
-              "network": "ABC",
-              "sequenceNumber": 1
-            },
-            {
-              "id": 309,
-              "market": "N",
-              "countryCode": "US",
-              "network": "ESPN",
-              "sequenceNumber": 10
-            }
-          ],
-          "gameState": "FUT",
-          "gameScheduleState": "TBD",
-          "awayTeam": {
-            "id": 24,
-            "name": {
-              "default": "Anaheim Ducks",
-              "fr": "Ducks d'Anaheim"
-            },
-            "commonName": {
-              "default": "Ducks"
-            },
-            "placeNameWithPreposition": {
-              "default": "Anaheim",
-              "fr": "d'Anaheim"
-            },
-            "abbrev": "ANA",
-            "record": "6-4",
-            "logo": "https://assets.nhle.com/logos/nhl/svg/ANA_light.svg"
-          },
-          "homeTeam": {
-            "id": 54,
-            "name": {
-              "default": "Vegas Golden Knights",
-              "fr": "Golden Knights de Vegas"
-            },
-            "commonName": {
-              "default": "Golden Knights"
-            },
-            "placeNameWithPreposition": {
-              "default": "Vegas",
-              "fr": "de Vegas"
-            },
-            "abbrev": "VGK",
-            "record": "6-4",
-            "logo": "https://assets.nhle.com/logos/nhl/svg/VGK_light.svg"
-          },
-          "ticketsLink": "",
-          "ticketsLinkFr": "",
-          "seriesStatus": {
-            "round": 2,
-            "seriesAbbrev": "R2",
-            "game": 7,
-            "topSeedTeamAbbrev": "VGK",
-            "topSeedWins": 2,
-            "bottomSeedTeamAbbrev": "ANA",
-            "bottomSeedWins": 2
-          }
-        }
-      ]
-    },
-    {
-      "date": "2026-05-17",
-      "games": [
-        {
-          "id": 2025030237,
-          "season": 20252026,
-          "gameType": 3,
-          "gameDate": "2026-05-17",
-          "gameCenterLink": "/gamecenter/min-vs-col/2026/05/17/2025030237",
-          "venue": {
-            "default": "Ball Arena"
-          },
-          "startTimeUTC": "2026-05-17T16:00:00Z",
-          "easternUTCOffset": "-04:00",
-          "venueUTCOffset": "-06:00",
-          "tvBroadcasts": [
-            {
-              "id": 385,
-              "market": "N",
-              "countryCode": "US",
-              "network": "TNT",
-              "sequenceNumber": 11
-            },
-            {
-              "id": 501,
-              "market": "N",
-              "countryCode": "US",
-              "network": "truTV",
-              "sequenceNumber": 14
-            },
-            {
-              "id": 578,
-              "market": "N",
-              "countryCode": "US",
-              "network": "HBO MAX",
-              "sequenceNumber": 19
-            }
-          ],
-          "gameState": "FUT",
-          "gameScheduleState": "TBD",
-          "awayTeam": {
-            "id": 30,
-            "name": {
-              "default": "Minnesota Wild",
-              "fr": "Wild du Minnesota"
-            },
-            "commonName": {
-              "default": "Wild"
-            },
-            "placeNameWithPreposition": {
-              "default": "Minnesota",
-              "fr": "du Minnesota"
-            },
-            "abbrev": "MIN",
-            "record": "5-4",
-            "logo": "https://assets.nhle.com/logos/nhl/svg/MIN_light.svg"
-          },
-          "homeTeam": {
-            "id": 21,
-            "name": {
-              "default": "Colorado Avalanche",
-              "fr": "Avalanche du Colorado"
-            },
-            "commonName": {
-              "default": "Avalanche"
-            },
-            "placeNameWithPreposition": {
-              "default": "Colorado",
-              "fr": "du Colorado"
-            },
-            "abbrev": "COL",
-            "record": "6-1",
-            "logo": "https://assets.nhle.com/logos/nhl/svg/COL_light.svg"
-          },
-          "ticketsLink": "https://avs.social/26_LG_SCOREBOARD_PO_RD2GM4",
-          "ticketsLinkFr": "https://avs.social/26_LG_SCOREBOARD_PO_RD2GM4",
-          "seriesStatus": {
-            "round": 2,
-            "seriesAbbrev": "R2",
-            "game": 7,
-            "topSeedTeamAbbrev": "COL",
-            "topSeedWins": 2,
-            "bottomSeedTeamAbbrev": "MIN",
-            "bottomSeedWins": 1
           }
         }
       ]
@@ -1657,7 +1062,7 @@
               "fr": "de Montr\u00e9al"
             },
             "abbrev": "MTL",
-            "record": "6-4",
+            "record": "6-5",
             "logo": "https://assets.nhle.com/logos/nhl/svg/MTL_light.svg"
           },
           "homeTeam": {
@@ -1674,7 +1079,7 @@
               "fr": "de Buffalo"
             },
             "abbrev": "BUF",
-            "record": "5-4",
+            "record": "6-4",
             "logo": "https://assets.nhle.com/logos/nhl/svg/BUF_light.svg"
           },
           "ticketsLink": "https://www.ticketmaster.com/event/0000648DC374ECBC?brand=nhl&wt.mc_id=NHL_LEAGUE_BUF_HORIZONTAL_SCOREBOARD_PLAYOFFS_RD2_GM4&utm_source=NHL.com&utm_medium=client&utm_campaign=NHL_LEAGUE_BUF&utm_content=HORIZONTAL_SCOREBOARD_PLAYOFFS_RD2_GM4",
@@ -1684,7 +1089,7 @@
             "seriesAbbrev": "R2",
             "game": 7,
             "topSeedTeamAbbrev": "BUF",
-            "topSeedWins": 1,
+            "topSeedWins": 2,
             "bottomSeedTeamAbbrev": "MTL",
             "bottomSeedWins": 2
           }

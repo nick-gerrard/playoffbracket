@@ -409,7 +409,7 @@
       "playoffRound": 2,
       "topSeedRank": 1,
       "topSeedRankAbbrev": "D1",
-      "topSeedWins": 1,
+      "topSeedWins": 2,
       "bottomSeedRank": 3,
       "bottomSeedRankAbbrev": "D3",
       "bottomSeedWins": 2,
@@ -505,10 +505,12 @@
       "playoffRound": 2,
       "topSeedRank": 1,
       "topSeedRankAbbrev": "D1",
-      "topSeedWins": 2,
+      "topSeedWins": 4,
       "bottomSeedRank": 3,
       "bottomSeedRankAbbrev": "D3",
       "bottomSeedWins": 1,
+      "winningTeamId": 21,
+      "losingTeamId": 30,
       "topSeedTeam": {
         "id": 21,
         "abbrev": "COL",
@@ -552,7 +554,7 @@
       "playoffRound": 2,
       "topSeedRank": 1,
       "topSeedRankAbbrev": "D1",
-      "topSeedWins": 2,
+      "topSeedWins": 3,
       "bottomSeedRank": 3,
       "bottomSeedRankAbbrev": "D3",
       "bottomSeedWins": 2,
@@ -639,6 +641,7 @@
       }
     },
     {
+      "seriesUrl": "/schedule/playoff-series/2026/series-n/tbd-vs-avalanche",
       "seriesLogo": "https://assets.nhle.com/logos/playoffs/png/wcf-20232024-wordmark-en.png",
       "seriesLogoFr": "https://assets.nhle.com/logos/playoffs/png/wcf-20232024-wordmark-fr.png",
       "seriesTitle": "Conference Finals",
@@ -650,7 +653,39 @@
       "topSeedWins": 0,
       "bottomSeedRank": 1,
       "bottomSeedRankAbbrev": "D1",
-      "bottomSeedWins": 0
+      "bottomSeedWins": 0,
+      "topSeedTeam": {
+        "id": 21,
+        "abbrev": "COL",
+        "name": {
+          "default": "Colorado Avalanche",
+          "fr": "Avalanche du Colorado"
+        },
+        "commonName": {
+          "default": "Avalanche"
+        },
+        "placeNameWithPreposition": {
+          "default": "Colorado",
+          "fr": "du Colorado"
+        },
+        "logo": "https://assets.nhle.com/logos/nhl/svg/COL_light.svg",
+        "darkLogo": "https://assets.nhle.com/logos/nhl/svg/COL_dark.svg"
+      },
+      "bottomSeedTeam": {
+        "id": -1,
+        "abbrev": "TBD",
+        "name": {
+          "default": "TBD"
+        },
+        "commonName": {
+          "default": "TBD"
+        },
+        "placeNameWithPreposition": {
+          "default": "TBD"
+        },
+        "logo": "https://assets.nhle.com/logos/nhl/svg/team-tbd-light.svg",
+        "darkLogo": "https://assets.nhle.com/logos/nhl/svg/team-tbd-dark.svg"
+      }
     },
     {
       "seriesLogo": "https://assets.nhle.com/logos/playoffs/png/scp-20252026-cup.png",
