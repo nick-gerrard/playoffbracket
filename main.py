@@ -93,9 +93,16 @@ def user_has_submitted(user_id: int) -> bool:
         return has_prediction(session, user_id, season.id)
 
 
+def picks_open() -> bool:
+    with Session(engine) as session:
+        season = fetch_current_season(session)
+        return bool(season and season.picks_open)
+
+
 templates.env.globals["challenge_count"] = challenge_count
 templates.env.globals["user_has_submitted"] = user_has_submitted
 templates.env.globals["admin_email"] = ADMIN_EMAIL
+templates.env.globals["picks_open"] = picks_open
 
 
 def create_db():
@@ -383,6 +390,8 @@ async def predict(request: Request, user: User | None = Depends(get_current_user
         season = fetch_current_season(session)
         if not season:
             raise HTTPException(status_code=404, detail="No active season")
+        if not season.picks_open:
+            return RedirectResponse("/")
         if has_prediction(session, user.id, season.id):
             return RedirectResponse("/bracket")
         all_series = session.exec(
@@ -431,6 +440,8 @@ async def submit_predictions(
         season = fetch_current_season(session)
         if not season:
             raise HTTPException(status_code=404, detail="No active season")
+        if not season.picks_open:
+            raise HTTPException(status_code=403, detail="Bracket submissions are closed")
         if has_prediction(session, user.id, season.id):
             return RedirectResponse("/bracket", status_code=303)
         save_prediction(session, user.id, [p.model_dump() for p in predictions])
@@ -616,10 +627,12 @@ async def admin_dashboard(request: Request, admin: User = Depends(require_admin)
     with Session(engine) as session:
         users = fetch_all_users(session)
         recent_transactions = list(reversed(fetch_all_transactions(session)))[:20]
+        season = fetch_current_season(session)
     return templates.TemplateResponse(
         request=request,
         name="admin.html",
-        context={"user": admin, "users": users, "transactions": recent_transactions},
+        context={"user": admin, "users": users, "transactions": recent_transactions,
+                 "season": season},
     )
 
 
@@ -643,6 +656,30 @@ async def admin_bracket_bonus(
 ):
     with Session(engine) as session:
         bracket_bonus(session, payee_id=user_id, amount=amount)
+    return RedirectResponse("/admin", status_code=303)
+
+
+@app.get("/vault")
+async def vault(request: Request, user: User | None = Depends(get_current_user)):
+    if not user:
+        return RedirectResponse("/login")
+    with Session(engine) as session:
+        users = sorted(fetch_all_users(session), key=lambda u: u.balance, reverse=True)
+    return templates.TemplateResponse(
+        request=request,
+        name="vault.html",
+        context={"user": user, "users": users},
+    )
+
+
+@app.post("/admin/toggle-picks")
+async def admin_toggle_picks(admin: User = Depends(require_admin)):
+    with Session(engine) as session:
+        season = fetch_current_season(session)
+        if season:
+            season.picks_open = not season.picks_open
+            session.add(season)
+            session.commit()
     return RedirectResponse("/admin", status_code=303)
 
 

@@ -5,6 +5,43 @@
 
     <h1 class="text-2xl sm:text-3xl font-bold">Admin Dashboard</h1>
 
+    <!-- Bracket Submissions Toggle -->
+    {% if season %}
+    <section>
+        <h2 class="text-sm font-semibold uppercase tracking-widest text-slate-400 mb-3">Bracket Submissions</h2>
+        <div class="bg-white/5 backdrop-blur-sm border border-white/10 rounded-xl px-5 py-5 flex items-center justify-between gap-6">
+            <div>
+                <p class="font-semibold text-sm mb-0.5">
+                    Picks are currently
+                    {% if season.picks_open %}
+                    <span class="text-green-400">open</span>
+                    {% else %}
+                    <span class="text-red-400">closed</span>
+                    {% endif %}
+                </p>
+                <p class="text-xs text-slate-500">
+                    {% if season.picks_open %}
+                    Users can submit and view their bracket picks.
+                    {% else %}
+                    New submissions are blocked. Existing brackets are unaffected.
+                    {% endif %}
+                </p>
+            </div>
+            <form method="post" action="/admin/toggle-picks" class="flex-shrink-0">
+                <button type="submit"
+                        class="px-5 py-2 rounded-xl text-sm font-semibold transition-colors
+                        {% if season.picks_open %}
+                        bg-red-500/15 border border-red-500/30 text-red-300 hover:bg-red-500/25
+                        {% else %}
+                        bg-green-500/15 border border-green-500/30 text-green-300 hover:bg-green-500/25
+                        {% endif %}">
+                    {% if season.picks_open %}Lock Picks{% else %}Open Picks{% endif %}
+                </button>
+            </form>
+        </div>
+    </section>
+    {% endif %}
+
     <!-- Credit DucksBucks -->
     <section>
         <h2 class="text-sm font-semibold uppercase tracking-widest text-slate-400 mb-3">Credit DucksBucks</h2>

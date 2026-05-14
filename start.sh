@@ -1,3 +1,3 @@
-#! /usr/sbin/zsh
+#! /opt/homebrew/bin/zsh
 
-uv run uvicorn main:app --reload
+uv run uvicorn main:app --host 0.0.0.0 --port 8000 --reload

@@ -16,6 +16,7 @@ class Team(SQLModel, table=True):
 class Season(SQLModel, table=True):
     id: int | None = Field(default=None, primary_key=True)
     year: int
+    picks_open: bool = Field(default=True)
 
 
 class TeamStats(SQLModel, table=True):
