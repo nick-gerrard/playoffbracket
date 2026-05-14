@@ -1,9 +1,8 @@
-from sqlmodel import create_engine, Session, select
-from models import Team, Series
+from sqlmodel import create_engine, Session, select, SQLModel
+from models import Team, Series, Season, TeamStats, User, ScoringConfig, Prediction
+from enums import SeriesRound
 import httpx
 from datetime import datetime
-from models import Team, Series, Season, TeamStats, User, ScoringConfig, Prediction
-from sqlmodel import SQLModel
 
 
 engine = create_engine("sqlite:///bracket.db")
@@ -14,21 +13,21 @@ URL = f"https://api-web.nhle.com/v1/playoff-bracket/{YEAR}"
 STANDINGS = f"https://api-web.nhle.com/v1/standings/now"
 
 SERIES_LOOKUP = {
-    "A": ("East", "R1"),
-    "B": ("East", "R1"),
-    "C": ("East", "R1"),
-    "D": ("East", "R1"),
-    "E": ("West", "R1"),
-    "F": ("West", "R1"),
-    "G": ("West", "R1"),
-    "H": ("West", "R1"),
-    "I": ("East", "R2"),
-    "J": ("East", "R2"),
-    "K": ("West", "R2"),
-    "L": ("West", "R2"),
-    "M": ("East", "ECF"),
-    "N": ("West", "WCF"),
-    "O": ("Final", "SCF"),
+    "A": ("East", SeriesRound.R1),
+    "B": ("East", SeriesRound.R1),
+    "C": ("East", SeriesRound.R1),
+    "D": ("East", SeriesRound.R1),
+    "E": ("West", SeriesRound.R1),
+    "F": ("West", SeriesRound.R1),
+    "G": ("West", SeriesRound.R1),
+    "H": ("West", SeriesRound.R1),
+    "I": ("East", SeriesRound.R2),
+    "J": ("East", SeriesRound.R2),
+    "K": ("West", SeriesRound.R2),
+    "L": ("West", SeriesRound.R2),
+    "M": ("East", SeriesRound.ECF),
+    "N": ("West", SeriesRound.WCF),
+    "O": ("Final", SeriesRound.SCF),
 }
 
 
@@ -129,11 +128,11 @@ def seed_series(series, season_id: int):
 def seed_scoring_config():
     with Session(engine) as session:
         configs = [
-            ScoringConfig(season_year=YEAR, series_abbrev="R1", points=1),
-            ScoringConfig(season_year=YEAR, series_abbrev="R2", points=2),
-            ScoringConfig(season_year=YEAR, series_abbrev="ECF", points=3),
-            ScoringConfig(season_year=YEAR, series_abbrev="WCF", points=3),
-            ScoringConfig(season_year=YEAR, series_abbrev="SCF", points=4),
+            ScoringConfig(season_year=YEAR, series_abbrev=SeriesRound.R1, points=1),
+            ScoringConfig(season_year=YEAR, series_abbrev=SeriesRound.R2, points=2),
+            ScoringConfig(season_year=YEAR, series_abbrev=SeriesRound.ECF, points=3),
+            ScoringConfig(season_year=YEAR, series_abbrev=SeriesRound.WCF, points=3),
+            ScoringConfig(season_year=YEAR, series_abbrev=SeriesRound.SCF, points=4),
         ]
         session.add_all(configs)
         session.commit()

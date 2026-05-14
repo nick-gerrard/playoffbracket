@@ -1,6 +1,7 @@
 from datetime import datetime, timezone, date
 from sqlmodel import SQLModel, Field
 from sqlalchemy import UniqueConstraint
+from enums import BetStatus, GameStatus
 
 
 class Team(SQLModel, table=True):
@@ -51,7 +52,7 @@ class Game(SQLModel, table=True):
     start_time: datetime
     home_team: int | None = Field(foreign_key="team.id")
     away_team: int | None = Field(foreign_key="team.id")
-    status: str = "FUT"
+    status: str = GameStatus.FUT
     home_team_score: int | None = None
     away_team_score: int | None = None
     winner: int | None = Field(default=None, foreign_key="team.id")
@@ -68,7 +69,7 @@ class User(SQLModel, table=True):
 class ScoringConfig(SQLModel, table=True):
     id: int | None = Field(default=None, primary_key=True)
     season_year: int
-    series_abbrev: str  # R1/R2/ECF/WCF/SCF
+    series_abbrev: str  # SeriesRound
     points: int
 
 
@@ -87,7 +88,10 @@ class Bet(SQLModel, table=True):
     challengee: int | None = Field(foreign_key="user.id")
     challenger_winner: int | None = Field(foreign_key="team.id")
     amount: int
-    status: str = "pending"
+    status: str = BetStatus.PENDING
+    bet_date: datetime = Field(
+        default_factory=lambda: datetime.now(timezone.utc)
+    )
 
 
 class Transaction(SQLModel, table=True):

@@ -1,5 +1,6 @@
 from datetime import datetime, date, timedelta
 from sqlmodel import Session, select
+from enums import BetStatus, GameStatus, TransactionKind
 from models import (
     Game,
     Prediction,
@@ -130,26 +131,45 @@ def save_prediction(session: Session, user_id: int, predictions: list[dict]) -> 
     session.commit()
 
 
-def transaction(
+def record_transaction(
     session: Session,
     amount: int,
-    desc: str,
+    kind: TransactionKind,
     payee_id: int | None = None,
     payer_id: int | None = None,
     bet_id: int | None = None,
+    note: str | None = None,
 ):
-    if payer_id:
-        payer: User = fetch_user(session, payer_id)  # type: ignore
+    payer = session.get(User, payer_id) if payer_id else None
+    payee = session.get(User, payee_id) if payee_id else None
+
+    if payer:
         payer.balance -= amount
         session.add(payer)
-    if payee_id:
-        payee: User = fetch_user(session, payee_id)  # type: ignore
+    if payee:
         payee.balance += amount
         session.add(payee)
-    t = Transaction(
-        payer=payer_id, payee=payee_id, bet_id=bet_id, amount=amount, desc=desc
-    )
-    session.add(t)
+
+    if note:
+        desc = note
+    else:
+        match kind:
+            case TransactionKind.SIGNUP_BONUS:
+                desc = f"{payee.name} joined — signup bonus"
+            case TransactionKind.BET_ESCROW:
+                desc = f"{payer.name} escrowed {amount} DB"
+            case TransactionKind.BET_WIN:
+                desc = f"{payee.name} won {amount} DB (bet #{bet_id})"
+            case TransactionKind.BET_REFUND:
+                desc = f"{payee.name} refunded — bet #{bet_id} cancelled"
+            case TransactionKind.ADMIN_CREDIT:
+                desc = f"Admin credited {payee.name} {amount} DB"
+            case TransactionKind.BRACKET_BONUS:
+                desc = f"{payee.name} awarded bracket prize: {amount} DB"
+            case _:
+                desc = str(kind)
+
+    session.add(Transaction(payer=payer_id, payee=payee_id, bet_id=bet_id, amount=amount, desc=desc))
     session.commit()
 
 
@@ -174,12 +194,12 @@ def issue_bet(
     session.add(b)
     session.commit()
     session.refresh(b)
-    transaction(
+    record_transaction(
         session,
         amount=amount,
+        kind=TransactionKind.BET_ESCROW,
         payer_id=challenger,
         bet_id=b.id,
-        desc=f"{challenger} bet {amount} against {challengee} on game {game_id}",
     )
 
 
@@ -188,14 +208,14 @@ def accept_bet(session: Session, bet_id: int, challengee: int):
     challengee_user = fetch_user(session, challengee)
     if not challengee_user or challengee_user.balance < bet.amount:
         raise ValueError("Insufficient balance")
-    bet.status = "accepted"
+    bet.status = BetStatus.ACCEPTED
     session.add(bet)
-    transaction(
+    record_transaction(
         session=session,
         amount=bet.amount,
+        kind=TransactionKind.BET_ESCROW,
         payer_id=challengee,
         bet_id=bet_id,
-        desc=f"{challengee} accepted {bet.challenger} bet for {bet.amount}",
     )
 
 
@@ -207,41 +227,39 @@ def settle_bets(session: Session) -> None:
             continue
         bets = fetch_bets(session, game.id)
         for bet in bets:
-            if bet.status == "accepted":
-                bet.status = "settled"
+            if bet.status == BetStatus.ACCEPTED:
+                bet.status = BetStatus.SETTLED
                 session.add(bet)
                 if bet.challenger_winner == game.winner:
                     payee = bet.challenger
                 else:
                     payee = bet.challengee
-                transaction(
+                record_transaction(
                     session,
                     payee_id=payee,
                     amount=bet.amount * 2,
-                    desc=f"{payee} won {bet.amount * 2}!",
+                    kind=TransactionKind.BET_WIN,
                     bet_id=bet.id,
                 )
 
-            elif bet.status == "pending":
-                bet.status = "cancelled"
+            elif bet.status == BetStatus.PENDING:
+                bet.status = BetStatus.CANCELLED
                 session.add(bet)
-                transaction(
+                record_transaction(
                     session,
                     payee_id=bet.challenger,
                     amount=bet.amount,
-                    desc=f"{bet.challenger} was refunded {bet.amount}",
+                    kind=TransactionKind.BET_REFUND,
                     bet_id=bet.id,
                 )
 
 
 def signup_bonus(session: Session, payee_id: int, amount: int):
-    desc = f"{payee_id} has recieved {amount} DucksBucks for signing up!"
-    transaction(session=session, payee_id=payee_id, amount=amount, desc=desc)
+    record_transaction(session, amount=amount, kind=TransactionKind.SIGNUP_BONUS, payee_id=payee_id)
 
 
 def bracket_bonus(session: Session, payee_id: int, amount: int):
-    desc = f"{payee_id} has recieved {amount} DucksBucks for completing a bracket!"
-    transaction(session=session, payee_id=payee_id, amount=amount, desc=desc)
+    record_transaction(session, amount=amount, kind=TransactionKind.BRACKET_BONUS, payee_id=payee_id)
 
 
 # --- Computation functions ---
@@ -289,8 +307,8 @@ def ingest_games(session: Session, target_date: date) -> None:
         existing = session.exec(select(Game).where(Game.api_id == g["id"])).first()
 
         if existing:
-            if g["gameState"] == "OFF":
-                existing.status = "OFF"
+            if g["gameState"] == GameStatus.OFF:
+                existing.status = GameStatus.OFF
                 existing.home_team_score = g["homeTeam"]["score"]
                 existing.away_team_score = g["awayTeam"]["score"]
                 existing.outcome = g.get("gameOutcome", {}).get("lastPeriodType")

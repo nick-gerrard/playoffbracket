@@ -40,7 +40,7 @@ from services import (
     fetch_bets_for_user,
     issue_bet,
     accept_bet,
-    transaction,
+    record_transaction,
 )
 from pydantic import BaseModel
 
@@ -57,6 +57,7 @@ from models import (
     Season,
     User,
 )
+from enums import BetStatus, TransactionKind
 from apscheduler.schedulers.asyncio import AsyncIOScheduler
 from apscheduler.triggers.cron import CronTrigger
 
@@ -76,7 +77,7 @@ ADMIN_EMAIL = os.environ.get("ADMIN_EMAIL", "")
 def challenge_count(user_id: int) -> int:
     with Session(engine) as session:
         return len(list(session.exec(
-            select(Bet).where(Bet.challengee == user_id, Bet.status == "pending")
+            select(Bet).where(Bet.challengee == user_id, Bet.status == BetStatus.PENDING)
         ).all()))
 
 
@@ -400,6 +401,7 @@ async def submit_predictions(
         if has_prediction(session, user.id, season.id):
             return RedirectResponse("/bracket", status_code=303)
         save_prediction(session, user.id, [p.model_dump() for p in predictions])
+        bracket_bonus(session, payee_id=user.id, amount=bracket_bonus_val)
     return RedirectResponse("/bracket", status_code=303)
 
 
@@ -489,16 +491,16 @@ async def bets_page(request: Request, user: User | None = Depends(get_current_us
         user_map = {u.id: u for u in all_users}
         open_challenges = list(
             session.exec(
-                select(Bet).where(Bet.challengee == user.id, Bet.status == "pending")
+                select(Bet).where(Bet.challengee == user.id, Bet.status == BetStatus.PENDING)
             ).all()
         )
         my_pending = list(
             session.exec(
-                select(Bet).where(Bet.challenger == user.id, Bet.status == "pending")
+                select(Bet).where(Bet.challenger == user.id, Bet.status == BetStatus.PENDING)
             ).all()
         )
         active_bets = [
-            b for b in fetch_bets_for_user(session, user.id) if b.status == "accepted"
+            b for b in fetch_bets_for_user(session, user.id) if b.status == BetStatus.ACCEPTED
         ]
     return templates.TemplateResponse(
         request=request,
@@ -578,7 +580,7 @@ async def admin_credit(
     desc: str = Form(...),
 ):
     with Session(engine) as session:
-        transaction(session, amount=amount, payee_id=user_id, desc=desc)
+        record_transaction(session, amount=amount, kind=TransactionKind.ADMIN_CREDIT, payee_id=user_id, note=desc)
     return RedirectResponse("/admin", status_code=303)
 
 
