@@ -23,6 +23,7 @@ from services import (
     has_prediction,
     save_prediction,
     score_bracket,
+    compute_max_possible,
     build_leaderboard,
     get_predictions_map,
     signup_bonus,
@@ -40,6 +41,7 @@ from services import (
     fetch_bets_for_user,
     issue_bet,
     accept_bet,
+    decline_bet,
     record_transaction,
 )
 from pydantic import BaseModel
@@ -69,7 +71,9 @@ engine = create_engine("sqlite:///bracket.db")
 templates = Jinja2Templates(directory="templates")
 
 ET = timezone(timedelta(hours=-4))
-templates.env.filters["et"] = lambda dt: dt.astimezone(ET).strftime("%-I:%M %p ET")
+templates.env.filters["et"] = lambda dt: (
+    dt.replace(tzinfo=timezone.utc) if dt.tzinfo is None else dt
+).astimezone(ET).strftime("%-I:%M %p ET")
 
 ADMIN_EMAIL = os.environ.get("ADMIN_EMAIL", "")
 
@@ -81,7 +85,16 @@ def challenge_count(user_id: int) -> int:
         ).all()))
 
 
+def user_has_submitted(user_id: int) -> bool:
+    with Session(engine) as session:
+        season = fetch_current_season(session)
+        if not season:
+            return False
+        return has_prediction(session, user_id, season.id)
+
+
 templates.env.globals["challenge_count"] = challenge_count
+templates.env.globals["user_has_submitted"] = user_has_submitted
 templates.env.globals["admin_email"] = ADMIN_EMAIL
 
 
@@ -194,6 +207,16 @@ ROUND_LABELS = {
     4: "Stanley Cup Final",
 }
 
+FEEDS_INTO = {
+    "I": ("A", "B"),
+    "J": ("C", "D"),
+    "K": ("E", "F"),
+    "L": ("G", "H"),
+    "M": ("I", "J"),
+    "N": ("K", "L"),
+    "O": ("M", "N"),
+}
+
 
 @app.get("/login")
 async def login_page(request: Request, user: User | None = Depends(get_current_user)):
@@ -282,23 +305,32 @@ async def bracket(
         predictions = fetch_predictions(session, user.id, season.id)
         if not predictions and not year:
             return RedirectResponse("/predict")
-        all_series = session.exec(
+        all_series = list(session.exec(
             select(Series).where(Series.season_id == season.id)
-        ).all()
+        ).all())
         team_map = {t.id: t for t in session.exec(select(Team)).all()}
         series_results = fetch_series_results(session, season.id)
         scoring = fetch_scoring(session, season.year)
         pred_map = {p.series_id: p.predicted_winner_id for p in predictions}
         total_score = score_bracket(predictions, series_results, scoring)
+        max_possible = compute_max_possible(predictions, all_series, series_results, scoring)
 
+    letter_to_id = {s.series_letter: s.id for s in all_series}
     rounds: dict = {}
     for s in sorted(all_series, key=lambda x: (x.playoff_round, x.series_letter)):
+        if s.series_letter in FEEDS_INTO:
+            src1, src2 = FEEDS_INTO[s.series_letter]
+            pred_top = team_map.get(pred_map.get(letter_to_id.get(src1)))
+            pred_bottom = team_map.get(pred_map.get(letter_to_id.get(src2)))
+        else:
+            pred_top = team_map.get(s.top_seed_team)
+            pred_bottom = team_map.get(s.bottom_seed_team)
         entry = {
             "title": s.title,
             "letter": s.series_letter,
-            "top_team": team_map.get(s.top_seed_team),
-            "bottom_team": team_map.get(s.bottom_seed_team),
-            "predicted_winner": team_map.get(pred_map.get(s.id)),  # type: ignore
+            "top_team": pred_top,
+            "bottom_team": pred_bottom,
+            "predicted_winner": team_map.get(pred_map.get(s.id)),
             "actual_winner": team_map.get(s.winner) if s.winner else None,
             "status": (
                 "correct"
@@ -317,6 +349,7 @@ async def bracket(
         context={
             "rounds": rounds,
             "total_score": total_score,
+            "max_possible": max_possible,
             "user": user,
             "season": season,
         },
@@ -419,7 +452,8 @@ async def leaderboard(
         all_predictions = fetch_predictions_for_season(session, season.id)
         series_results = fetch_series_results(session, season.id)
         scoring = fetch_scoring(session, season.year)
-        board = build_leaderboard(users, all_predictions, series_results, scoring)
+        all_series = list(session.exec(select(Series).where(Series.season_id == season.id)).all())
+        board = build_leaderboard(users, all_predictions, series_results, scoring, all_series)
     return templates.TemplateResponse(
         request=request,
         name="leaderboard.html",
@@ -427,54 +461,58 @@ async def leaderboard(
     )
 
 
-@app.get("/compare/{other_user_id}")
+@app.get("/compare")
 async def compare(
     request: Request,
-    other_user_id: int,
     user: User | None = Depends(get_current_user),
+    a: int | None = None,
+    b: int | None = None,
     year: int | None = None,
 ):
     if not user:
         return RedirectResponse("/login")
     with Session(engine) as session:
         season = resolve_season(session, year)
-        other_user = session.get(User, other_user_id)
-        if not other_user:
-            return RedirectResponse("/leaderboard")
-        my_preds = get_predictions_map(session, user.id, season.id)
-        their_preds = get_predictions_map(session, other_user_id, season.id)
-        if not my_preds or not their_preds:
-            return RedirectResponse("/leaderboard")
-        all_series = session.exec(
-            select(Series).where(Series.season_id == season.id)
-        ).all()
+        all_series = list(session.exec(select(Series).where(Series.season_id == season.id)).all())
         team_map = {t.id: t for t in session.exec(select(Team)).all()}
+        all_predictions = fetch_predictions_for_season(session, season.id)
+        pred_user_ids = {p.user_id for p in all_predictions}
+        pred_users = [u for u in fetch_all_users(session) if u.id in pred_user_ids]
 
-    rounds: dict = {}
-    for s in sorted(all_series, key=lambda x: (x.playoff_round, x.series_letter)):
-        my_pick_id = my_preds.get(s.id)
-        their_pick_id = their_preds.get(s.id)
-        entry = {
-            "letter": s.series_letter,
-            "top_team": team_map.get(s.top_seed_team),
-            "bottom_team": team_map.get(s.bottom_seed_team),
-            "my_pick": team_map.get(my_pick_id),
-            "their_pick": team_map.get(their_pick_id),
-            "match": (my_pick_id == their_pick_id)
-            if (my_pick_id and their_pick_id)
-            else None,
-            "actual_winner": team_map.get(s.winner) if s.winner else None,
-        }
-        rounds.setdefault(ROUND_LABELS[s.playoff_round], []).append(entry)
+        rounds = None
+        user_a = user_b = None
+        if a and b:
+            user_a = session.get(User, a)
+            user_b = session.get(User, b)
+            if user_a and user_b:
+                preds_a = get_predictions_map(session, a, season.id)
+                preds_b = get_predictions_map(session, b, season.id)
+                rounds = {}
+                for s in sorted(all_series, key=lambda x: (x.playoff_round, x.series_letter)):
+                    pick_a = preds_a.get(s.id)
+                    pick_b = preds_b.get(s.id)
+                    entry = {
+                        "letter": s.series_letter,
+                        "pick_a": team_map.get(pick_a),
+                        "pick_b": team_map.get(pick_b),
+                        "match": (pick_a == pick_b) if (pick_a and pick_b) else None,
+                        "actual_winner": team_map.get(s.winner) if s.winner else None,
+                        "correct_a": bool(s.winner and pick_a == s.winner),
+                        "correct_b": bool(s.winner and pick_b == s.winner),
+                    }
+                    rounds.setdefault(ROUND_LABELS[s.playoff_round], []).append(entry)
 
     return templates.TemplateResponse(
         request=request,
         name="compare.html",
         context={
-            "rounds": rounds,
-            "me": user,
-            "them": other_user,
             "user": user,
+            "user_a": user_a,
+            "user_b": user_b,
+            "pred_users": pred_users,
+            "selected_a": a,
+            "selected_b": b,
+            "rounds": rounds,
             "season": season,
         },
     )
@@ -557,6 +595,19 @@ async def post_accept(
             accept_bet(session, bet_id=bet_id, challengee=user.id)
     except ValueError:
         return RedirectResponse("/bets?error=insufficient_balance", status_code=303)
+    return RedirectResponse("/bets", status_code=303)
+
+
+@app.post("/bets/decline/{bet_id}")
+async def post_decline(
+    request: Request,
+    bet_id: int,
+    user: User | None = Depends(get_current_user),
+):
+    if not user:
+        return RedirectResponse("/login", status_code=303)
+    with Session(engine) as session:
+        decline_bet(session, bet_id=bet_id, challengee=user.id)
     return RedirectResponse("/bets", status_code=303)
 
 

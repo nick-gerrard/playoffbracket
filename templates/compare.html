@@ -1,73 +1,104 @@
 {% extends "base.html" %}
-{% block title %}{{ me.name }} vs {{ them.name }}{% endblock %}
+{% block title %}Compare{% endblock %}
 {% block content %}
-<div class="max-w-3xl mx-auto">
+<div class="max-w-3xl mx-auto space-y-6 animate-fade-in">
 
-    <div class="flex items-center justify-between mb-8">
-        <h1 class="text-2xl font-bold">
-            <span class="text-blue-400">{{ me.name }}</span>
-            <span class="text-gray-500 mx-2">vs</span>
-            <span>{{ them.name }}</span>
-        </h1>
-        <a href="/leaderboard" class="text-sm text-gray-400 hover:text-white transition-colors">← Leaderboard</a>
+    <h1 class="text-2xl sm:text-3xl font-bold">Compare Brackets</h1>
+
+    <!-- Sticky picker / column header (combined) -->
+    <div class="sticky top-16 z-10 -mx-4 sm:-mx-6 px-4 sm:px-6 bg-slate-900/80 backdrop-blur-md border-b border-white/10">
+        <form method="get" action="/compare" x-data>
+            <div class="grid grid-cols-3 items-center py-3 gap-2">
+                <select name="a" @change="$el.form.submit()"
+                        class="bg-transparent text-blue-400 font-semibold text-sm focus:outline-none cursor-pointer truncate">
+                    <option value="">Select player…</option>
+                    {% for u in pred_users %}
+                    <option value="{{ u.id }}" {% if u.id == selected_a %}selected{% endif %}>{{ u.name }}</option>
+                    {% endfor %}
+                </select>
+                <span class="text-center text-slate-500 text-xs font-medium">vs</span>
+                <select name="b" @change="$el.form.submit()"
+                        class="bg-transparent text-white font-semibold text-sm focus:outline-none cursor-pointer truncate">
+                    <option value="">Select player…</option>
+                    {% for u in pred_users %}
+                    <option value="{{ u.id }}" {% if u.id == selected_b %}selected{% endif %}>{{ u.name }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+        </form>
     </div>
 
-    <div class="flex items-center gap-4 mb-6 text-xs text-gray-400">
-        <span class="flex items-center gap-1"><span class="inline-block w-3 h-3 rounded-full bg-green-500/40 border border-green-400/50"></span> Agree</span>
-        <span class="flex items-center gap-1"><span class="inline-block w-3 h-3 rounded-full bg-amber-500/40 border border-amber-400/50"></span> Disagree</span>
-    </div>
+    {% if rounds %}
 
-    <div class="sticky top-16 z-10 grid grid-cols-3 -mx-4 sm:-mx-6 px-4 sm:px-6 py-3 bg-slate-900/80 backdrop-blur-md border-b border-white/10 mb-6">
-        <span class="text-blue-400 font-semibold">{{ me.name }}</span>
-        <span></span>
-        <span class="text-right font-semibold">{{ them.name }}</span>
+    <!-- Legend -->
+    <div class="flex items-center gap-4 text-xs text-gray-400">
+        <span class="flex items-center gap-1.5"><span class="inline-block w-3 h-3 rounded-full bg-green-500/40 border border-green-400/50"></span> Agree</span>
+        <span class="flex items-center gap-1.5"><span class="inline-block w-3 h-3 rounded-full bg-red-500/40 border border-red-400/50"></span> Disagree</span>
     </div>
 
     {% for round_label, series_list in rounds.items() %}
-    <div class="mb-10">
-        <h2 class="text-sm font-semibold text-blue-300 uppercase tracking-widest mb-4">{{ round_label }}</h2>
+    <div>
+        <h2 class="text-sm font-semibold text-blue-300 uppercase tracking-widest mb-3">{{ round_label }}</h2>
         <div class="flex flex-col gap-3">
             {% for s in series_list %}
-            <div class="bg-white/5 backdrop-blur-sm border rounded-xl px-3 py-3 sm:px-4
+            <div class="relative overflow-hidden bg-white/5 backdrop-blur-sm border rounded-xl px-3 py-3 sm:px-4
                 {% if s.match == true %}border-green-400/40 bg-green-500/5
                 {% elif s.match == false %}border-amber-400/40 bg-amber-500/5
                 {% else %}border-white/10{% endif %}
             ">
+                {% if s.actual_winner %}
+                <img src="{{ s.actual_winner.dark_logo_url }}"
+                     class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-32 h-32 object-contain opacity-[0.08] select-none pointer-events-none" />
+                {% endif %}
+
                 <p class="text-xs text-gray-500 mb-2">Series {{ s.letter }}</p>
                 <div class="grid grid-cols-3 items-center gap-2">
 
-                    <div class="flex items-center gap-1 sm:gap-2">
-                        {% if s.my_pick %}
-                        <img src="{{ s.my_pick.dark_logo_url }}" class="h-7 w-7 sm:h-8 sm:w-8 flex-shrink-0" />
-                        <span class="font-semibold text-xs sm:text-sm">{{ s.my_pick.abbrev }}</span>
+                    <!-- Pick A -->
+                    <div class="flex items-center gap-1 sm:gap-2 transition-opacity
+                        {% if s.actual_winner and not s.correct_a %}opacity-35{% endif %}">
+                        {% if s.pick_a %}
+                        <img src="{{ s.pick_a.dark_logo_url }}" class="h-7 w-7 sm:h-8 sm:w-8 flex-shrink-0" />
+                        <span class="font-semibold text-xs sm:text-sm {% if s.correct_a %}text-green-300{% endif %}">
+                            {{ s.pick_a.abbrev }}
+                        </span>
                         {% else %}
                         <div class="h-8 w-8 rounded-full bg-gray-700 flex-shrink-0"></div>
-                        <span class="text-gray-500 text-sm">TBD</span>
+                        <span class="text-gray-500 text-sm">—</span>
                         {% endif %}
                     </div>
 
-                    <div class="text-center">
-                        {% if s.match == true %}
+                    <!-- Centre -->
+                    <div class="flex items-center justify-center min-h-10">
+                        {% if s.actual_winner %}
+                        <div class="text-center leading-tight">
+                            {% if s.match == true %}
+                            <p class="text-green-400 text-base">⇌</p>
+                            {% elif s.match == false %}
+                            <p class="text-red-400 text-base">≠</p>
+                            {% endif %}
+                            <p class="text-[9px] text-slate-500 uppercase tracking-widest font-medium">Winner</p>
+                            <p class="font-bold text-xs text-white">{{ s.actual_winner.abbrev }}</p>
+                        </div>
+                        {% elif s.match == true %}
                         <span class="text-green-400 text-lg">⇌</span>
                         {% elif s.match == false %}
-                        <span class="text-amber-400 text-lg">≠</span>
+                        <span class="text-red-400 text-lg">≠</span>
                         {% else %}
                         <span class="text-gray-600 text-lg">—</span>
                         {% endif %}
-                        {% if s.actual_winner %}
-                        <div class="flex items-center justify-center gap-1 mt-1">
-                            <img src="{{ s.actual_winner.dark_logo_url }}" class="h-4 w-4" />
-                            <span class="text-xs text-gray-400">won</span>
-                        </div>
-                        {% endif %}
                     </div>
 
-                    <div class="flex items-center gap-1 sm:gap-2 justify-end">
-                        {% if s.their_pick %}
-                        <span class="font-semibold text-xs sm:text-sm">{{ s.their_pick.abbrev }}</span>
-                        <img src="{{ s.their_pick.dark_logo_url }}" class="h-7 w-7 sm:h-8 sm:w-8 flex-shrink-0" />
+                    <!-- Pick B -->
+                    <div class="flex items-center gap-1 sm:gap-2 justify-end transition-opacity
+                        {% if s.actual_winner and not s.correct_b %}opacity-35{% endif %}">
+                        {% if s.pick_b %}
+                        <span class="font-semibold text-xs sm:text-sm {% if s.correct_b %}text-green-300{% endif %}">
+                            {{ s.pick_b.abbrev }}
+                        </span>
+                        <img src="{{ s.pick_b.dark_logo_url }}" class="h-7 w-7 sm:h-8 sm:w-8 flex-shrink-0" />
                         {% else %}
-                        <span class="text-gray-500 text-sm">TBD</span>
+                        <span class="text-gray-500 text-sm">—</span>
                         <div class="h-8 w-8 rounded-full bg-gray-700 flex-shrink-0"></div>
                         {% endif %}
                     </div>
@@ -78,6 +109,12 @@
         </div>
     </div>
     {% endfor %}
+
+    {% else %}
+    <div class="bg-white/5 backdrop-blur-sm border border-white/10 rounded-xl p-12 text-center text-slate-400">
+        Select two players above to compare their brackets.
+    </div>
+    {% endif %}
 
 </div>
 {% endblock %}

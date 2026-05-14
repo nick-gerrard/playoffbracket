@@ -219,6 +219,22 @@ def accept_bet(session: Session, bet_id: int, challengee: int):
     )
 
 
+def decline_bet(session: Session, bet_id: int, challengee: int):
+    bet = fetch_bet(session, bet_id)
+    if bet.challengee != challengee or bet.status != BetStatus.PENDING:
+        raise ValueError("Cannot decline this bet")
+    bet.status = BetStatus.CANCELLED
+    session.add(bet)
+    record_transaction(
+        session=session,
+        amount=bet.amount,
+        kind=TransactionKind.BET_REFUND,
+        payer_id=None,
+        payee_id=bet.challenger,
+        bet_id=bet_id,
+    )
+
+
 def settle_bets(session: Session) -> None:
     yesterday = date.today() - timedelta(days=1)
     games = fetch_games(session, yesterday)
@@ -274,6 +290,27 @@ def score_bracket(
         scoring.get(series_results[p.series_id][1], 0)
         for p in predictions
         if series_results[p.series_id][0] == p.predicted_winner_id
+    )
+
+
+def compute_max_possible(
+    predictions: list[Prediction],
+    all_series: list[Series],
+    series_results: dict[int, tuple[int | None, str]],
+    scoring: dict[str, int],
+) -> int:
+    eliminated: set[int] = set()
+    for s in all_series:
+        winner_id = series_results.get(s.id, (None, ""))[0]
+        if winner_id is not None:
+            if s.top_seed_team and s.top_seed_team != winner_id:
+                eliminated.add(s.top_seed_team)
+            if s.bottom_seed_team and s.bottom_seed_team != winner_id:
+                eliminated.add(s.bottom_seed_team)
+    return sum(
+        scoring.get(series_results[p.series_id][1], 0)
+        for p in predictions
+        if p.predicted_winner_id not in eliminated
     )
 
 
@@ -349,6 +386,7 @@ def build_leaderboard(
     all_predictions: list[Prediction],
     series_results: dict[int, tuple[int | None, str]],
     scoring: dict[str, int],
+    all_series: list[Series],
 ) -> list[dict]:
     user_map = {u.id: u for u in users}
     preds_by_user: dict[int, list[Prediction]] = {}
@@ -359,6 +397,7 @@ def build_leaderboard(
         {
             "user": user_map[user_id],
             "score": score_bracket(preds, series_results, scoring),
+            "max_possible": compute_max_possible(preds, all_series, series_results, scoring),
         }
         for user_id, preds in preds_by_user.items()
         if user_id in user_map

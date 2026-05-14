@@ -25,13 +25,16 @@
 
             <span class="flex-1 font-semibold">
                 {% if entry.user.id != current_user.id %}
-                <a href="/compare/{{ entry.user.id }}" class="hover:text-blue-400 transition-colors">{{ entry.user.name }}</a>
+                <a href="/compare?a={{ current_user.id }}&b={{ entry.user.id }}" class="hover:text-blue-400 transition-colors">{{ entry.user.name }}</a>
                 {% else %}
                 {{ entry.user.name }} <span class="text-xs text-blue-400 ml-1">(you)</span>
                 {% endif %}
             </span>
 
-            <span class="text-xl font-bold text-blue-400">{{ entry.score }}</span>
+            <div class="text-right">
+                <p class="text-xl font-bold text-blue-400">{{ entry.score }}</p>
+                <p class="text-xs text-slate-500">/ {{ entry.max_possible }}</p>
+            </div>
         </div>
         {% endfor %}
     </div>
