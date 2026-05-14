@@ -307,11 +307,17 @@ def compute_max_possible(
                 eliminated.add(s.top_seed_team)
             if s.bottom_seed_team and s.bottom_seed_team != winner_id:
                 eliminated.add(s.bottom_seed_team)
-    return sum(
-        scoring.get(series_results[p.series_id][1], 0)
-        for p in predictions
-        if p.predicted_winner_id not in eliminated
-    )
+    total = 0
+    for p in predictions:
+        winner_id, abbrev = series_results[p.series_id]
+        points = scoring.get(abbrev, 0)
+        if winner_id is not None:
+            if winner_id == p.predicted_winner_id:
+                total += points
+        else:
+            if p.predicted_winner_id not in eliminated:
+                total += points
+    return total
 
 
 def _get_or_create_team(session: Session, team_data: dict) -> Team:
