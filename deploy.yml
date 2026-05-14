@@ -1,0 +1,108 @@
+name: Deploy
+
+on:
+  push:
+    branches: [main]
+    paths-ignore:
+      - '**.md'
+  pull_request:
+    branches: [main]
+    paths-ignore:
+      - '**.md'
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+
+    services:
+      postgres:
+        image: postgres:16
+        env:
+          POSTGRES_USER: pwhl
+          POSTGRES_PASSWORD: testpassword
+          POSTGRES_DB: pwhlstats
+        options: >-
+          --health-cmd pg_isready
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 5
+        ports:
+          - 5432:5432
+
+    steps:
+      - uses: actions/checkout@v4.2.2
+
+      - name: Install uv
+        uses: astral-sh/setup-uv@v5
+
+      - name: Install backend dependencies
+        working-directory: backend
+        run: uv sync
+
+      - name: Run migrations
+        working-directory: backend
+        env:
+          DATABASE_URL: postgresql://pwhl:testpassword@localhost:5432/pwhlstats
+          ADMIN_TOKEN: test-token
+        run: uv run alembic upgrade head
+
+      - name: Seed database
+        working-directory: backend
+        env:
+          DATABASE_URL: postgresql://pwhl:testpassword@localhost:5432/pwhlstats
+          ADMIN_TOKEN: test-token
+        run: uv run python -m ingestions.run
+
+      - name: Run tests
+        working-directory: backend
+        env:
+          DATABASE_URL: postgresql://pwhl:testpassword@localhost:5432/pwhlstats
+          ADMIN_TOKEN: test-token
+          ENABLE_POLLING: false
+        run: uv run pytest -v
+
+  deploy:
+    needs: test
+    if: github.event_name == 'push'
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4.2.2
+
+      - uses: actions/setup-node@v4.4.0
+        with:
+          node-version: 22
+
+      - name: Install frontend dependencies
+        working-directory: frontend
+        run: npm ci
+
+      - name: Build frontend
+        working-directory: frontend
+        env:
+          PUBLIC_API_URL: ${{ secrets.PUBLIC_API_URL }}
+        run: npm run build
+
+      - name: Set up SSH
+        uses: webfactory/ssh-agent@v0.9.1
+        with:
+          ssh-private-key: ${{ secrets.LINODEDEPLOY }}
+
+      - name: Add server to known hosts
+        run: ssh-keyscan -H ${{ secrets.SSH_HOST }} >> ~/.ssh/known_hosts
+
+      - name: Sync frontend build
+        run: |
+          rsync -av --delete frontend/build/ \
+            ${{ secrets.SSH_USER }}@${{ secrets.SSH_HOST }}:/var/www/pwhl/
+
+      - name: Deploy backend
+        run: |
+          ssh ${{ secrets.SSH_USER }}@${{ secrets.SSH_HOST }} 'bash -e -l -c "
+            cd ~/pwhl-stats &&
+            git pull &&
+            cd backend &&
+            uv sync &&
+            uv run alembic upgrade head &&
+            sudo systemctl restart pwhl-api
+          "'

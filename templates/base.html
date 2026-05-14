@@ -14,39 +14,11 @@
         <link rel="preconnect" href="https://fonts.googleapis.com">
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
         <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-        <script>
-            tailwind.config = {
-                theme: {
-                    extend: {
-                        fontFamily: {
-                            sans: ['Space Grotesk', 'sans-serif'],
-                        }
-                    }
-                }
-            }
-        </script>
-        <script src="https://cdn.tailwindcss.com"></script>
-        <style>
-            [x-cloak] { display: none !important; }
-            h1, h2, h3 { letter-spacing: -0.02em; }
-            @keyframes fadeIn {
-                0% { opacity: 0; transform: translateY(16px); }
-                100% { opacity: 1; transform: translateY(0); }
-            }
-            .animate-fade-in {
-                opacity: 0;
-                animation: fadeIn 0.5s ease-out forwards;
-            }
-            .delay-150 { animation-delay: 150ms; }
-            .delay-300 { animation-delay: 300ms; }
-            .delay-500 { animation-delay: 500ms; }
-        </style>
-        <script src="https://unpkg.com/htmx.org@2.0.4"
-                integrity="sha384-HGfztofotfshcF7+8n44JQL2oJmowVChPTg48S+jvZoztPfvwD79OC/LTtG6dMp+"
-                crossorigin="anonymous"></script>
-        <script src="https://unpkg.com/alpinejs" defer></script>
+        <link rel="stylesheet" href="/static/css/tailwind.min.css">
+        <script src="/static/js/htmx.min.js"></script>
+        <script src="/static/js/alpine.min.js" defer></script>
     </head>
-    <body class="text-white min-h-screen bg-gradient-to-br from-slate-900 via-slate-800 to-blue-950 ">
+    <body class="text-white min-h-screen bg-gradient-to-br from-slate-900 via-slate-800 to-blue-950">
         <div class="fixed inset-0 -z-10 overflow-hidden pointer-events-none" aria-hidden="true">
             <div class="absolute top-[-10%] left-[-5%] w-[500px] h-[500px] bg-blue-600 rounded-full blur-3xl opacity-[0.15]"></div>
             <div class="absolute top-[40%] right-[-8%] w-[400px] h-[400px] bg-violet-700 rounded-full blur-3xl opacity-[0.12]"></div>
