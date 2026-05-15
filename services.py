@@ -1,4 +1,4 @@
-from datetime import datetime, date, timedelta
+from datetime import datetime, date, timedelta, timezone
 from sqlmodel import Session, select
 from enums import BetStatus, GameStatus, TransactionKind
 from models import (
@@ -15,6 +15,25 @@ from models import (
 import httpx
 
 NHL_BASE = "https://api-web.nhle.com/v1"
+
+ET = timezone(timedelta(hours=-4))
+
+ROUND_LABELS = {
+    1: "First Round",
+    2: "Second Round",
+    3: "Conference Finals",
+    4: "Stanley Cup Final",
+}
+
+FEEDS_INTO = {
+    "I": ("A", "B"),
+    "J": ("C", "D"),
+    "K": ("E", "F"),
+    "L": ("G", "H"),
+    "M": ("I", "J"),
+    "N": ("K", "L"),
+    "O": ("M", "N"),
+}
 
 
 # --- Query functions ---
@@ -205,6 +224,11 @@ def issue_bet(
 
 def accept_bet(session: Session, bet_id: int, challengee: int):
     bet = fetch_bet(session, bet_id)
+    game = session.get(Game, bet.game_id)
+    if game and game.start_time:
+        start_utc = game.start_time if game.start_time.tzinfo else game.start_time.replace(tzinfo=timezone.utc)
+        if datetime.now(timezone.utc) >= start_utc + timedelta(hours=1):
+            raise ValueError("Betting window has closed for this game")
     challengee_user = fetch_user(session, challengee)
     if not challengee_user or challengee_user.balance < bet.amount:
         raise ValueError("Insufficient balance")
@@ -409,3 +433,143 @@ def build_leaderboard(
         if user_id in user_map
     ]
     return sorted(entries, key=lambda x: x["score"], reverse=True)
+
+
+def count_pending_challenges(session: Session, user_id: int) -> int:
+    return len(list(session.exec(
+        select(Bet).where(Bet.challengee == user_id, Bet.status == BetStatus.PENDING)
+    ).all()))
+
+
+def fetch_pending_challenges(session: Session, user_id: int) -> list[Bet]:
+    return list(session.exec(
+        select(Bet).where(Bet.challengee == user_id, Bet.status == BetStatus.PENDING)
+    ).all())
+
+
+def fetch_pending_issued(session: Session, user_id: int) -> list[Bet]:
+    return list(session.exec(
+        select(Bet).where(Bet.challenger == user_id, Bet.status == BetStatus.PENDING)
+    ).all())
+
+
+def fetch_active_bets(session: Session, user_id: int) -> list[Bet]:
+    from sqlalchemy import or_
+    return list(session.exec(
+        select(Bet).where(
+            or_(Bet.challenger == user_id, Bet.challengee == user_id),
+            Bet.status == BetStatus.ACCEPTED,
+        )
+    ).all())
+
+
+def fetch_todays_games(session: Session) -> tuple[list[Game], set[int]]:
+    now_utc = datetime.now(timezone.utc)
+    today_et = now_utc.astimezone(ET).date()
+    games = fetch_games(session, today_et)
+    bettable_ids = {
+        g.id for g in games
+        if now_utc < (g.start_time if g.start_time.tzinfo else g.start_time.replace(tzinfo=timezone.utc)) + timedelta(hours=1)
+    }
+    return games, bettable_ids
+
+
+def fetch_users_by_balance(session: Session) -> list[User]:
+    return sorted(fetch_all_users(session), key=lambda u: u.balance, reverse=True)
+
+
+def fetch_recent_transactions(session: Session, limit: int = 20) -> list[Transaction]:
+    return list(reversed(fetch_all_transactions(session)))[:limit]
+
+
+def toggle_picks_open(session: Session) -> None:
+    season = fetch_current_season(session)
+    if season:
+        season.picks_open = not season.picks_open
+        session.add(season)
+        session.commit()
+
+
+def get_or_create_user(session: Session, email: str, name: str, bonus_amount: int) -> tuple[User, bool]:
+    user = session.exec(select(User).where(User.email == email)).first()
+    if not user:
+        user = User(name=name, email=email)
+        session.add(user)
+        session.commit()
+        session.refresh(user)
+        signup_bonus(session=session, payee_id=user.id, amount=bonus_amount)
+        return user, True
+    return user, False
+
+
+def build_series_picker(all_series: list[Series], team_map: dict) -> dict:
+    series_data = {}
+    for s in all_series:
+        top = team_map.get(s.top_seed_team)
+        bottom = team_map.get(s.bottom_seed_team)
+        series_data[s.series_letter] = {
+            "id": s.id,
+            "letter": s.series_letter,
+            "top": {"id": top.id, "abbrev": top.abbrev, "logo": top.dark_logo_url} if top else None,
+            "bottom": {"id": bottom.id, "abbrev": bottom.abbrev, "logo": bottom.dark_logo_url} if bottom else None,
+        }
+    return series_data
+
+
+def build_bracket_rounds(
+    predictions: list[Prediction],
+    all_series: list[Series],
+    series_results: dict,
+    team_map: dict,
+    scoring: dict,
+) -> dict:
+    pred_map = {p.series_id: p.predicted_winner_id for p in predictions}
+    letter_to_id = {s.series_letter: s.id for s in all_series}
+    rounds: dict = {}
+    for s in sorted(all_series, key=lambda x: (x.playoff_round, x.series_letter)):
+        if s.series_letter in FEEDS_INTO:
+            src1, src2 = FEEDS_INTO[s.series_letter]
+            pred_top = team_map.get(pred_map.get(letter_to_id.get(src1)))
+            pred_bottom = team_map.get(pred_map.get(letter_to_id.get(src2)))
+        else:
+            pred_top = team_map.get(s.top_seed_team)
+            pred_bottom = team_map.get(s.bottom_seed_team)
+        entry = {
+            "title": s.title,
+            "letter": s.series_letter,
+            "top_team": pred_top,
+            "bottom_team": pred_bottom,
+            "predicted_winner": team_map.get(pred_map.get(s.id)),
+            "actual_winner": team_map.get(s.winner) if s.winner else None,
+            "status": (
+                "correct" if s.winner and s.winner == pred_map.get(s.id)
+                else "wrong" if s.winner and s.winner != pred_map.get(s.id)
+                else "pending"
+            ),
+            "points": scoring.get(s.series_abbrev, 0),
+        }
+        rounds.setdefault(ROUND_LABELS[s.playoff_round], []).append(entry)
+    return rounds
+
+
+def build_compare_rounds(
+    all_series: list[Series],
+    preds_a: dict,
+    preds_b: dict,
+    team_map: dict,
+) -> dict:
+    rounds = {}
+    for s in sorted(all_series, key=lambda x: (x.playoff_round, x.series_letter)):
+        pick_a = preds_a.get(s.id)
+        pick_b = preds_b.get(s.id)
+        entry = {
+            "letter": s.series_letter,
+            "pick_a": team_map.get(pick_a),
+            "pick_b": team_map.get(pick_b),
+            "match": (pick_a == pick_b) if (pick_a and pick_b) else None,
+            "actual_winner": team_map.get(s.winner) if s.winner else None,
+            "correct_a": bool(s.winner and pick_a == s.winner),
+            "correct_b": bool(s.winner and pick_b == s.winner),
+        }
+        rounds.setdefault(ROUND_LABELS[s.playoff_round], []).append(entry)
+    return rounds

@@ -16,33 +16,41 @@ from seed import (
 )
 from contextlib import asynccontextmanager
 from fastapi.templating import Jinja2Templates
-from fastapi.responses import HTMLResponse
 from fastapi.staticfiles import StaticFiles
 from services import (
+    ET,
     daily_job,
     has_prediction,
     save_prediction,
     score_bracket,
     compute_max_possible,
     build_leaderboard,
+    build_bracket_rounds,
+    build_compare_rounds,
+    build_series_picker,
     get_predictions_map,
-    signup_bonus,
     bracket_bonus,
     ingest_games,
     fetch_predictions,
     fetch_all_users,
-    fetch_all_transactions,
     fetch_predictions_for_season,
     fetch_series_results,
     fetch_scoring,
     fetch_current_season,
     fetch_season_by_year,
-    fetch_games,
-    fetch_bets_for_user,
+    fetch_todays_games,
+    fetch_users_by_balance,
+    fetch_recent_transactions,
+    fetch_pending_challenges,
+    fetch_pending_issued,
+    fetch_active_bets,
+    count_pending_challenges,
     issue_bet,
     accept_bet,
     decline_bet,
     record_transaction,
+    toggle_picks_open,
+    get_or_create_user,
 )
 from pydantic import BaseModel
 
@@ -59,7 +67,7 @@ from models import (
     Season,
     User,
 )
-from enums import BetStatus, TransactionKind
+from enums import TransactionKind
 from apscheduler.schedulers.asyncio import AsyncIOScheduler
 from apscheduler.triggers.cron import CronTrigger
 
@@ -70,7 +78,6 @@ load_dotenv()
 engine = create_engine("sqlite:///bracket.db")
 templates = Jinja2Templates(directory="templates")
 
-ET = timezone(timedelta(hours=-4))
 templates.env.filters["et"] = lambda dt: (
     dt.replace(tzinfo=timezone.utc) if dt.tzinfo is None else dt
 ).astimezone(ET).strftime("%-I:%M %p ET")
@@ -80,9 +87,7 @@ ADMIN_EMAIL = os.environ.get("ADMIN_EMAIL", "")
 
 def challenge_count(user_id: int) -> int:
     with Session(engine) as session:
-        return len(list(session.exec(
-            select(Bet).where(Bet.challengee == user_id, Bet.status == BetStatus.PENDING)
-        ).all()))
+        return count_pending_challenges(session, user_id)
 
 
 def user_has_submitted(user_id: int) -> bool:
@@ -207,23 +212,6 @@ def resolve_season(session: Session, year: int | None) -> Season:
     return season
 
 
-ROUND_LABELS = {
-    1: "First Round",
-    2: "Second Round",
-    3: "Conference Finals",
-    4: "Stanley Cup Final",
-}
-
-FEEDS_INTO = {
-    "I": ("A", "B"),
-    "J": ("C", "D"),
-    "K": ("E", "F"),
-    "L": ("G", "H"),
-    "M": ("I", "J"),
-    "N": ("K", "L"),
-    "O": ("M", "N"),
-}
-
 
 @app.get("/login")
 async def login_page(request: Request, user: User | None = Depends(get_current_user)):
@@ -243,13 +231,7 @@ async def auth_callback(request: Request):
     token = await oauth.google.authorize_access_token(request)
     info = token["userinfo"]
     with Session(engine) as session:
-        user = session.exec(select(User).where(User.email == info["email"])).first()
-        if not user:
-            user = User(name=info["name"], email=info["email"])
-            session.add(user)
-            session.commit()
-            session.refresh(user)
-            signup_bonus(session=session, payee_id=user.id, amount=signup_bonus_val)
+        user, _ = get_or_create_user(session, email=info["email"], name=info["name"], bonus_amount=signup_bonus_val)
         request.session["user_id"] = user.id
     return RedirectResponse("/bracket")
 
@@ -318,37 +300,9 @@ async def bracket(
         team_map = {t.id: t for t in session.exec(select(Team)).all()}
         series_results = fetch_series_results(session, season.id)
         scoring = fetch_scoring(session, season.year)
-        pred_map = {p.series_id: p.predicted_winner_id for p in predictions}
         total_score = score_bracket(predictions, series_results, scoring)
         max_possible = compute_max_possible(predictions, all_series, series_results, scoring)
-
-    letter_to_id = {s.series_letter: s.id for s in all_series}
-    rounds: dict = {}
-    for s in sorted(all_series, key=lambda x: (x.playoff_round, x.series_letter)):
-        if s.series_letter in FEEDS_INTO:
-            src1, src2 = FEEDS_INTO[s.series_letter]
-            pred_top = team_map.get(pred_map.get(letter_to_id.get(src1)))
-            pred_bottom = team_map.get(pred_map.get(letter_to_id.get(src2)))
-        else:
-            pred_top = team_map.get(s.top_seed_team)
-            pred_bottom = team_map.get(s.bottom_seed_team)
-        entry = {
-            "title": s.title,
-            "letter": s.series_letter,
-            "top_team": pred_top,
-            "bottom_team": pred_bottom,
-            "predicted_winner": team_map.get(pred_map.get(s.id)),
-            "actual_winner": team_map.get(s.winner) if s.winner else None,
-            "status": (
-                "correct"
-                if s.winner and s.winner == pred_map.get(s.id)
-                else "wrong"
-                if s.winner and s.winner != pred_map.get(s.id)
-                else "pending"
-            ),
-            "points": scoring.get(s.series_abbrev, 0),
-        }
-        rounds.setdefault(ROUND_LABELS[s.playoff_round], []).append(entry)
+        rounds = build_bracket_rounds(predictions, all_series, series_results, team_map, scoring)
 
     return templates.TemplateResponse(
         request=request,
@@ -394,29 +348,11 @@ async def predict(request: Request, user: User | None = Depends(get_current_user
             return RedirectResponse("/")
         if has_prediction(session, user.id, season.id):
             return RedirectResponse("/bracket")
-        all_series = session.exec(
+        all_series = list(session.exec(
             select(Series).where(Series.season_id == season.id)
-        ).all()
+        ).all())
         team_map = {t.id: t for t in session.exec(select(Team)).all()}
-
-    series_data = {}
-    for s in all_series:
-        top = team_map.get(s.top_seed_team)
-        bottom = team_map.get(s.bottom_seed_team)
-        series_data[s.series_letter] = {
-            "id": s.id,
-            "letter": s.series_letter,
-            "top": {"id": top.id, "abbrev": top.abbrev, "logo": top.dark_logo_url}
-            if top
-            else None,
-            "bottom": {
-                "id": bottom.id,
-                "abbrev": bottom.abbrev,
-                "logo": bottom.dark_logo_url,
-            }
-            if bottom
-            else None,
-        }
+        series_data = build_series_picker(all_series, team_map)
 
     return templates.TemplateResponse(
         request=request,
@@ -498,20 +434,7 @@ async def compare(
             if user_a and user_b:
                 preds_a = get_predictions_map(session, a, season.id)
                 preds_b = get_predictions_map(session, b, season.id)
-                rounds = {}
-                for s in sorted(all_series, key=lambda x: (x.playoff_round, x.series_letter)):
-                    pick_a = preds_a.get(s.id)
-                    pick_b = preds_b.get(s.id)
-                    entry = {
-                        "letter": s.series_letter,
-                        "pick_a": team_map.get(pick_a),
-                        "pick_b": team_map.get(pick_b),
-                        "match": (pick_a == pick_b) if (pick_a and pick_b) else None,
-                        "actual_winner": team_map.get(s.winner) if s.winner else None,
-                        "correct_a": bool(s.winner and pick_a == s.winner),
-                        "correct_b": bool(s.winner and pick_b == s.winner),
-                    }
-                    rounds.setdefault(ROUND_LABELS[s.playoff_round], []).append(entry)
+                rounds = build_compare_rounds(all_series, preds_a, preds_b, team_map)
 
     return templates.TemplateResponse(
         request=request,
@@ -534,29 +457,13 @@ async def bets_page(request: Request, user: User | None = Depends(get_current_us
     if not user:
         return RedirectResponse("/login")
     with Session(engine) as session:
-        now_utc = datetime.now(timezone.utc)
-        today_et = now_utc.astimezone(ET).date()
-        today_games = fetch_games(session, today_et)
-        bettable_ids = {
-            g.id for g in today_games
-            if now_utc < (g.start_time if g.start_time.tzinfo else g.start_time.replace(tzinfo=timezone.utc)) + timedelta(hours=1)
-        }
+        today_games, bettable_ids = fetch_todays_games(session)
         team_map = {t.id: t for t in session.exec(select(Team)).all()}
         all_users = fetch_all_users(session)
         user_map = {u.id: u for u in all_users}
-        open_challenges = list(
-            session.exec(
-                select(Bet).where(Bet.challengee == user.id, Bet.status == BetStatus.PENDING)
-            ).all()
-        )
-        my_pending = list(
-            session.exec(
-                select(Bet).where(Bet.challenger == user.id, Bet.status == BetStatus.PENDING)
-            ).all()
-        )
-        active_bets = [
-            b for b in fetch_bets_for_user(session, user.id) if b.status == BetStatus.ACCEPTED
-        ]
+        open_challenges = fetch_pending_challenges(session, user.id)
+        my_pending = fetch_pending_issued(session, user.id)
+        active_bets = fetch_active_bets(session, user.id)
     return templates.TemplateResponse(
         request=request,
         name="bets.html",
@@ -611,8 +518,8 @@ async def post_accept(
     try:
         with Session(engine) as session:
             accept_bet(session, bet_id=bet_id, challengee=user.id)
-    except ValueError:
-        return RedirectResponse("/bets?error=insufficient_balance", status_code=303)
+    except ValueError as e:
+        return RedirectResponse(f"/bets?error={e}", status_code=303)
     return RedirectResponse("/bets", status_code=303)
 
 
@@ -633,7 +540,7 @@ async def post_decline(
 async def admin_dashboard(request: Request, admin: User = Depends(require_admin)):
     with Session(engine) as session:
         users = fetch_all_users(session)
-        recent_transactions = list(reversed(fetch_all_transactions(session)))[:20]
+        recent_transactions = fetch_recent_transactions(session)
         season = fetch_current_season(session)
     return templates.TemplateResponse(
         request=request,
@@ -671,7 +578,7 @@ async def vault(request: Request, user: User | None = Depends(get_current_user))
     if not user:
         return RedirectResponse("/login")
     with Session(engine) as session:
-        users = sorted(fetch_all_users(session), key=lambda u: u.balance, reverse=True)
+        users = fetch_users_by_balance(session)
     return templates.TemplateResponse(
         request=request,
         name="vault.html",
@@ -682,11 +589,7 @@ async def vault(request: Request, user: User | None = Depends(get_current_user))
 @app.post("/admin/toggle-picks")
 async def admin_toggle_picks(admin: User = Depends(require_admin)):
     with Session(engine) as session:
-        season = fetch_current_season(session)
-        if season:
-            season.picks_open = not season.picks_open
-            session.add(season)
-            session.commit()
+        toggle_picks_open(session)
     return RedirectResponse("/admin", status_code=303)
 
 

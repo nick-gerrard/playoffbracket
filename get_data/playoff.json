@@ -412,7 +412,7 @@
       "topSeedWins": 2,
       "bottomSeedRank": 3,
       "bottomSeedRankAbbrev": "D3",
-      "bottomSeedWins": 2,
+      "bottomSeedWins": 3,
       "topSeedTeam": {
         "id": 7,
         "abbrev": "BUF",
@@ -554,7 +554,7 @@
       "playoffRound": 2,
       "topSeedRank": 1,
       "topSeedRankAbbrev": "D1",
-      "topSeedWins": 3,
+      "topSeedWins": 4,
       "bottomSeedRank": 3,
       "bottomSeedRankAbbrev": "D3",
       "bottomSeedWins": 2,
@@ -641,12 +641,14 @@
       }
     },
     {
-      "seriesUrl": "/schedule/playoff-series/2026/series-n/tbd-vs-avalanche",
+      "seriesUrl": "/schedule/playoff-series/2026/series-n/goldenknights-vs-avalanche",
       "seriesLogo": "https://assets.nhle.com/logos/playoffs/png/wcf-20232024-wordmark-en.png",
       "seriesLogoFr": "https://assets.nhle.com/logos/playoffs/png/wcf-20232024-wordmark-fr.png",
-      "seriesTitle": "Conference Finals",
-      "seriesAbbrev": "CF",
+      "seriesTitle": "Western Conference Finals",
+      "seriesAbbrev": "WCF",
       "seriesLetter": "N",
+      "conferenceAbbrev": "W",
+      "conferenceName": "Western",
       "playoffRound": 3,
       "topSeedRank": 1,
       "topSeedRankAbbrev": "D1",
@@ -672,19 +674,21 @@
         "darkLogo": "https://assets.nhle.com/logos/nhl/svg/COL_dark.svg"
       },
       "bottomSeedTeam": {
-        "id": -1,
-        "abbrev": "TBD",
+        "id": 54,
+        "abbrev": "VGK",
         "name": {
-          "default": "TBD"
+          "default": "Vegas Golden Knights",
+          "fr": "Golden Knights de Vegas"
         },
         "commonName": {
-          "default": "TBD"
+          "default": "Golden Knights"
         },
         "placeNameWithPreposition": {
-          "default": "TBD"
+          "default": "Vegas",
+          "fr": "de Vegas"
         },
-        "logo": "https://assets.nhle.com/logos/nhl/svg/team-tbd-light.svg",
-        "darkLogo": "https://assets.nhle.com/logos/nhl/svg/team-tbd-dark.svg"
+        "logo": "https://assets.nhle.com/logos/nhl/svg/VGK_light.svg",
+        "darkLogo": "https://assets.nhle.com/logos/nhl/svg/VGK_dark.svg"
       }
     },
     {

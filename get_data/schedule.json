@@ -561,7 +561,7 @@
           "easternUTCOffset": "-04:00",
           "venueUTCOffset": "-04:00",
           "venueTimezone": "America/New_York",
-          "gameState": "FUT",
+          "gameState": "OFF",
           "gameScheduleState": "OK",
           "tvBroadcasts": [
             {
@@ -623,7 +623,7 @@
             "logo": "https://assets.nhle.com/logos/nhl/svg/MTL_light.svg",
             "darkLogo": "https://assets.nhle.com/logos/nhl/svg/MTL_dark.svg",
             "awaySplitSquad": false,
-            "radioLink": "https://d2igy0yla8zi0u.cloudfront.net/MTL/20252026/MTL-radio.m3u8"
+            "score": 6
           },
           "homeTeam": {
             "id": 7,
@@ -641,12 +641,33 @@
             "logo": "https://assets.nhle.com/logos/nhl/svg/BUF_light.svg",
             "darkLogo": "https://assets.nhle.com/logos/nhl/svg/BUF_dark.svg",
             "homeSplitSquad": false,
-            "radioLink": "https://d2igy0yla8zi0u.cloudfront.net/BUF/20252026/BUF-radio.m3u8"
+            "score": 3
           },
           "periodDescriptor": {
-            "number": 1,
+            "number": 3,
             "periodType": "REG",
             "maxRegulationPeriods": 3
+          },
+          "gameOutcome": {
+            "lastPeriodType": "REG"
+          },
+          "winningGoalie": {
+            "playerId": 8482487,
+            "firstInitial": {
+              "default": "J."
+            },
+            "lastName": {
+              "default": "Dobes"
+            }
+          },
+          "winningGoalScorer": {
+            "playerId": 8478133,
+            "firstInitial": {
+              "default": "J."
+            },
+            "lastName": {
+              "default": "Evans"
+            }
           },
           "seriesStatus": {
             "round": 2,
@@ -657,12 +678,14 @@
             "topSeedTeamAbbrev": "BUF",
             "topSeedWins": 2,
             "bottomSeedTeamAbbrev": "MTL",
-            "bottomSeedWins": 2,
+            "bottomSeedWins": 3,
             "gameNumberOfSeries": 5
           },
           "seriesUrl": "/schedule/playoff-series/2026/series-i/sabres-vs-canadiens",
-          "ticketsLink": "https://www.ticketmaster.com/event/0000648DC36FECB6?brand=nhl&wt.mc_id=NHL_LEAGUE_BUF_SCHED_PG_PLAYOFFS_RD2_GM3&utm_source=NHL.com&utm_medium=client&utm_campaign=NHL_LEAGUE_BUF&utm_content=SCHED_PG_PLAYOFFS_RD2_GM3",
-          "ticketsLinkFr": "https://www.ticketmaster.com/event/0000648DC36FECB6?brand=nhl&wt.mc_id=NHL_LEAGUE_BUF_SCHED_PG_PLAYOFFS_RD2_GM3&utm_source=NHL.com&utm_medium=client&utm_campaign=NHL_LEAGUE_BUF&utm_content=SCHED_PG_PLAYOFFS_RD2_GM3",
+          "threeMinRecap": "/video/mtl-at-buf-recap-6395620419112",
+          "threeMinRecapFr": "/fr/video/mtl-vs-buf-14-05-2026-resume-6395621187112",
+          "condensedGame": "/video/mtl-at-buf-condensed-game-6395620139112",
+          "condensedGameFr": "/fr/video/match-condense-canadiens-sabres-14-05-2026-6395619634112",
           "gameCenterLink": "/gamecenter/mtl-vs-buf/2026/05/14/2025030215"
         },
         {
@@ -677,7 +700,7 @@
           "easternUTCOffset": "-04:00",
           "venueUTCOffset": "-07:00",
           "venueTimezone": "America/Los_Angeles",
-          "gameState": "FUT",
+          "gameState": "FINAL",
           "gameScheduleState": "OK",
           "tvBroadcasts": [
             {
@@ -739,7 +762,7 @@
             "logo": "https://assets.nhle.com/logos/nhl/svg/VGK_light.svg",
             "darkLogo": "https://assets.nhle.com/logos/nhl/svg/VGK_dark.svg",
             "awaySplitSquad": false,
-            "radioLink": "https://d2igy0yla8zi0u.cloudfront.net/VGK/20252026/VGK-radio.m3u8"
+            "score": 5
           },
           "homeTeam": {
             "id": 24,
@@ -757,12 +780,33 @@
             "logo": "https://assets.nhle.com/logos/nhl/svg/ANA_light.svg",
             "darkLogo": "https://assets.nhle.com/logos/nhl/svg/ANA_dark.svg",
             "homeSplitSquad": false,
-            "radioLink": "https://d2igy0yla8zi0u.cloudfront.net/ANA/20252026/ANA-radio.m3u8"
+            "score": 1
           },
           "periodDescriptor": {
-            "number": 1,
+            "number": 3,
             "periodType": "REG",
             "maxRegulationPeriods": 3
+          },
+          "gameOutcome": {
+            "lastPeriodType": "REG"
+          },
+          "winningGoalie": {
+            "playerId": 8479394,
+            "firstInitial": {
+              "default": "C."
+            },
+            "lastName": {
+              "default": "Hart"
+            }
+          },
+          "winningGoalScorer": {
+            "playerId": 8479353,
+            "firstInitial": {
+              "default": "B."
+            },
+            "lastName": {
+              "default": "Howden"
+            }
           },
           "seriesStatus": {
             "round": 2,
@@ -771,14 +815,16 @@
             "seriesLetter": "L",
             "neededToWin": 4,
             "topSeedTeamAbbrev": "VGK",
-            "topSeedWins": 3,
+            "topSeedWins": 4,
             "bottomSeedTeamAbbrev": "ANA",
             "bottomSeedWins": 2,
             "gameNumberOfSeries": 6
           },
           "seriesUrl": "/schedule/playoff-series/2026/series-l/ducks-vs-goldenknights",
-          "ticketsLink": "https://www.ticketmaster.com/event/090064794B775EB4?brand=nhl&wt.mc_id=NHL_LEAGUE_ANA_SCHED_PG_PLAYOFFS_RD2_GM3&utm_source=NHL.com&utm_medium=client&utm_campaign=NHL_LEAGUE_ANA&utm_content=SCHED_PG_PLAYOFFS_RD2_GM3",
-          "ticketsLinkFr": "https://www.ticketmaster.com/event/090064794B775EB4?brand=nhl&wt.mc_id=NHL_LEAGUE_ANA_SCHED_PG_PLAYOFFS_RD2_GM3&utm_source=NHL.com&utm_medium=client&utm_campaign=NHL_LEAGUE_ANA&utm_content=SCHED_PG_PLAYOFFS_RD2_GM3",
+          "threeMinRecap": "/video/vgk-at-ana-recap-6395632750112",
+          "threeMinRecapFr": "/fr/video/vgk-vs-ana-14-05-2026-resume-6395633427112",
+          "condensedGame": "/video/vgk-at-ana-condensed-game-6395634024112",
+          "condensedGameFr": "/fr/video/match-condense-golden-knights-ducks-14-05-2026-6395632283112",
           "gameCenterLink": "/gamecenter/vgk-vs-ana/2026/05/14/2025030246"
         }
       ]
@@ -793,111 +839,9 @@
     {
       "date": "2026-05-16",
       "dayAbbrev": "SAT",
-      "numberOfGames": 2,
+      "numberOfGames": 1,
       "datePromo": [],
       "games": [
-        {
-          "id": 2025030247,
-          "season": 20252026,
-          "gameType": 3,
-          "venue": {
-            "default": "T-Mobile Arena"
-          },
-          "neutralSite": false,
-          "startTimeUTC": "2026-05-16T21:00:00Z",
-          "easternUTCOffset": "-04:00",
-          "venueUTCOffset": "-07:00",
-          "venueTimezone": "US/Pacific",
-          "gameState": "FUT",
-          "gameScheduleState": "OK",
-          "tvBroadcasts": [
-            {
-              "id": 309,
-              "market": "N",
-              "countryCode": "US",
-              "network": "ESPN",
-              "sequenceNumber": 10
-            },
-            {
-              "id": 290,
-              "market": "N",
-              "countryCode": "CA",
-              "network": "SNP",
-              "sequenceNumber": 33
-            },
-            {
-              "id": 284,
-              "market": "N",
-              "countryCode": "CA",
-              "network": "SN1",
-              "sequenceNumber": 113
-            },
-            {
-              "id": 281,
-              "market": "N",
-              "countryCode": "CA",
-              "network": "TVAS",
-              "sequenceNumber": 120
-            }
-          ],
-          "awayTeam": {
-            "id": 24,
-            "commonName": {
-              "default": "Ducks"
-            },
-            "placeName": {
-              "default": "Anaheim"
-            },
-            "placeNameWithPreposition": {
-              "default": "Anaheim",
-              "fr": "d'Anaheim"
-            },
-            "abbrev": "ANA",
-            "logo": "https://assets.nhle.com/logos/nhl/svg/ANA_light.svg",
-            "darkLogo": "https://assets.nhle.com/logos/nhl/svg/ANA_dark.svg",
-            "awaySplitSquad": false,
-            "radioLink": "https://d2igy0yla8zi0u.cloudfront.net/ANA/20252026/ANA-radio.m3u8"
-          },
-          "homeTeam": {
-            "id": 54,
-            "commonName": {
-              "default": "Golden Knights"
-            },
-            "placeName": {
-              "default": "Vegas"
-            },
-            "placeNameWithPreposition": {
-              "default": "Vegas",
-              "fr": "de Vegas"
-            },
-            "abbrev": "VGK",
-            "logo": "https://assets.nhle.com/logos/nhl/svg/VGK_light.svg",
-            "darkLogo": "https://assets.nhle.com/logos/nhl/svg/VGK_dark.svg",
-            "homeSplitSquad": false,
-            "radioLink": "https://d2igy0yla8zi0u.cloudfront.net/VGK/20252026/VGK-radio.m3u8"
-          },
-          "periodDescriptor": {
-            "number": 1,
-            "periodType": "REG",
-            "maxRegulationPeriods": 3
-          },
-          "seriesStatus": {
-            "round": 2,
-            "seriesAbbrev": "R2",
-            "seriesTitle": "2nd Round",
-            "seriesLetter": "L",
-            "neededToWin": 4,
-            "topSeedTeamAbbrev": "VGK",
-            "topSeedWins": 3,
-            "bottomSeedTeamAbbrev": "ANA",
-            "bottomSeedWins": 2,
-            "gameNumberOfSeries": 7
-          },
-          "seriesUrl": "/schedule/playoff-series/2026/series-l/goldenknights-vs-ducks",
-          "ticketsLink": "https://www.nhl.com/goldenknights/tickets/",
-          "ticketsLinkFr": "https://www.nhl.com/goldenknights/tickets/",
-          "gameCenterLink": "/gamecenter/ana-vs-vgk/2026/05/16/2025030247"
-        },
         {
           "id": 2025030216,
           "season": 20252026,
@@ -992,7 +936,7 @@
             "topSeedTeamAbbrev": "BUF",
             "topSeedWins": 2,
             "bottomSeedTeamAbbrev": "MTL",
-            "bottomSeedWins": 2,
+            "bottomSeedWins": 3,
             "gameNumberOfSeries": 6
           },
           "seriesUrl": "/schedule/playoff-series/2026/series-i/canadiens-vs-sabres",
@@ -1086,5 +1030,5 @@
   "regularSeasonStartDate": "2025-10-07",
   "regularSeasonEndDate": "2026-04-17",
   "playoffEndDate": "2026-06-15",
-  "numberOfGames": 8
+  "numberOfGames": 7
 }

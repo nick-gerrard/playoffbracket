@@ -1,13 +1,8 @@
 {
-  "prevDate": "2026-05-12",
-  "currentDate": "2026-05-13",
-  "nextDate": "2026-05-14",
+  "prevDate": "2026-05-13",
+  "currentDate": "2026-05-14",
+  "nextDate": "2026-05-16",
   "gameWeek": [
-    {
-      "date": "2026-05-10",
-      "dayAbbrev": "SUN",
-      "numberOfGames": 2
-    },
     {
       "date": "2026-05-11",
       "dayAbbrev": "MON",
@@ -36,7 +31,12 @@
     {
       "date": "2026-05-16",
       "dayAbbrev": "SAT",
-      "numberOfGames": 2
+      "numberOfGames": 1
+    },
+    {
+      "date": "2026-05-17",
+      "dayAbbrev": "SUN",
+      "numberOfGames": 0
     }
   ],
   "oddsPartners": [
@@ -113,16 +113,16 @@
   ],
   "games": [
     {
-      "id": 2025030235,
+      "id": 2025030215,
       "season": 20252026,
       "gameType": 3,
-      "gameDate": "2026-05-13",
+      "gameDate": "2026-05-14",
       "venue": {
-        "default": "Ball Arena"
+        "default": "KeyBank Center"
       },
-      "startTimeUTC": "2026-05-14T00:00:00Z",
+      "startTimeUTC": "2026-05-14T23:00:00Z",
       "easternUTCOffset": "-04:00",
-      "venueUTCOffset": "-06:00",
+      "venueUTCOffset": "-04:00",
       "tvBroadcasts": [
         {
           "id": 385,
@@ -170,60 +170,59 @@
       "gameState": "OFF",
       "gameScheduleState": "OK",
       "awayTeam": {
-        "id": 30,
+        "id": 8,
         "name": {
-          "default": "Wild"
+          "default": "Canadiens"
         },
-        "abbrev": "MIN",
-        "score": 3,
-        "sog": 20,
-        "logo": "https://assets.nhle.com/logos/nhl/svg/MIN_light.svg"
+        "abbrev": "MTL",
+        "score": 6,
+        "sog": 26,
+        "logo": "https://assets.nhle.com/logos/nhl/svg/MTL_light.svg"
       },
       "homeTeam": {
-        "id": 21,
+        "id": 7,
         "name": {
-          "default": "Avalanche"
+          "default": "Sabres"
         },
-        "abbrev": "COL",
-        "score": 4,
-        "sog": 34,
-        "logo": "https://assets.nhle.com/logos/nhl/svg/COL_light.svg"
+        "abbrev": "BUF",
+        "score": 3,
+        "sog": 36,
+        "logo": "https://assets.nhle.com/logos/nhl/svg/BUF_light.svg"
       },
       "seriesStatus": {
         "round": 2,
         "seriesAbbrev": "R2",
         "seriesTitle": "2nd Round",
-        "seriesLetter": "K",
+        "seriesLetter": "I",
         "neededToWin": 4,
-        "topSeedTeamAbbrev": "COL",
-        "topSeedWins": 4,
-        "bottomSeedTeamAbbrev": "MIN",
-        "bottomSeedWins": 1,
+        "topSeedTeamAbbrev": "BUF",
+        "topSeedWins": 2,
+        "bottomSeedTeamAbbrev": "MTL",
+        "bottomSeedWins": 3,
         "gameNumberOfSeries": 5
       },
-      "gameCenterLink": "/gamecenter/min-vs-col/2026/05/13/2025030235",
-      "seriesUrl": "/schedule/playoff-series/2026/series-k/avalanche-vs-wild",
-      "threeMinRecap": "/video/min-at-col-recap-6395483666112",
-      "threeMinRecapFr": "/fr/video/min-vs-col-13-05-2026-resume-6395482203112",
-      "condensedGame": "/video/min-at-col-condensed-game-6395483181112",
-      "condensedGameFr": "/fr/video/match-condense-wild-avalanche-13-05-2026-6395483952112",
+      "gameCenterLink": "/gamecenter/mtl-vs-buf/2026/05/14/2025030215",
+      "seriesUrl": "/schedule/playoff-series/2026/series-i/sabres-vs-canadiens",
+      "threeMinRecap": "/video/mtl-at-buf-recap-6395620419112",
+      "threeMinRecapFr": "/fr/video/mtl-vs-buf-14-05-2026-resume-6395621187112",
+      "condensedGame": "/video/mtl-at-buf-condensed-game-6395620139112",
+      "condensedGameFr": "/fr/video/match-condense-canadiens-sabres-14-05-2026-6395619634112",
       "clock": {
-        "timeRemaining": "16:08",
-        "secondsRemaining": 968,
+        "timeRemaining": "00:00",
+        "secondsRemaining": 0,
         "running": false,
         "inIntermission": false
       },
       "neutralSite": false,
-      "venueTimezone": "America/Denver",
-      "period": 4,
+      "venueTimezone": "America/New_York",
+      "period": 3,
       "periodDescriptor": {
-        "number": 4,
-        "periodType": "OT",
+        "number": 3,
+        "periodType": "REG",
         "maxRegulationPeriods": 3
       },
       "gameOutcome": {
-        "lastPeriodType": "OT",
-        "otPeriods": 1
+        "lastPeriodType": "REG"
       },
       "goals": [
         {
@@ -233,142 +232,231 @@
             "periodType": "REG",
             "maxRegulationPeriods": 3
           },
-          "timeInPeriod": "00:34",
-          "playerId": 8475149,
+          "timeInPeriod": "02:00",
+          "playerId": 8475722,
           "name": {
-            "default": "M. Johansson"
+            "default": "J. Zucker"
           },
           "firstName": {
-            "default": "Marcus"
+            "default": "Jason"
           },
           "lastName": {
-            "default": "Johansson"
+            "default": "Zucker"
           },
           "goalModifier": "none",
           "assists": [
             {
-              "playerId": 8481557,
+              "playerId": 8482097,
               "name": {
-                "default": "M. Boldy"
-              },
-              "assistsToDate": 5
-            },
-            {
-              "playerId": 8480800,
-              "name": {
-                "default": "Q. Hughes"
-              },
-              "assistsToDate": 11
-            }
-          ],
-          "mugshot": "https://assets.nhle.com/mugs/nhl/20252026/MIN/8475149.png",
-          "teamAbbrev": "MIN",
-          "goalsToDate": 4,
-          "awayScore": 1,
-          "homeScore": 0,
-          "strength": "ev",
-          "highlightClipSharingUrl": "https://nhl.com/video/min-col-johansson-scores-goal-against-mackenzie-blackwood-6395467545112",
-          "highlightClipSharingUrlFr": "https://nhl.com/fr/video/min-col-johansson-marque-un-but-contre-mackenzie-blackwood-6395469510112",
-          "highlightClip": 6395467545112,
-          "highlightClipFr": 6395469510112,
-          "discreteClip": 6395468600112,
-          "discreteClipFr": 6395467846112
-        },
-        {
-          "period": 1,
-          "periodDescriptor": {
-            "number": 1,
-            "periodType": "REG",
-            "maxRegulationPeriods": 3
-          },
-          "timeInPeriod": "11:03",
-          "playerId": 8473422,
-          "name": {
-            "default": "N. Foligno"
-          },
-          "firstName": {
-            "default": "Nick"
-          },
-          "lastName": {
-            "default": "Foligno"
-          },
-          "goalModifier": "none",
-          "assists": [
-            {
-              "playerId": 8481477,
-              "name": {
-                "default": "N. Sturm"
-              },
-              "assistsToDate": 3
-            },
-            {
-              "playerId": 8478864,
-              "name": {
-                "default": "K. Kaprizov"
-              },
-              "assistsToDate": 11
-            }
-          ],
-          "mugshot": "https://assets.nhle.com/mugs/nhl/20252026/MIN/8473422.png",
-          "teamAbbrev": "MIN",
-          "goalsToDate": 1,
-          "awayScore": 2,
-          "homeScore": 0,
-          "strength": "ev",
-          "highlightClipSharingUrl": "https://nhl.com/video/min-col-foligno-scores-goal-against-mackenzie-blackwood-6395470814112",
-          "highlightClipSharingUrlFr": "https://nhl.com/fr/video/min-col-foligno-marque-un-but-contre-mackenzie-blackwood-6395468837112",
-          "highlightClip": 6395470814112,
-          "highlightClipFr": 6395468837112,
-          "discreteClip": 6395469722112,
-          "discreteClipFr": 6395469328112
-        },
-        {
-          "period": 1,
-          "periodDescriptor": {
-            "number": 1,
-            "periodType": "REG",
-            "maxRegulationPeriods": 3
-          },
-          "timeInPeriod": "15:56",
-          "playerId": 8473422,
-          "name": {
-            "default": "N. Foligno"
-          },
-          "firstName": {
-            "default": "Nick"
-          },
-          "lastName": {
-            "default": "Foligno"
-          },
-          "goalModifier": "none",
-          "assists": [
-            {
-              "playerId": 8481477,
-              "name": {
-                "default": "N. Sturm"
+                "default": "J. Quinn"
               },
               "assistsToDate": 4
             },
             {
-              "playerId": 8481557,
+              "playerId": 8479982,
               "name": {
-                "default": "M. Boldy"
+                "default": "C. Timmins"
+              },
+              "assistsToDate": 2
+            }
+          ],
+          "mugshot": "https://assets.nhle.com/mugs/nhl/20252026/BUF/8475722.png",
+          "teamAbbrev": "BUF",
+          "goalsToDate": 1,
+          "awayScore": 0,
+          "homeScore": 1,
+          "strength": "ev",
+          "highlightClipSharingUrl": "https://nhl.com/video/mtl-buf-zucker-scores-goal-against-jakub-dobes-6395605823112",
+          "highlightClipSharingUrlFr": "https://nhl.com/fr/video/mtl-buf-zucker-marque-un-but-contre-jakub-dobes-6395607017112",
+          "highlightClip": 6395605823112,
+          "highlightClipFr": 6395607017112,
+          "discreteClip": 6395607291112,
+          "discreteClipFr": 6395607211112
+        },
+        {
+          "period": 1,
+          "periodDescriptor": {
+            "number": 1,
+            "periodType": "REG",
+            "maxRegulationPeriods": 3
+          },
+          "timeInPeriod": "06:31",
+          "playerId": 8481540,
+          "name": {
+            "default": "C. Caufield"
+          },
+          "firstName": {
+            "default": "Cole"
+          },
+          "lastName": {
+            "default": "Caufield"
+          },
+          "goalModifier": "none",
+          "assists": [
+            {
+              "playerId": 8480018,
+              "name": {
+                "default": "N. Suzuki"
+              },
+              "assistsToDate": 7
+            },
+            {
+              "playerId": 8483515,
+              "name": {
+                "default": "J. Slafkovsk\u00fd"
+              },
+              "assistsToDate": 3
+            }
+          ],
+          "mugshot": "https://assets.nhle.com/mugs/nhl/20252026/MTL/8481540.png",
+          "teamAbbrev": "MTL",
+          "goalsToDate": 4,
+          "awayScore": 1,
+          "homeScore": 1,
+          "strength": "ev",
+          "highlightClipSharingUrl": "https://nhl.com/video/mtl-buf-caufield-scores-goal-against-ukko-pekka-luukkonen-6395609168112",
+          "highlightClipSharingUrlFr": "https://nhl.com/fr/video/mtl-buf-caufield-marque-un-but-contre-ukko-pekka-luukkonen-6395608285112",
+          "highlightClip": 6395609168112,
+          "highlightClipFr": 6395608285112,
+          "discreteClip": 6395608963112,
+          "discreteClipFr": 6395608288112
+        },
+        {
+          "period": 1,
+          "periodDescriptor": {
+            "number": 1,
+            "periodType": "REG",
+            "maxRegulationPeriods": 3
+          },
+          "timeInPeriod": "07:45",
+          "playerId": 8482659,
+          "name": {
+            "default": "J. Doan"
+          },
+          "firstName": {
+            "default": "Josh"
+          },
+          "lastName": {
+            "default": "Doan"
+          },
+          "goalModifier": "none",
+          "assists": [
+            {
+              "playerId": 8482671,
+              "name": {
+                "default": "O. Power"
+              },
+              "assistsToDate": 5
+            }
+          ],
+          "mugshot": "https://assets.nhle.com/mugs/nhl/20252026/BUF/8482659.png",
+          "teamAbbrev": "BUF",
+          "goalsToDate": 3,
+          "awayScore": 1,
+          "homeScore": 2,
+          "strength": "ev",
+          "highlightClipSharingUrl": "https://nhl.com/video/mtl-buf-doan-scores-goal-against-jakub-dobes-6395608974112",
+          "highlightClipSharingUrlFr": "https://nhl.com/fr/video/mtl-buf-doan-marque-un-but-contre-jakub-dobes-6395609684112",
+          "highlightClip": 6395608974112,
+          "highlightClipFr": 6395609684112,
+          "discreteClip": 6395609273112,
+          "discreteClipFr": 6395608582112
+        },
+        {
+          "period": 1,
+          "periodDescriptor": {
+            "number": 1,
+            "periodType": "REG",
+            "maxRegulationPeriods": 3
+          },
+          "timeInPeriod": "07:54",
+          "playerId": 8480074,
+          "name": {
+            "default": "A. Texier"
+          },
+          "firstName": {
+            "default": "Alexandre"
+          },
+          "lastName": {
+            "default": "Texier"
+          },
+          "goalModifier": "none",
+          "assists": [
+            {
+              "playerId": 8478851,
+              "name": {
+                "default": "A. Carrier"
+              },
+              "assistsToDate": 3
+            },
+            {
+              "playerId": 8476479,
+              "name": {
+                "default": "P. Danault"
+              },
+              "assistsToDate": 4
+            }
+          ],
+          "mugshot": "https://assets.nhle.com/mugs/nhl/20252026/MTL/8480074.png",
+          "teamAbbrev": "MTL",
+          "goalsToDate": 3,
+          "awayScore": 2,
+          "homeScore": 2,
+          "strength": "ev",
+          "highlightClipSharingUrl": "https://nhl.com/video/mtl-buf-texier-scores-goal-against-ukko-pekka-luukkonen-6395608716112",
+          "highlightClipSharingUrlFr": "https://nhl.com/fr/video/mtl-buf-texier-marque-un-but-contre-ukko-pekka-luukkonen-6395608041112",
+          "highlightClip": 6395608716112,
+          "highlightClipFr": 6395608041112,
+          "discreteClip": 6395609577112,
+          "discreteClipFr": 6395609888112
+        },
+        {
+          "period": 1,
+          "periodDescriptor": {
+            "number": 1,
+            "periodType": "REG",
+            "maxRegulationPeriods": 3
+          },
+          "timeInPeriod": "10:15",
+          "playerId": 8484797,
+          "name": {
+            "default": "K. Helenius"
+          },
+          "firstName": {
+            "default": "Konsta"
+          },
+          "lastName": {
+            "default": "Helenius"
+          },
+          "goalModifier": "none",
+          "assists": [
+            {
+              "playerId": 8480807,
+              "name": {
+                "default": "M. Samuelsson"
+              },
+              "assistsToDate": 2
+            },
+            {
+              "playerId": 8480839,
+              "name": {
+                "default": "R. Dahlin"
               },
               "assistsToDate": 6
             }
           ],
-          "mugshot": "https://assets.nhle.com/mugs/nhl/20252026/MIN/8473422.png",
-          "teamAbbrev": "MIN",
-          "goalsToDate": 2,
-          "awayScore": 3,
-          "homeScore": 0,
+          "mugshot": "https://assets.nhle.com/mugs/nhl/20252026/BUF/8484797.png",
+          "teamAbbrev": "BUF",
+          "goalsToDate": 1,
+          "awayScore": 2,
+          "homeScore": 3,
           "strength": "ev",
-          "highlightClipSharingUrl": "https://nhl.com/video/min-col-foligno-scores-goal-against-mackenzie-blackwood-6395470944112",
-          "highlightClipSharingUrlFr": "https://nhl.com/fr/video/min-col-foligno-marque-un-but-contre-mackenzie-blackwood-6395472106112",
-          "highlightClip": 6395470944112,
-          "highlightClipFr": 6395472106112,
-          "discreteClip": 6395470247112,
-          "discreteClipFr": 6395469479112
+          "highlightClipSharingUrl": "https://nhl.com/video/mtl-buf-helenius-scores-goal-against-jakub-dobes-6395608913112",
+          "highlightClipSharingUrlFr": "https://nhl.com/fr/video/mtl-buf-helenius-marque-un-but-contre-jakub-dobes-6395610277112",
+          "highlightClip": 6395608913112,
+          "highlightClipFr": 6395610277112,
+          "discreteClip": 6395609593112,
+          "discreteClipFr": 6395608607112
         },
         {
           "period": 2,
@@ -377,194 +465,593 @@
             "periodType": "REG",
             "maxRegulationPeriods": 3
           },
-          "timeInPeriod": "11:00",
-          "playerId": 8480448,
+          "timeInPeriod": "08:01",
+          "playerId": 8476981,
           "name": {
-            "default": "P. Kelly"
+            "default": "J. Anderson"
           },
           "firstName": {
-            "default": "Parker"
+            "default": "Josh"
           },
           "lastName": {
-            "default": "Kelly"
+            "default": "Anderson"
           },
           "goalModifier": "none",
           "assists": [
             {
-              "playerId": 8470613,
+              "playerId": 8483457,
               "name": {
-                "default": "B. Burns"
-              },
-              "assistsToDate": 2
-            },
-            {
-              "playerId": 8476967,
-              "name": {
-                "default": "B. Kulak"
-              },
-              "assistsToDate": 4
-            }
-          ],
-          "mugshot": "https://assets.nhle.com/mugs/nhl/20252026/COL/8480448.png",
-          "teamAbbrev": "COL",
-          "goalsToDate": 2,
-          "awayScore": 3,
-          "homeScore": 1,
-          "strength": "ev",
-          "highlightClipSharingUrl": "https://nhl.com/video/min-col-kelly-scores-goal-against-jesper-wallstedt-6395474432112",
-          "highlightClipSharingUrlFr": "https://nhl.com/fr/video/min-col-kelly-marque-un-but-contre-jesper-wallstedt-6395473370112",
-          "highlightClip": 6395474432112,
-          "highlightClipFr": 6395473370112,
-          "discreteClip": 6395473500112,
-          "discreteClipFr": 6395472892112
-        },
-        {
-          "period": 3,
-          "periodDescriptor": {
-            "number": 3,
-            "periodType": "REG",
-            "maxRegulationPeriods": 3
-          },
-          "timeInPeriod": "16:27",
-          "playerId": 8480835,
-          "name": {
-            "default": "J. Drury"
-          },
-          "firstName": {
-            "default": "Jack"
-          },
-          "lastName": {
-            "default": "Drury"
-          },
-          "goalModifier": "none",
-          "assists": [
-            {
-              "playerId": 8478038,
-              "name": {
-                "default": "D. Toews"
-              },
-              "assistsToDate": 6
-            },
-            {
-              "playerId": 8478462,
-              "name": {
-                "default": "N. Roy"
-              },
-              "assistsToDate": 3
-            }
-          ],
-          "mugshot": "https://assets.nhle.com/mugs/nhl/20252026/COL/8480835.png",
-          "teamAbbrev": "COL",
-          "goalsToDate": 2,
-          "awayScore": 3,
-          "homeScore": 2,
-          "strength": "ev",
-          "highlightClipSharingUrl": "https://nhl.com/video/min-col-drury-scores-goal-against-jesper-wallstedt-6395481243112",
-          "highlightClipSharingUrlFr": "https://nhl.com/fr/video/min-col-drury-marque-un-but-contre-jesper-wallstedt-6395480831112",
-          "highlightClip": 6395481243112,
-          "highlightClipFr": 6395480831112,
-          "discreteClip": 6395480260112,
-          "discreteClipFr": 6395481814112
-        },
-        {
-          "period": 3,
-          "periodDescriptor": {
-            "number": 3,
-            "periodType": "REG",
-            "maxRegulationPeriods": 3
-          },
-          "timeInPeriod": "18:37",
-          "playerId": 8477492,
-          "name": {
-            "default": "N. MacKinnon"
-          },
-          "firstName": {
-            "default": "Nathan"
-          },
-          "lastName": {
-            "default": "MacKinnon"
-          },
-          "goalModifier": "none",
-          "assists": [
-            {
-              "playerId": 8480039,
-              "name": {
-                "default": "M. Necas",
-                "cs": "M. Ne\u010das",
-                "sk": "M. Ne\u010das"
+                "default": "L. Hutson"
               },
               "assistsToDate": 9
             },
             {
-              "playerId": 8470613,
+              "playerId": 8476479,
               "name": {
-                "default": "B. Burns"
+                "default": "P. Danault"
               },
-              "assistsToDate": 3
+              "assistsToDate": 5
             }
           ],
-          "mugshot": "https://assets.nhle.com/mugs/nhl/20252026/COL/8477492.png",
-          "teamAbbrev": "COL",
-          "goalsToDate": 7,
+          "mugshot": "https://assets.nhle.com/mugs/nhl/20252026/MTL/8476981.png",
+          "teamAbbrev": "MTL",
+          "goalsToDate": 3,
           "awayScore": 3,
           "homeScore": 3,
           "strength": "ev",
-          "highlightClipSharingUrl": "https://nhl.com/video/min-col-mackinnon-scores-goal-against-jesper-wallstedt-6395481736112",
-          "highlightClipSharingUrlFr": "https://nhl.com/fr/video/min-col-mackinnon-marque-un-but-contre-jesper-wallstedt-6395482817112",
-          "highlightClip": 6395481736112,
-          "highlightClipFr": 6395482817112,
-          "discreteClip": 6395482020112,
-          "discreteClipFr": 6395481640112
+          "highlightClipSharingUrl": "https://nhl.com/video/mtl-buf-anderson-scores-goal-against-ukko-pekka-luukkonen-6395613932112",
+          "highlightClipSharingUrlFr": "https://nhl.com/fr/video/mtl-buf-anderson-marque-un-but-contre-ukko-pekka-luukkonen-6395613566112",
+          "highlightClip": 6395613932112,
+          "highlightClipFr": 6395613566112,
+          "discreteClip": 6395613160112,
+          "discreteClipFr": 6395612791112
         },
         {
-          "period": 4,
+          "period": 2,
           "periodDescriptor": {
-            "number": 4,
-            "periodType": "OT",
+            "number": 2,
+            "periodType": "REG",
             "maxRegulationPeriods": 3
           },
-          "timeInPeriod": "03:52",
-          "playerId": 8476967,
+          "timeInPeriod": "16:15",
+          "playerId": 8478133,
           "name": {
-            "default": "B. Kulak"
+            "default": "J. Evans"
+          },
+          "firstName": {
+            "default": "Jake"
+          },
+          "lastName": {
+            "default": "Evans"
+          },
+          "goalModifier": "none",
+          "assists": [
+            {
+              "playerId": 8484984,
+              "name": {
+                "default": "I. Demidov"
+              },
+              "assistsToDate": 5
+            },
+            {
+              "playerId": 8481618,
+              "name": {
+                "default": "A. Newhook"
+              },
+              "assistsToDate": 2
+            }
+          ],
+          "mugshot": "https://assets.nhle.com/mugs/nhl/20252026/MTL/8478133.png",
+          "teamAbbrev": "MTL",
+          "goalsToDate": 1,
+          "awayScore": 4,
+          "homeScore": 3,
+          "strength": "ev",
+          "highlightClipSharingUrl": "https://nhl.com/video/mtl-buf-evans-scores-goal-against-ukko-pekka-luukkonen-6395615361112",
+          "highlightClipSharingUrlFr": "https://nhl.com/fr/video/mtl-buf-evans-marque-un-but-contre-ukko-pekka-luukkonen-6395614300112",
+          "highlightClip": 6395615361112,
+          "highlightClipFr": 6395614300112,
+          "discreteClip": 6395613880112,
+          "discreteClipFr": 6395614768112
+        },
+        {
+          "period": 2,
+          "periodDescriptor": {
+            "number": 2,
+            "periodType": "REG",
+            "maxRegulationPeriods": 3
+          },
+          "timeInPeriod": "17:33",
+          "playerId": 8480018,
+          "name": {
+            "default": "N. Suzuki"
+          },
+          "firstName": {
+            "default": "Nick"
+          },
+          "lastName": {
+            "default": "Suzuki"
+          },
+          "goalModifier": "none",
+          "assists": [
+            {
+              "playerId": 8483515,
+              "name": {
+                "default": "J. Slafkovsk\u00fd"
+              },
+              "assistsToDate": 4
+            },
+            {
+              "playerId": 8483457,
+              "name": {
+                "default": "L. Hutson"
+              },
+              "assistsToDate": 10
+            }
+          ],
+          "mugshot": "https://assets.nhle.com/mugs/nhl/20252026/MTL/8480018.png",
+          "teamAbbrev": "MTL",
+          "goalsToDate": 4,
+          "awayScore": 5,
+          "homeScore": 3,
+          "strength": "pp",
+          "highlightClipSharingUrl": "https://nhl.com/video/mtl-buf-suzuki-scores-ppg-against-ukko-pekka-luukkonen-6395615486112",
+          "highlightClipSharingUrlFr": "https://nhl.com/fr/video/mtl-buf-suzuki-marque-un-but-en-a-n-contre-ukko-pekka-luukkonen-6395616138112",
+          "highlightClip": 6395615486112,
+          "highlightClipFr": 6395616138112,
+          "discreteClip": 6395615364112,
+          "discreteClipFr": 6395615482112
+        },
+        {
+          "period": 3,
+          "periodDescriptor": {
+            "number": 3,
+            "periodType": "REG",
+            "maxRegulationPeriods": 3
+          },
+          "timeInPeriod": "03:32",
+          "playerId": 8484984,
+          "name": {
+            "default": "I. Demidov"
+          },
+          "firstName": {
+            "default": "Ivan"
+          },
+          "lastName": {
+            "default": "Demidov"
+          },
+          "goalModifier": "none",
+          "assists": [
+            {
+              "playerId": 8483515,
+              "name": {
+                "default": "J. Slafkovsk\u00fd"
+              },
+              "assistsToDate": 5
+            },
+            {
+              "playerId": 8480018,
+              "name": {
+                "default": "N. Suzuki"
+              },
+              "assistsToDate": 8
+            }
+          ],
+          "mugshot": "https://assets.nhle.com/mugs/nhl/20252026/MTL/8484984.png",
+          "teamAbbrev": "MTL",
+          "goalsToDate": 1,
+          "awayScore": 6,
+          "homeScore": 3,
+          "strength": "pp",
+          "highlightClipSharingUrl": "https://nhl.com/video/mtl-buf-demidov-scores-ppg-against-alex-lyon-6395617328112",
+          "highlightClipSharingUrlFr": "https://nhl.com/fr/video/mtl-buf-demidov-marque-un-but-en-a-n-contre-alex-lyon-6395618160112",
+          "highlightClip": 6395617328112,
+          "highlightClipFr": 6395618160112,
+          "discreteClip": 6395617199112,
+          "discreteClipFr": 6395616498112
+        }
+      ]
+    },
+    {
+      "id": 2025030246,
+      "season": 20252026,
+      "gameType": 3,
+      "gameDate": "2026-05-14",
+      "venue": {
+        "default": "Honda Center"
+      },
+      "startTimeUTC": "2026-05-15T01:30:00Z",
+      "easternUTCOffset": "-04:00",
+      "venueUTCOffset": "-07:00",
+      "tvBroadcasts": [
+        {
+          "id": 385,
+          "market": "N",
+          "countryCode": "US",
+          "network": "TNT",
+          "sequenceNumber": 11
+        },
+        {
+          "id": 501,
+          "market": "N",
+          "countryCode": "US",
+          "network": "truTV",
+          "sequenceNumber": 14
+        },
+        {
+          "id": 578,
+          "market": "N",
+          "countryCode": "US",
+          "network": "HBO MAX",
+          "sequenceNumber": 19
+        },
+        {
+          "id": 282,
+          "market": "N",
+          "countryCode": "CA",
+          "network": "SN",
+          "sequenceNumber": 107
+        },
+        {
+          "id": 283,
+          "market": "N",
+          "countryCode": "CA",
+          "network": "SN360",
+          "sequenceNumber": 114
+        },
+        {
+          "id": 281,
+          "market": "N",
+          "countryCode": "CA",
+          "network": "TVAS",
+          "sequenceNumber": 120
+        }
+      ],
+      "gameState": "FINAL",
+      "gameScheduleState": "OK",
+      "awayTeam": {
+        "id": 54,
+        "name": {
+          "default": "Golden Knights"
+        },
+        "abbrev": "VGK",
+        "score": 5,
+        "sog": 21,
+        "logo": "https://assets.nhle.com/logos/nhl/svg/VGK_light.svg"
+      },
+      "homeTeam": {
+        "id": 24,
+        "name": {
+          "default": "Ducks"
+        },
+        "abbrev": "ANA",
+        "score": 1,
+        "sog": 32,
+        "logo": "https://assets.nhle.com/logos/nhl/svg/ANA_light.svg"
+      },
+      "seriesStatus": {
+        "round": 2,
+        "seriesAbbrev": "R2",
+        "seriesTitle": "2nd Round",
+        "seriesLetter": "L",
+        "neededToWin": 4,
+        "topSeedTeamAbbrev": "VGK",
+        "topSeedWins": 4,
+        "bottomSeedTeamAbbrev": "ANA",
+        "bottomSeedWins": 2,
+        "gameNumberOfSeries": 6
+      },
+      "gameCenterLink": "/gamecenter/vgk-vs-ana/2026/05/14/2025030246",
+      "seriesUrl": "/schedule/playoff-series/2026/series-l/ducks-vs-goldenknights",
+      "threeMinRecap": "/video/vgk-at-ana-recap-6395632750112",
+      "threeMinRecapFr": "/fr/video/vgk-vs-ana-14-05-2026-resume-6395633427112",
+      "condensedGame": "/video/vgk-at-ana-condensed-game-6395634024112",
+      "condensedGameFr": "/fr/video/match-condense-golden-knights-ducks-14-05-2026-6395632283112",
+      "clock": {
+        "timeRemaining": "00:00",
+        "secondsRemaining": 0,
+        "running": false,
+        "inIntermission": false
+      },
+      "neutralSite": false,
+      "venueTimezone": "America/Los_Angeles",
+      "period": 3,
+      "periodDescriptor": {
+        "number": 3,
+        "periodType": "REG",
+        "maxRegulationPeriods": 3
+      },
+      "gameOutcome": {
+        "lastPeriodType": "REG"
+      },
+      "goals": [
+        {
+          "period": 1,
+          "periodDescriptor": {
+            "number": 1,
+            "periodType": "REG",
+            "maxRegulationPeriods": 3
+          },
+          "timeInPeriod": "01:02",
+          "playerId": 8478483,
+          "name": {
+            "default": "M. Marner"
+          },
+          "firstName": {
+            "default": "Mitch",
+            "cs": "Mitchell",
+            "de": "Mitchell",
+            "es": "Mitchell",
+            "fi": "Mitchell",
+            "sk": "Mitchell",
+            "sv": "Mitchell"
+          },
+          "lastName": {
+            "default": "Marner"
+          },
+          "goalModifier": "none",
+          "assists": [
+            {
+              "playerId": 8476448,
+              "name": {
+                "default": "W. Karlsson"
+              },
+              "assistsToDate": 3
+            },
+            {
+              "playerId": 8477447,
+              "name": {
+                "default": "S. Theodore"
+              },
+              "assistsToDate": 5
+            }
+          ],
+          "mugshot": "https://assets.nhle.com/mugs/nhl/20252026/VGK/8478483.png",
+          "teamAbbrev": "VGK",
+          "goalsToDate": 7,
+          "awayScore": 1,
+          "homeScore": 0,
+          "strength": "ev",
+          "highlightClipSharingUrl": "https://nhl.com/video/vgk-ana-marner-scores-goal-against-lukas-dostal-6395619244112",
+          "highlightClipSharingUrlFr": "https://nhl.com/fr/video/vgk-ana-marner-marque-un-but-contre-lukas-dostal-6395619946112",
+          "highlightClip": 6395619244112,
+          "highlightClipFr": 6395619946112,
+          "discreteClip": 6395619035112,
+          "discreteClipFr": 6395620236112
+        },
+        {
+          "period": 1,
+          "periodDescriptor": {
+            "number": 1,
+            "periodType": "REG",
+            "maxRegulationPeriods": 3
+          },
+          "timeInPeriod": "08:30",
+          "playerId": 8479353,
+          "name": {
+            "default": "B. Howden"
           },
           "firstName": {
             "default": "Brett"
           },
           "lastName": {
-            "default": "Kulak"
+            "default": "Howden"
           },
           "goalModifier": "none",
           "assists": [
             {
-              "playerId": 8480039,
+              "playerId": 8478483,
               "name": {
-                "default": "M. Necas",
-                "cs": "M. Ne\u010das",
-                "sk": "M. Ne\u010das"
+                "default": "M. Marner"
               },
-              "assistsToDate": 10
-            },
-            {
-              "playerId": 8480448,
-              "name": {
-                "default": "P. Kelly"
-              },
-              "assistsToDate": 1
+              "assistsToDate": 11
             }
           ],
-          "mugshot": "https://assets.nhle.com/mugs/nhl/20252026/COL/8476967.png",
-          "teamAbbrev": "COL",
-          "goalsToDate": 1,
+          "mugshot": "https://assets.nhle.com/mugs/nhl/20252026/VGK/8479353.png",
+          "teamAbbrev": "VGK",
+          "goalsToDate": 8,
+          "awayScore": 2,
+          "homeScore": 0,
+          "strength": "sh",
+          "highlightClipSharingUrl": "https://nhl.com/video/vgk-ana-howden-scores-shg-against-lukas-dostal-6395623028112",
+          "highlightClipSharingUrlFr": "https://nhl.com/fr/video/vgk-ana-howden-marque-un-but-en-i-n-contre-lukas-dostal-6395622441112",
+          "highlightClip": 6395623028112,
+          "highlightClipFr": 6395622441112,
+          "discreteClip": 6395622443112,
+          "discreteClipFr": 6395621264112
+        },
+        {
+          "period": 1,
+          "periodDescriptor": {
+            "number": 1,
+            "periodType": "REG",
+            "maxRegulationPeriods": 3
+          },
+          "timeInPeriod": "17:19",
+          "playerId": 8477447,
+          "name": {
+            "default": "S. Theodore"
+          },
+          "firstName": {
+            "default": "Shea"
+          },
+          "lastName": {
+            "default": "Theodore"
+          },
+          "goalModifier": "none",
+          "assists": [
+            {
+              "playerId": 8476881,
+              "name": {
+                "default": "T. Hertl"
+              },
+              "assistsToDate": 4
+            }
+          ],
+          "mugshot": "https://assets.nhle.com/mugs/nhl/20252026/VGK/8477447.png",
+          "teamAbbrev": "VGK",
+          "goalsToDate": 4,
           "awayScore": 3,
-          "homeScore": 4,
+          "homeScore": 0,
+          "strength": "pp",
+          "highlightClipSharingUrl": "https://nhl.com/video/vgk-ana-theodore-scores-ppg-against-lukas-dostal-6395623993112",
+          "highlightClipSharingUrlFr": "https://nhl.com/fr/video/vgk-ana-theodore-marque-un-but-en-a-n-contre-lukas-dostal-6395623396112",
+          "highlightClip": 6395623993112,
+          "highlightClipFr": 6395623396112,
+          "discreteClip": 6395623197112,
+          "discreteClipFr": 6395623677112
+        },
+        {
+          "period": 2,
+          "periodDescriptor": {
+            "number": 2,
+            "periodType": "REG",
+            "maxRegulationPeriods": 3
+          },
+          "timeInPeriod": "12:46",
+          "playerId": 8475798,
+          "name": {
+            "default": "M. Granlund"
+          },
+          "firstName": {
+            "default": "Mikael"
+          },
+          "lastName": {
+            "default": "Granlund"
+          },
+          "goalModifier": "none",
+          "assists": [
+            {
+              "playerId": 8478873,
+              "name": {
+                "default": "T. Terry"
+              },
+              "assistsToDate": 8
+            },
+            {
+              "playerId": 8484153,
+              "name": {
+                "default": "L. Carlsson"
+              },
+              "assistsToDate": 7
+            }
+          ],
+          "mugshot": "https://assets.nhle.com/mugs/nhl/20252026/ANA/8475798.png",
+          "teamAbbrev": "ANA",
+          "goalsToDate": 5,
+          "awayScore": 3,
+          "homeScore": 1,
+          "strength": "pp",
+          "highlightClipSharingUrl": "https://nhl.com/video/vgk-ana-granlund-scores-ppg-against-carter-hart-6395627134112",
+          "highlightClipSharingUrlFr": "https://nhl.com/fr/video/vgk-ana-granlund-marque-un-but-en-a-n-contre-carter-hart-6395627322112",
+          "highlightClip": 6395627134112,
+          "highlightClipFr": 6395627322112,
+          "discreteClip": 6395627808112,
+          "discreteClipFr": 6395627825112
+        },
+        {
+          "period": 3,
+          "periodDescriptor": {
+            "number": 3,
+            "periodType": "REG",
+            "maxRegulationPeriods": 3
+          },
+          "timeInPeriod": "02:52",
+          "playerId": 8481604,
+          "name": {
+            "default": "P. Dorofeyev",
+            "cs": "P. Dorofejev",
+            "fi": "P. Dorofejev",
+            "sk": "P. Dorofejev"
+          },
+          "firstName": {
+            "default": "Pavel"
+          },
+          "lastName": {
+            "default": "Dorofeyev",
+            "cs": "Dorofejev",
+            "fi": "Dorofejev",
+            "sk": "Dorofejev"
+          },
+          "goalModifier": "none",
+          "assists": [
+            {
+              "playerId": 8477964,
+              "name": {
+                "default": "I. Barbashev",
+                "cs": "I. Barba\u0161ev",
+                "fi": "I. Barbashov",
+                "sk": "I. Barba\u0161ev"
+              },
+              "assistsToDate": 6
+            }
+          ],
+          "mugshot": "https://assets.nhle.com/mugs/nhl/20252026/VGK/8481604.png",
+          "teamAbbrev": "VGK",
+          "goalsToDate": 8,
+          "awayScore": 4,
+          "homeScore": 1,
           "strength": "ev",
-          "highlightClipSharingUrl": "https://nhl.com/video/min-col-kulak-scores-goal-against-jesper-wallstedt-6395482173112",
-          "highlightClipSharingUrlFr": "https://nhl.com/fr/video/min-col-kulak-but-gagnant-prolongation-6395481896112",
-          "highlightClip": 6395482173112,
-          "highlightClipFr": 6395481896112,
-          "discreteClip": 6395483250112,
-          "discreteClipFr": 6395483743112
+          "highlightClipSharingUrl": "https://nhl.com/video/vgk-ana-dorofeyev-scores-goal-against-lukas-dostal-6395629827112",
+          "highlightClipSharingUrlFr": "https://nhl.com/fr/video/vgk-ana-dorofeyev-marque-un-but-contre-lukas-dostal-6395629548112",
+          "highlightClip": 6395629827112,
+          "highlightClipFr": 6395629548112,
+          "discreteClip": 6395630225112,
+          "discreteClipFr": 6395631693112
+        },
+        {
+          "period": 3,
+          "periodDescriptor": {
+            "number": 3,
+            "periodType": "REG",
+            "maxRegulationPeriods": 3
+          },
+          "timeInPeriod": "13:32",
+          "playerId": 8481604,
+          "name": {
+            "default": "P. Dorofeyev",
+            "cs": "P. Dorofejev",
+            "fi": "P. Dorofejev",
+            "sk": "P. Dorofejev"
+          },
+          "firstName": {
+            "default": "Pavel"
+          },
+          "lastName": {
+            "default": "Dorofeyev",
+            "cs": "Dorofejev",
+            "fi": "Dorofejev",
+            "sk": "Dorofejev"
+          },
+          "goalModifier": "none",
+          "assists": [
+            {
+              "playerId": 8478397,
+              "name": {
+                "default": "R. Andersson"
+              },
+              "assistsToDate": 3
+            },
+            {
+              "playerId": 8478396,
+              "name": {
+                "default": "N. Hanifin"
+              },
+              "assistsToDate": 6
+            }
+          ],
+          "mugshot": "https://assets.nhle.com/mugs/nhl/20252026/VGK/8481604.png",
+          "teamAbbrev": "VGK",
+          "goalsToDate": 9,
+          "awayScore": 5,
+          "homeScore": 1,
+          "strength": "ev",
+          "highlightClipSharingUrl": "https://nhl.com/video/vgk-ana-dorofeyev-scores-goal-against-lukas-dostal-6395630857112",
+          "highlightClipSharingUrlFr": "https://nhl.com/fr/video/vgk-ana-dorofeyev-marque-un-but-contre-lukas-dostal-6395631765112",
+          "highlightClip": 6395630857112,
+          "highlightClipFr": 6395631765112,
+          "discreteClip": 6395633000112,
+          "discreteClipFr": 6395631955112
         }
       ]
     }

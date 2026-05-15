@@ -20,3 +20,6 @@ static/css/tailwind.min.css
 
 # Node
 node_modules/
+
+# Migration Files
+migrate_db/*
