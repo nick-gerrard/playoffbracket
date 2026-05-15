@@ -92,7 +92,7 @@
                     </div>
 
                     <!-- Toggle button -->
-                    {% if users %}
+                    {% if users and game.id in bettable_ids %}
                     <button @click="open = !open"
                             class="ml-3 flex-shrink-0 px-3 py-1.5 text-sm font-medium rounded-lg border transition-colors"
                             :class="open

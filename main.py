@@ -534,7 +534,13 @@ async def bets_page(request: Request, user: User | None = Depends(get_current_us
     if not user:
         return RedirectResponse("/login")
     with Session(engine) as session:
-        today_games = fetch_games(session, date.today())
+        now_utc = datetime.now(timezone.utc)
+        today_et = now_utc.astimezone(ET).date()
+        today_games = fetch_games(session, today_et)
+        bettable_ids = {
+            g.id for g in today_games
+            if now_utc < (g.start_time if g.start_time.tzinfo else g.start_time.replace(tzinfo=timezone.utc)) + timedelta(hours=1)
+        }
         team_map = {t.id: t for t in session.exec(select(Team)).all()}
         all_users = fetch_all_users(session)
         user_map = {u.id: u for u in all_users}
@@ -557,6 +563,7 @@ async def bets_page(request: Request, user: User | None = Depends(get_current_us
         context={
             "user": user,
             "games": today_games,
+            "bettable_ids": bettable_ids,
             "team_map": team_map,
             "users": [u for u in all_users if u.id != user.id],
             "user_map": user_map,
