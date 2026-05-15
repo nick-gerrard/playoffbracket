@@ -138,14 +138,14 @@ class TestBuildCompareRounds:
         team_map = {team_home.id: team_home, team_away.id: team_away}
         preds_a = {series.id: team_home.id}
         preds_b = {series.id: team_home.id}
-        rounds = build_compare_rounds([series], preds_a, preds_b, team_map)
+        rounds = build_compare_rounds([series], preds_a, preds_b, team_map, {})
         assert rounds["First Round"][0]["match"] is True
 
     def test_no_match_when_different_picks(self, series, team_home, team_away):
         team_map = {team_home.id: team_home, team_away.id: team_away}
         preds_a = {series.id: team_home.id}
         preds_b = {series.id: team_away.id}
-        rounds = build_compare_rounds([series], preds_a, preds_b, team_map)
+        rounds = build_compare_rounds([series], preds_a, preds_b, team_map, {})
         assert rounds["First Round"][0]["match"] is False
 
     def test_correct_flags(self, series, team_home, team_away):
@@ -153,7 +153,7 @@ class TestBuildCompareRounds:
         team_map = {team_home.id: team_home, team_away.id: team_away}
         preds_a = {series.id: team_home.id}
         preds_b = {series.id: team_away.id}
-        rounds = build_compare_rounds([series], preds_a, preds_b, team_map)
+        rounds = build_compare_rounds([series], preds_a, preds_b, team_map, {})
         entry = rounds["First Round"][0]
         assert entry["correct_a"] is True
         assert entry["correct_b"] is False
