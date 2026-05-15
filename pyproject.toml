@@ -5,6 +5,7 @@ description = "Add your description here"
 readme = "README.md"
 requires-python = ">=3.13"
 dependencies = [
+    "alembic>=1.18.4",
     "apscheduler>=3.11.2",
     "authlib>=1.7.2",
     "fastapi>=0.136.1",
@@ -16,3 +17,12 @@ dependencies = [
     "sqlmodel>=0.0.38",
     "uvicorn>=0.46.0",
 ]
+
+[dependency-groups]
+dev = [
+    "pytest>=9.0.3",
+    "pytest-mock>=3.15.1",
+]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
