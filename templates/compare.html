@@ -6,7 +6,7 @@
     <h1 class="text-2xl sm:text-3xl font-bold">Compare Brackets</h1>
 
     <!-- Sticky picker / column header (combined) -->
-    <div class="sticky top-16 z-10 -mx-4 sm:-mx-6 px-4 sm:px-6 bg-slate-900/80 backdrop-blur-md border-b border-white/10">
+    <div class="rounded-lg sticky top-16 z-10 -mx-4 sm:-mx-6 px-4 sm:px-6 bg-slate-900/30 backdrop-blur-md border-b border-white/10">
         <form method="get" action="/compare" x-data>
             <div class="grid grid-cols-3 items-center py-3 gap-2">
                 <select name="a" @change="$el.form.submit()"
@@ -43,7 +43,7 @@
             {% for s in series_list %}
             <div class="relative overflow-hidden bg-white/5 backdrop-blur-sm border rounded-xl px-3 py-3 sm:px-4
                 {% if s.match == true %}border-green-400/40 bg-green-500/5
-                {% elif s.match == false %}border-amber-400/40 bg-amber-500/5
+                {% elif s.match == false %}border-red-400/40 bg-red-500/5
                 {% else %}border-white/10{% endif %}
             ">
                 {% if s.actual_winner %}
@@ -51,55 +51,59 @@
                      class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-32 h-32 object-contain opacity-[0.08] select-none pointer-events-none" />
                 {% endif %}
 
-                <p class="text-xs text-gray-500 mb-2">Series {{ s.letter }}</p>
+                <!-- Header row -->
+                <div class="flex items-center justify-between mb-2">
+                    <p class="text-xs text-gray-500">Series {{ s.letter }}</p>
+                    {% if s.match == true %}
+                    <span class="text-[10px] font-semibold text-green-400 uppercase tracking-wider">Agree</span>
+                    {% elif s.match == false %}
+                    <span class="text-[10px] font-semibold text-red-400 uppercase tracking-wider">Disagree</span>
+                    {% endif %}
+                </div>
+
                 <div class="grid grid-cols-3 items-center gap-2">
 
                     <!-- Pick A -->
-                    <div class="flex items-center gap-1 sm:gap-2 transition-opacity
+                    <div class="flex items-center gap-2 transition-opacity
                         {% if s.actual_winner and not s.correct_a %}opacity-35{% endif %}">
                         {% if s.pick_a %}
-                        <img src="{{ s.pick_a.dark_logo_url }}" class="h-7 w-7 sm:h-8 sm:w-8 flex-shrink-0" />
-                        <span class="font-semibold text-xs sm:text-sm {% if s.correct_a %}text-green-300{% endif %}">
-                            {{ s.pick_a.abbrev }}
-                        </span>
+                        <img src="{{ s.pick_a.dark_logo_url }}" class="h-10 w-10 sm:h-12 sm:w-12 flex-shrink-0" />
+                        <div>
+                            <p class="font-bold text-sm sm:text-base leading-none">{{ s.pick_a.abbrev }}</p>
+                            {% if s.correct_a %}
+                            <p class="text-[9px] text-green-400 mt-0.5">✓ {{ s.points }} pts</p>
+                            {% endif %}
+                        </div>
                         {% else %}
-                        <div class="h-8 w-8 rounded-full bg-gray-700 flex-shrink-0"></div>
+                        <div class="h-10 w-10 rounded-full bg-gray-700 flex-shrink-0"></div>
                         <span class="text-gray-500 text-sm">—</span>
                         {% endif %}
                     </div>
 
-                    <!-- Centre -->
-                    <div class="flex items-center justify-center min-h-10">
+                    <!-- Centre: winner only -->
+                    <div class="flex flex-col items-center justify-center min-h-10">
                         {% if s.actual_winner %}
-                        <div class="text-center leading-tight">
-                            {% if s.match == true %}
-                            <p class="text-green-400 text-base">⇌</p>
-                            {% elif s.match == false %}
-                            <p class="text-red-400 text-base">≠</p>
-                            {% endif %}
-                            <p class="text-[9px] text-slate-500 uppercase tracking-widest font-medium">Winner</p>
-                            <p class="font-bold text-xs text-white">{{ s.actual_winner.abbrev }}</p>
-                        </div>
-                        {% elif s.match == true %}
-                        <span class="text-green-400 text-lg">⇌</span>
-                        {% elif s.match == false %}
-                        <span class="text-red-400 text-lg">≠</span>
+                        <p class="text-[9px] text-slate-500 uppercase tracking-widest font-medium">Winner</p>
+                        <p class="font-bold text-sm text-white">{{ s.actual_winner.abbrev }}</p>
                         {% else %}
                         <span class="text-gray-600 text-lg">—</span>
                         {% endif %}
                     </div>
 
                     <!-- Pick B -->
-                    <div class="flex items-center gap-1 sm:gap-2 justify-end transition-opacity
+                    <div class="flex items-center gap-2 justify-end transition-opacity
                         {% if s.actual_winner and not s.correct_b %}opacity-35{% endif %}">
                         {% if s.pick_b %}
-                        <span class="font-semibold text-xs sm:text-sm {% if s.correct_b %}text-green-300{% endif %}">
-                            {{ s.pick_b.abbrev }}
-                        </span>
-                        <img src="{{ s.pick_b.dark_logo_url }}" class="h-7 w-7 sm:h-8 sm:w-8 flex-shrink-0" />
+                        <div class="text-right">
+                            <p class="font-bold text-sm sm:text-base leading-none">{{ s.pick_b.abbrev }}</p>
+                            {% if s.correct_b %}
+                            <p class="text-[9px] text-green-400 mt-0.5">✓ {{ s.points }} pts</p>
+                            {% endif %}
+                        </div>
+                        <img src="{{ s.pick_b.dark_logo_url }}" class="h-10 w-10 sm:h-12 sm:w-12 flex-shrink-0" />
                         {% else %}
                         <span class="text-gray-500 text-sm">—</span>
-                        <div class="h-8 w-8 rounded-full bg-gray-700 flex-shrink-0"></div>
+                        <div class="h-10 w-10 rounded-full bg-gray-700 flex-shrink-0"></div>
                         {% endif %}
                     </div>
 

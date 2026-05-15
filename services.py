@@ -557,6 +557,7 @@ def build_compare_rounds(
     preds_a: dict,
     preds_b: dict,
     team_map: dict,
+    scoring: dict,
 ) -> dict:
     rounds = {}
     for s in sorted(all_series, key=lambda x: (x.playoff_round, x.series_letter)):
@@ -570,6 +571,7 @@ def build_compare_rounds(
             "actual_winner": team_map.get(s.winner) if s.winner else None,
             "correct_a": bool(s.winner and pick_a == s.winner),
             "correct_b": bool(s.winner and pick_b == s.winner),
+            "points": scoring.get(s.series_abbrev, 0),
         }
         rounds.setdefault(ROUND_LABELS[s.playoff_round], []).append(entry)
     return rounds

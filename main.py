@@ -434,7 +434,8 @@ async def compare(
             if user_a and user_b:
                 preds_a = get_predictions_map(session, a, season.id)
                 preds_b = get_predictions_map(session, b, season.id)
-                rounds = build_compare_rounds(all_series, preds_a, preds_b, team_map)
+                scoring = fetch_scoring(session, season.year)
+                rounds = build_compare_rounds(all_series, preds_a, preds_b, team_map, scoring)
 
     return templates.TemplateResponse(
         request=request,
